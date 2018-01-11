@@ -1,0 +1,3 @@
+[submodule "Submodule/BotBuilder-Dev"]
+	path = Submodule/BotBuilder-Dev
+	url = https://github.com/Microsoft/BotBuilder-Dev
