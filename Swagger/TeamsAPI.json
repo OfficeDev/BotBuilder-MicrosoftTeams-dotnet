@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "v3",
-    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - v4.0",
+    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - SDK v4.0",
     "description": "﻿﻿The Bot Connector REST API extension for Microsoft Teams allows your bot to perform extended operations on to Microsoft Teams channel configured in the\r\n[Bot Framework Developer Portal](https://dev.botframework.com). The Connector service uses industry-standard REST and JSON over HTTPS.\r\n\r\nClient libraries for this REST API are available. See below for a list.\r\n\r\n\r\n\r\nAuthentication for both the Bot Connector and Bot State REST APIs is accomplished with JWT Bearer tokens, and is\r\ndescribed in detail in the [Connector Authentication](https://docs.botframework.com/en-us/restapi/authentication) document.\r\n\r\n# Client Libraries for the Bot Connector REST API\r\n\r\n* [Bot Builder for C#](https://docs.botframework.com/en-us/csharp/builder/sdkreference/)\r\n* [Bot Builder for Node.js](https://docs.botframework.com/en-us/node/builder/overview/)\r\n\r\n© 2016 Microsoft",
     "termsOfService": "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright/default.aspx",
     "contact": {
