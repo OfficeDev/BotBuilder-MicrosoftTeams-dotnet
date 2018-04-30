@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Bot.Connector.Authentication;
-using Microsoft.Bot.Connector.Teams;
-using Microsoft.Rest.TransientFaultHandling;
+﻿// <copyright file="TeamsMiddleware.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Bot.Connector.Teams;
+    using Microsoft.Rest.TransientFaultHandling;
+
     /// <summary>
     /// Teams Middleware. This middleware needs to be registered in the Middleware pipeline at the time of Adapter initialization.
     /// </summary>
@@ -21,7 +25,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// <summary>
         /// The application credential map. This is used to ensure we don't try to get tokens for Bot everytime.
         /// </summary>
-        private readonly ConcurrentDictionary<string, MicrosoftAppCredentials> appCredentialMap = 
+        private readonly ConcurrentDictionary<string, MicrosoftAppCredentials> appCredentialMap =
             new ConcurrentDictionary<string, MicrosoftAppCredentials>();
 
         /// <summary>
@@ -73,7 +77,9 @@ namespace Microsoft.Bot.Builder.Teams
         /// </remarks>
         /// <seealso cref="ITurnContext" />
         /// <seealso cref="Schema.IActivity" />
+#pragma warning disable UseAsyncSuffix // Use Async suffix
         public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate nextDelegate)
+#pragma warning restore UseAsyncSuffix // Use Async suffix
         {
             BotAssert.ContextNotNull(context);
 
@@ -110,12 +116,11 @@ namespace Microsoft.Bot.Builder.Teams
                 throw new NotSupportedException("ClaimsIdemtity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.");
             }
 
-            // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For 
+            // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For
             // unauthenticated requests we have anonymouse identity provided auth is disabled.
-            var botAppIdClaim = (claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AudienceClaim)
+            var botAppIdClaim = claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AudienceClaim)
                 ??
-                // For Activities coming from Emulator AppId claim contains the Bot's AAD AppId.
-                claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AppIdClaim));
+                claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AppIdClaim);
 
             // For anonymous requests (requests with no header) appId is not set in claims.
             if (botAppIdClaim != null)
