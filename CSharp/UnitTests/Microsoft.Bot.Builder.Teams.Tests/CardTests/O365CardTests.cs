@@ -7,6 +7,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,8 +21,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
         /// <summary>
         /// O365 connector card.
         /// </summary>
+        /// <returns>Task tracking operation.</returns>
         [TestMethod]
-        public void CardTests_O365ConnectorCard()
+        public async Task CardTests_O365ConnectorCardAsync()
         {
             var actionCard1 = new O365ConnectorCardActionCard(
                 O365ConnectorCardActionCard.Type,
@@ -258,11 +260,11 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
                     },
             };
 
-            TestHelpers.TestAttachment(new Attachment
+            await TestHelpers.TestAttachmentAsync(new Attachment
             {
                 Content = card,
                 ContentType = O365ConnectorCard.ContentType,
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>

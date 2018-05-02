@@ -8,6 +8,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
+    using System.Threading.Tasks;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,8 +24,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
         /// <summary>
         /// File info card test.
         /// </summary>
+        /// <returns>Task tracking operation.</returns>
         [TestMethod]
-        public void CardTests_FileInfoCard()
+        public async Task CardTests_FileInfoCardAsync()
         {
             FileInfoCard fileInfoCard = new FileInfoCard
             {
@@ -35,14 +37,15 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
 
             Attachment attachment = fileInfoCard.ToAttachment();
             Assert.AreEqual(FileInfoCard.ContentType, attachment.ContentType);
-            TestHelpers.TestAttachment(attachment);
+            await TestHelpers.TestAttachmentAsync(attachment).ConfigureAwait(false);
         }
 
         /// <summary>
         /// File consent card test.
         /// </summary>
+        /// <returns>Task tracking operation.</returns>
         [TestMethod]
-        public void CardTests_FileConsentCard()
+        public async Task CardTests_FileConsentCardAsync()
         {
             FileConsentCard fileConsentCard = new FileConsentCard
             {
@@ -52,7 +55,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
 
             Attachment attachment = fileConsentCard.ToAttachment();
             Assert.AreEqual(FileConsentCard.ContentType, attachment.ContentType);
-            TestHelpers.TestAttachment(attachment);
+            await TestHelpers.TestAttachmentAsync(attachment).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -46,7 +46,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                     Assert.AreEqual(1, conversationParameters.Members.Count);
                     Assert.AreEqual(sampleActivity.Recipient.Id, conversationParameters.Bot.Id);
                     Assert.AreEqual("UserId", conversationParameters.Members[0].Id);
-                    Assert.AreEqual(sampleActivity.GetChannelData<TeamsChannelData>().Tenant.Id, (conversationParameters.ChannelData as TeamsChannelData).Tenant.Id);
+                    Assert.AreEqual(
+                        sampleActivity.GetChannelData<TeamsChannelData>().Tenant.Id,
+                        conversationParameters.ChannelData.AsJObject().ToObject<TeamsChannelData>().Tenant.Id);
 
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
@@ -76,6 +78,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                     });
 
                     ConnectorClient conClient = new ConnectorClient(new Uri("https://testservice.com"), "Test", "Test", testDelegatingHandler);
+                    conClient.UseSharedHttpClient = false;
 
                     var memberList = (await conClient.Conversations.GetConversationMembersAsync("TestConversationId").ConfigureAwait(false))
                         .ToList()

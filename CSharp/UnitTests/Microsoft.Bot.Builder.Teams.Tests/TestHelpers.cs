@@ -49,7 +49,8 @@ namespace Microsoft.Bot.Builder.Teams.Tests
         /// Tests card attachment before and after sending match.
         /// </summary>
         /// <param name="attachment">Attachment to verify.</param>
-        internal static void TestAttachment(Attachment attachment)
+        /// <returns>Task tracking operation.</returns>
+        internal static async Task TestAttachmentAsync(Attachment attachment)
         {
             JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
             serializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -78,7 +79,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 new MicrosoftAppCredentials("Test", "Test"),
                 testDelegatingHandler);
 
-            var callResponse = conClient.Conversations.SendToConversation(activity);
+            conClient.UseSharedHttpClient = false;
+
+            var callResponse = await conClient.Conversations.SendToConversationAsync(activity).ConfigureAwait(false);
 
             Assert.IsTrue(conClient.Conversations.SendToConversation(activity).Id == "TestId");
         }
