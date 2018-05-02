@@ -1,19 +1,15 @@
-﻿// <copyright file="TeamsExtensions.cs" company="Microsoft">
+﻿// <copyright file="TeamsExtension.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
-namespace Microsoft.Bot.Builder.Teams
+namespace Microsoft.Bot.Builder.Teams.Internal
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Connector.Teams;
 
     /// <summary>
     /// Teams extension class.
     /// </summary>
-    internal partial class TeamsExtensions
+    public partial class TeamsExtension : ITeamsExtension
     {
         /// <summary>
         /// Turn context created by adapter and sent over through middlewares.
@@ -26,14 +22,25 @@ namespace Microsoft.Bot.Builder.Teams
         private readonly ITeamsConnectorClient teamsConnectorClient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TeamsExtensions"/> class.
+        /// Initializes a new instance of the <see cref="TeamsExtension"/> class.
         /// </summary>
         /// <param name="turnContext">Turn context created by adapter and sent over through middlewares.</param>
         /// <param name="teamsConnectorClient">Teams connector client instance.</param>
-        internal TeamsExtensions(ITurnContext turnContext, ITeamsConnectorClient teamsConnectorClient)
+        internal TeamsExtension(ITurnContext turnContext, ITeamsConnectorClient teamsConnectorClient)
         {
             this.turnContext = turnContext;
             this.teamsConnectorClient = teamsConnectorClient;
+        }
+
+        /// <summary>
+        /// Gets the teams operations. These are extended set of operations available only for 'MsTeams' channel.
+        /// </summary>
+        public ITeamsOperations Teams
+        {
+            get
+            {
+                return this.teamsConnectorClient.Teams;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "v3",
-    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - SDK v4.0",
+    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - v3.0",
     "description": "﻿﻿The Bot Connector REST API extension for Microsoft Teams allows your bot to perform extended operations on to Microsoft Teams channel configured in the\r\n[Bot Framework Developer Portal](https://dev.botframework.com). The Connector service uses industry-standard REST and JSON over HTTPS.\r\n\r\nClient libraries for this REST API are available. See below for a list.\r\n\r\n\r\n\r\nAuthentication for both the Bot Connector and Bot State REST APIs is accomplished with JWT Bearer tokens, and is\r\ndescribed in detail in the [Connector Authentication](https://docs.botframework.com/en-us/restapi/authentication) document.\r\n\r\n# Client Libraries for the Bot Connector REST API\r\n\r\n* [Bot Builder for C#](https://docs.botframework.com/en-us/csharp/builder/sdkreference/)\r\n* [Bot Builder for Node.js](https://docs.botframework.com/en-us/node/builder/overview/)\r\n\r\n© 2016 Microsoft",
     "termsOfService": "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright/default.aspx",
     "contact": {
@@ -301,7 +301,7 @@
         "activityImageType": {
           "description": "Describes how Activity image is rendered",
           "type": "string",
-          "enum": ["avatar", "article"]
+          "enum": [ "avatar", "article" ]
         },
         "markdown": {
           "description": "Use markdown for all text contents. Default vaule is true.",
@@ -806,6 +806,72 @@
           }
         }
       ]
+    },
+
+    "FileConsentCard": {
+      "description": "File consent card attachment.",
+      "type": "object",
+      "properties": {
+        "description": {
+          "description": "File description.",
+          "type": "string"
+        },
+        "sizeInBytes": {
+          "description": "Size of the file to be uploaded in Bytes.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "acceptContext": {
+          "description": "Context sent back to the Bot if user consented to upload. This is free flow schema and is sent back in Value field of Activity.",
+          "type": "object"
+        },
+        "declineContext": {
+          "description": "Context sent back to the Bot if user declined. This is free flow schema and is sent back in Value field of Activity.",
+          "type": "object"
+        }
+      }
+    },
+
+    "FileDownloadInfo": {
+      "description": "File download info attachment.",
+      "type": "object",
+      "properties": {
+        "downloadUrl": {
+          "description": "File download url.",
+          "type": "string"
+        },
+        "uniqueId": {
+          "description": "Unique Id for the file.",
+          "type": "string"
+        },
+        "fileType": {
+          "description": "Type of file.",
+          "type": "string"
+        },
+        "etag": {
+          "description": "ETag for the file.",
+          "type": "object"
+        }
+      }
+    },
+
+    "FileInfoCard": {
+      "description": "File info card.",
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "description": "Unique Id for the file.",
+          "type": "string"
+        },
+        "fileType": {
+          "description": "Type of file.",
+          "type": "string"
+        },
+        "etag": {
+          "description": "ETag for the file.",
+          "type": "object"
+        }
+      }
     }
   }
 }

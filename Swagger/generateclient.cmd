@@ -10,7 +10,12 @@ call ..\node_modules\.bin\replace "FromProperty" "From" . -r --include="*.cs"
 call ..\node_modules\.bin\replace "fromProperty" "from" . -r --include="*.cs"
 cd ..
 
-copy generated\Models\*.* ..\CSharp\Microsoft.Bot.Schema.Teams
+del generated\Models\CardAction.cs
+del generated\Models\CardImage.cs
+del generated\Models\Attachment.cs
+del generated\Models\ChannelAccount.cs
+del ..\CSharp\Microsoft.Bot.Schema.Teams\Generated\*.* /Q
+copy generated\Models\*.* ..\CSharp\Microsoft.Bot.Schema.Teams\Generated
 move ..\Microsoft.Bot.Schema\ErrorResponseException.cs ..\Microsoft.Bot.Connector
 copy generated\*.* ..\CSharp\Microsoft.Bot.Connector.Teams
 rd /q /s generated

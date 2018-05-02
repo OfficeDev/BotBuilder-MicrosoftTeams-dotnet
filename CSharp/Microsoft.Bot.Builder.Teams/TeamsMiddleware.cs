@@ -10,10 +10,12 @@ namespace Microsoft.Bot.Builder.Teams
     using System.Linq;
     using System.Net.Http;
     using System.Security.Claims;
-    using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Builder.Teams.Internal;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Connector.Teams;
+    using Microsoft.Bot.Schema.Teams;
+    using Microsoft.Extensions.Options;
     using Microsoft.Rest.TransientFaultHandling;
 
     /// <summary>
@@ -44,23 +46,52 @@ namespace Microsoft.Bot.Builder.Teams
         private readonly DelegatingHandler delegatingHandler;
 
         /// <summary>
+        /// The teams middleware options.
+        /// </summary>
+        private readonly TeamsMiddlewareOptions teamsMiddlewareOptions;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TeamsMiddleware"/> class.
+        /// Use DependencyInjection to create a Singleton Instance of this in ASPNetCore.
         /// </summary>
         /// <param name="credentialProvider">The credential provider.</param>
+        /// <param name="teamsMiddlewareOptions">The teams middleware options.</param>
         /// <param name="connectorClientRetryPolicy">The connector client retry policy.</param>
         /// <param name="delegatingHandler">The delegating handler.</param>
         public TeamsMiddleware(
             ICredentialProvider credentialProvider,
+            IOptions<TeamsMiddlewareOptions> teamsMiddlewareOptions,
+            RetryPolicy connectorClientRetryPolicy = null,
+            DelegatingHandler delegatingHandler = null)
+            : this(credentialProvider, teamsMiddlewareOptions.Value, connectorClientRetryPolicy, delegatingHandler)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamsMiddleware"/> class. This method can be used in
+        /// ASP.Net WebApi projects.
+        /// </summary>
+        /// <param name="credentialProvider">The credential provider.</param>
+        /// <param name="teamsMiddlewareOptions">Teams Middleware options.</param>
+        /// <param name="connectorClientRetryPolicy">The connector client retry policy.</param>
+        /// <param name="delegatingHandler">The delegating handler.</param>
+        public TeamsMiddleware(
+            ICredentialProvider credentialProvider,
+            TeamsMiddlewareOptions teamsMiddlewareOptions = null,
             RetryPolicy connectorClientRetryPolicy = null,
             DelegatingHandler delegatingHandler = null)
         {
             this.credentialProvider = credentialProvider;
             this.connectorClientRetryPolicy = connectorClientRetryPolicy;
             this.delegatingHandler = delegatingHandler;
+            this.teamsMiddlewareOptions = teamsMiddlewareOptions ?? new TeamsMiddlewareOptions();
+
+            // This call is just to initialize the dictionary so all next accesses already have it up and running.
+            Dictionary<string, string> tenantDictionary = this.teamsMiddlewareOptions.WhitelistedTenantDictionary;
         }
 
         /// <summary>
-        /// Processess an incoming activity and if it is for MsTeams attaches <see cref="ITeamsExtensions"/> instances along with the context.
+        /// Processess an incoming activity and if it is for MsTeams attaches <see cref="ITeamsExtension"/> instances along with the context.
         /// </summary>
         /// <param name="context">The context object for this turn.</param>
         /// <param name="nextDelegate">The delegate to call to continue the bot middleware pipeline.</param>
@@ -77,14 +108,17 @@ namespace Microsoft.Bot.Builder.Teams
         /// </remarks>
         /// <seealso cref="ITurnContext" />
         /// <seealso cref="Schema.IActivity" />
-#pragma warning disable UseAsyncSuffix // Use Async suffix
+#pragma warning disable UseAsyncSuffix // Use Async suffix. Interface implementation can't change.
         public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate nextDelegate)
-#pragma warning restore UseAsyncSuffix // Use Async suffix
+#pragma warning restore UseAsyncSuffix // Use Async suffix. Interface implementation can't change.
         {
             BotAssert.ContextNotNull(context);
 
             if (context.Activity.ChannelId.Equals("msteams", StringComparison.OrdinalIgnoreCase))
             {
+                // Check TenantId is valid.
+                this.AssertRequestIsFromValidTenant(context);
+
                 // BotFrameworkAdapter when processing activity, post Auth adds BotIdentity into the context.
                 ClaimsIdentity claimsIdentity = context.Services.Get<ClaimsIdentity>("BotIdentity");
 
@@ -94,22 +128,22 @@ namespace Microsoft.Bot.Builder.Teams
                     claimsIdentity = new ClaimsIdentity(new List<Claim>(), "anonymous");
                 }
 
-                ITeamsConnectorClient teamsConnectorClient = await this.CreateConnectorClientAsync(context.Activity.ServiceUrl, claimsIdentity).ConfigureAwait(false);
+                ITeamsConnectorClient teamsConnectorClient = await this.CreateTeamsConnectorClientAsync(context.Activity.ServiceUrl, claimsIdentity).ConfigureAwait(false);
 
-                context.Services.Add((ITeamsExtensions)new TeamsExtensions(context, teamsConnectorClient));
+                context.Services.Add((ITeamsExtension)new TeamsExtension(context, teamsConnectorClient));
             }
 
             await nextDelegate().ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Creates the connector client asynchronous.
+        /// Creates the teams connector client asynchronously.
         /// </summary>
         /// <param name="serviceUrl">The service URL.</param>
         /// <param name="claimsIdentity">The claims identity.</param>
         /// <returns>ConnectorClient instance.</returns>
         /// <exception cref="NotSupportedException">ClaimsIdemtity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.</exception>
-        private async Task<ITeamsConnectorClient> CreateConnectorClientAsync(string serviceUrl, ClaimsIdentity claimsIdentity)
+        private async Task<ITeamsConnectorClient> CreateTeamsConnectorClientAsync(string serviceUrl, ClaimsIdentity claimsIdentity)
         {
             if (claimsIdentity == null)
             {
@@ -127,11 +161,11 @@ namespace Microsoft.Bot.Builder.Teams
             {
                 string botId = botAppIdClaim.Value;
                 var appCredentials = await this.GetAppCredentialsAsync(botId).ConfigureAwait(false);
-                return this.CreateConnectorClient(serviceUrl, appCredentials);
+                return this.CreateTeamsConnectorClient(serviceUrl, appCredentials);
             }
             else
             {
-                return this.CreateConnectorClient(serviceUrl);
+                return this.CreateTeamsConnectorClient(serviceUrl);
             }
         }
 
@@ -159,12 +193,12 @@ namespace Microsoft.Bot.Builder.Teams
         }
 
         /// <summary>
-        /// Creates the connector client.
+        /// Creates the teams connector client.
         /// </summary>
         /// <param name="serviceUrl">The service URL.</param>
         /// <param name="appCredentials">The application credentials for the bot.</param>
         /// <returns>Connector client instance.</returns>
-        private ITeamsConnectorClient CreateConnectorClient(string serviceUrl, MicrosoftAppCredentials appCredentials = null)
+        private ITeamsConnectorClient CreateTeamsConnectorClient(string serviceUrl, MicrosoftAppCredentials appCredentials = null)
         {
             TeamsConnectorClient connectorClient;
 
@@ -188,6 +222,32 @@ namespace Microsoft.Bot.Builder.Teams
             }
 
             return connectorClient;
+        }
+
+        /// <summary>
+        /// Asserts the request is from a valid tenant.
+        /// </summary>
+        private void AssertRequestIsFromValidTenant(ITurnContext turnContext)
+        {
+            // If Tenant filtering is disabled no checks required.
+            if (!this.teamsMiddlewareOptions.EnableTenantFiltering)
+            {
+                return;
+            }
+
+            // Ignoring cases where ChannelData is missing or does not contain TenantId.
+            if (turnContext.Activity.ChannelData != null)
+            {
+                TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
+
+                if (!string.IsNullOrEmpty(teamsChannelData?.Tenant?.Id))
+                {
+                    if (!this.teamsMiddlewareOptions.WhitelistedTenantDictionary.ContainsKey(teamsChannelData.Tenant.Id))
+                    {
+                        throw new UnauthorizedAccessException("Tenant Id '" + teamsChannelData.Tenant.Id + "' is not allowed access.");
+                    }
+                }
+            }
         }
     }
 }
