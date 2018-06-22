@@ -51,23 +51,6 @@ namespace Microsoft.Bot.Builder.Teams
         private readonly TeamsMiddlewareOptions teamsMiddlewareOptions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TeamsMiddleware"/> class.
-        /// Use DependencyInjection to create a Singleton Instance of this in ASPNetCore.
-        /// </summary>
-        /// <param name="credentialProvider">The credential provider.</param>
-        /// <param name="teamsMiddlewareOptions">The teams middleware options.</param>
-        /// <param name="connectorClientRetryPolicy">The connector client retry policy.</param>
-        /// <param name="delegatingHandler">The delegating handler.</param>
-        public TeamsMiddleware(
-            ICredentialProvider credentialProvider,
-            IOptions<TeamsMiddlewareOptions> teamsMiddlewareOptions,
-            RetryPolicy connectorClientRetryPolicy = null,
-            DelegatingHandler delegatingHandler = null)
-            : this(credentialProvider, teamsMiddlewareOptions.Value, connectorClientRetryPolicy, delegatingHandler)
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="TeamsMiddleware"/> class. This method can be used in
         /// ASP.Net WebApi projects.
         /// </summary>

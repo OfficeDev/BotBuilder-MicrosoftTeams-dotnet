@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Bot.Schema.Teams\Microsoft.Bot.Schema.Teams.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
