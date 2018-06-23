@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bot.Builder" Version="4.0.2-local" />
+    <PackageReference Include="Microsoft.Bot.Builder" Version="4.0.3-local" />
   </ItemGroup>
 
 </Project>

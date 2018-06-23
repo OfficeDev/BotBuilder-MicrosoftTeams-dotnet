@@ -39,6 +39,7 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot
             services.AddSingleton<IMiddleware, TeamsMiddleware>();
             services.AddSingleton<IMessageActivityHandler, MessageActivityHandler>();
             services.AddSingleton<IActivityProcessor, TeamsActivityProcessor>();
+            services.AddSingleton<IProactiveMessageManager, ProactiveMessageManager>();
             services.AddSingleton<BotFrameworkAdapter>((serviceProvider) =>
             {
                 IEnumerable<IMiddleware> middlewares = serviceProvider.GetServices<IMiddleware>();

@@ -12,13 +12,16 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
     {
         private readonly IRecognizer recognizer;
 
+        private readonly IProactiveMessageManager proactiveMessageManager;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageActivityHandler"/> class.
         /// </summary>
         /// <param name="recognizer">The recognizer.</param>
-        public MessageActivityHandler(IRecognizer recognizer)
+        public MessageActivityHandler(IRecognizer recognizer, IProactiveMessageManager proactiveMessageManager)
         {
             this.recognizer = recognizer;
+            this.proactiveMessageManager = proactiveMessageManager;
         }
 
         public async Task HandleMessageAsync(ITurnContext turnContext)
@@ -34,9 +37,7 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
                 TimeEntity timeEntity = recognizerResult.Entities["Time"].ToObject<TimeEntity>();
                 string remindAbout = recognizerResult.Entities["Reminder"].ToString();
 
-                await Task.Delay(TimeSpan.FromSeconds(timeEntity.TimeInSeconds));
-
-                await turnContext.SendActivity("Reminding you about " + remindAbout);
+                this.proactiveMessageManager.QueueWorkItem(turnContext, "Reminding you about " + remindAbout, TimeSpan.FromSeconds(timeEntity.TimeInSeconds));
             }
         }
     }
