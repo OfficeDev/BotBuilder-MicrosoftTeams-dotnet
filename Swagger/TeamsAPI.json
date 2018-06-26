@@ -783,7 +783,7 @@
         {
           "type": "object",
           "properties": {
-            "objectId": {
+            "aadObjectId": {
               "description": "Unique Azure Active Directory object Id.",
               "type": "string"
             },

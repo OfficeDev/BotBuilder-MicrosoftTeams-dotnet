@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder.Abstractions;
 using Microsoft.Bot.Builder.Abstractions.Teams;
-using Microsoft.Bot.Builder.Teams.ReminderBot.Engine;
+using Microsoft.Bot.Builder.Azure;
+using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+using Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot.Engine;
 using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Bot.Builder.Teams.ReminderBot
+namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot
 {
     public class Startup
     {
@@ -22,20 +26,48 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<TeamsMiddlewareOptions>((options) =>
+            services.Configure<StateSettings>(stateSettings =>
             {
-                options.EnableTenantFiltering = false;
+                stateSettings.LastWriterWins = true;
+            });
+
+            ////services.Configure<CosmosDbStorageOptions>(storageOptions =>
+            ////{
+            ////    // Using CosmosDB Storage Emulator.
+            ////    storageOptions.CosmosDBEndpoint = new Uri("https://localhost:8081");
+            ////    storageOptions.AuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+            ////    storageOptions.CollectionId = "ConversationStates";
+            ////    storageOptions.DatabaseId = "TeamsMemberHistoryBot";
+            ////});
+
+            services.AddSingleton<CosmosDbStorageOptions>(new CosmosDbStorageOptions
+            {
+                // Using CosmosDB Storage Emulator.
+                CosmosDBEndpoint = new Uri("https://localhost:8081"),
+                AuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+                CollectionId = "ConversationStates",
+                DatabaseId = "TeamsMemberHistoryBot",
             });
 
             services.AddSingleton<ICredentialProvider>(
                 new SimpleCredentialProvider(
                     this.Configuration["BotAppSettings:AppId"],
                     this.Configuration["BotAppSettings:AppPassword"]));
-            services.AddSingleton<IRecognizer, ReminderTextRecognizer>();
+
             services.AddSingleton<IMiddleware, TeamsMiddleware>();
+
+            // Using CosmosDB.
+            services.AddSingleton<IStorage, CosmosDbStorage>();
+
+            // We want conversation state to be stored at Team level not conversation (channel).
+            services.AddSingleton<IMiddleware, TeamSpecificConversationState<ConversationMemberHistory>>();
+
+            // We only service Team message.
+            services.AddSingleton<IMiddleware, DenyNonTeamMessage>();
+
             services.AddSingleton<IMessageActivityHandler, MessageActivityHandler>();
+            services.AddSingleton<ITeamsConversationUpdateActivityHandler, TeamsConversationUpdateActivityHandler>();
             services.AddSingleton<IActivityProcessor, TeamsActivityProcessor>();
-            services.AddSingleton<IProactiveMessageManager, ProactiveMessageManager>();
             services.AddSingleton<BotFrameworkAdapter>((serviceProvider) =>
             {
                 IEnumerable<IMiddleware> middlewares = serviceProvider.GetServices<IMiddleware>();
@@ -50,7 +82,8 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot
 
                 return botFrameworkAdapter;
             });
-            services.AddMvc();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +93,12 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

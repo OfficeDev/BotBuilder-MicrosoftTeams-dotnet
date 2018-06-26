@@ -88,7 +88,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                         });
 
                     Assert.IsTrue(memberList.Count() == 2);
-                    Assert.IsFalse(memberList.Any(member => string.IsNullOrEmpty(member.ObjectId)));
+                    Assert.IsFalse(memberList.Any(member => string.IsNullOrEmpty(member.AadObjectId)));
                     Assert.IsFalse(memberList.Any(member => string.IsNullOrEmpty(member.Name)));
                     Assert.IsFalse(memberList.Any(member => string.IsNullOrEmpty(member.UserPrincipalName)));
                     Assert.IsFalse(memberList.Any(member => string.IsNullOrEmpty(member.Id)));

@@ -17,11 +17,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ReminderBot", "Samples\Microsoft.Bot.Builder.Teams.ReminderBot\Microsoft.Bot.Builder.Teams.ReminderBot.csproj", "{12806F9B-359D-41CD-B8E6-E698D6EB8C23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.SampleMiddlewares", "Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.SampleMiddlewares.csproj", "{AB64B4BD-5BEE-410F-B1C1-162CAB125B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.SampleMiddlewares", "Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj", "{AB64B4BD-5BEE-410F-B1C1-162CAB125B81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Abstractions", "Samples\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj", "{3317EBF0-F306-478D-B421-C58A72F401AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions", "Samples\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj", "{3317EBF0-F306-478D-B421-C58A72F401AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Abstractions.Teams", "Samples\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj", "{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions.Teams", "Samples\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj", "{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot\Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot.csproj", "{D27D6455-0178-4F06-A609-D28DC011862A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16CEE01F-F897-4FAD-99F7-DC7328BD4DA1}"
+	ProjectSection(SolutionItems) = preProject
+		..\Swagger\TeamsAPI.json = ..\Swagger\TeamsAPI.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +68,10 @@ Global
 		{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D27D6455-0178-4F06-A609-D28DC011862A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D27D6455-0178-4F06-A609-D28DC011862A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D27D6455-0178-4F06-A609-D28DC011862A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D27D6455-0178-4F06-A609-D28DC011862A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +82,7 @@ Global
 		{AB64B4BD-5BEE-410F-B1C1-162CAB125B81} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{3317EBF0-F306-478D-B421-C58A72F401AA} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{0CF53550-43C2-4BD2-BF67-3A7FD9F48120} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
+		{D27D6455-0178-4F06-A609-D28DC011862A} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16728CD-744D-4803-BE18-14BF0CEC1DD7}
