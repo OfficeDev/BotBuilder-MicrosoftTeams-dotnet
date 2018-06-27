@@ -244,13 +244,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot\Engine\ConversationMemberHistory.cs">
+    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Engine\ConversationMemberHistory.cs">
       <Link>Engine\ConversationMemberHistory.cs</Link>
     </Compile>
-    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot\Engine\MessageActivityHandler.cs">
+    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Engine\MessageActivityHandler.cs">
       <Link>Engine\MessageActivityHandler.cs</Link>
     </Compile>
-    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot\Engine\TeamsConversationUpdateActivityHandler.cs">
+    <Compile Include="..\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Engine\TeamsConversationUpdateActivityHandler.cs">
       <Link>Engine\TeamsConversationUpdateActivityHandler.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -271,7 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj">

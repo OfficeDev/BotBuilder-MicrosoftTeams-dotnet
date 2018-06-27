@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace Microsoft.Bot.Builder.Teams.ASPNet.TeamsMemberHistoryBot
+namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

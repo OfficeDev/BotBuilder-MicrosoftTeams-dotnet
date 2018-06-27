@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot
+namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
 {
     public class Program
     {

@@ -7,12 +7,12 @@ using Microsoft.Bot.Builder.Abstractions;
 using Microsoft.Bot.Builder.Abstractions.Teams;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
-using Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot.Engine;
+using Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine;
 using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot
+namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
 {
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot
                 CosmosDBEndpoint = new Uri("https://localhost:8081"),
                 AuthKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
                 CollectionId = "ConversationStates",
-                DatabaseId = "TeamsMemberHistoryBot",
+                DatabaseId = "TeamHistoryBotASPNetCore",
             });
 
             services.AddSingleton<ICredentialProvider>(
@@ -55,7 +55,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot
             services.AddSingleton<IStorage, CosmosDbStorage>();
 
             // We want conversation state to be stored at Team level not conversation (channel).
-            services.AddSingleton<IMiddleware, TeamSpecificConversationState<ConversationMemberHistory>>();
+            services.AddSingleton<IMiddleware, TeamSpecificConversationState<TeamOperationHistory>>();
 
             // We only service Team message.
             services.AddSingleton<IMiddleware, DenyNonTeamMessage>();

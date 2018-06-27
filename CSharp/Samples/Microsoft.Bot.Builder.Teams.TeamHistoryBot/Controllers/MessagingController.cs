@@ -10,7 +10,7 @@ using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot.Controllers
+namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Controllers
 {
     [Route("api/messages")]
     public class MessagingController : Controller
