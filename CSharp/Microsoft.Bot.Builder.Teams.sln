@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Swagger\TeamsAPI.json = ..\Swagger\TeamsAPI.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.ASPNet.TeamsMemberHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.ASPNet.TeamsMemberHistoryBot\Microsoft.Bot.Builder.Teams.ASPNet.TeamsMemberHistoryBot.csproj", "{FA5885B2-F65A-4CC2-8273-C0E4178BD492}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{D27D6455-0178-4F06-A609-D28DC011862A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D27D6455-0178-4F06-A609-D28DC011862A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D27D6455-0178-4F06-A609-D28DC011862A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA5885B2-F65A-4CC2-8273-C0E4178BD492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5885B2-F65A-4CC2-8273-C0E4178BD492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5885B2-F65A-4CC2-8273-C0E4178BD492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5885B2-F65A-4CC2-8273-C0E4178BD492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{3317EBF0-F306-478D-B421-C58A72F401AA} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{0CF53550-43C2-4BD2-BF67-3A7FD9F48120} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{D27D6455-0178-4F06-A609-D28DC011862A} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
+		{FA5885B2-F65A-4CC2-8273-C0E4178BD492} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16728CD-744D-4803-BE18-14BF0CEC1DD7}
