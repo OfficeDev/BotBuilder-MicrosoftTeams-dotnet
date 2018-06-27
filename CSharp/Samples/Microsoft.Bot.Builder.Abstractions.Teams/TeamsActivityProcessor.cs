@@ -56,7 +56,12 @@
                         if (this.invokeActivityHandler != null)
                         {
                             InvokeResponse invokeResponse = await this.ProcessTeamsInvokeActivityAsync(turnContext);
-                            await turnContext.SendActivity(new Activity { Value = invokeResponse });
+                            await turnContext.SendActivity(
+                                new Activity
+                                {
+                                    Value = invokeResponse,
+                                    Type = ActivityTypesEx.InvokeResponse,
+                                });
                         }
 
                         return;
