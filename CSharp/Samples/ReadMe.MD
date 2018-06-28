@@ -1,4 +1,4 @@
-#Microsoft Teams Extensions for Bot Builder SDK Samples Guide
+# Microsoft Teams Extensions for Bot Builder SDK Samples Guide
 
 #### Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot
 Legacy ASP.Net Web API project which showcases how to
