@@ -11,12 +11,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Bot.Builder" Version="4.0.3-local" />
+    <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.0.3-local" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
     <ProjectReference Include="..\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj" />
     <ProjectReference Include="..\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,6 +21,7 @@ ASPNetCore 2.1 application which showcases how to
 #### Microsoft.Bot.Builder.Teams.HRBot
 ASPNetCore 2.1 application which showcases how to
 1. Perform Tenant filtering using Teams Middleware
+2. Get AAD tokens
 
 #### Microsoft.Bot.Builder.Teams.ReminderBot
 ASPNetCore 2.0 application which showcases how to

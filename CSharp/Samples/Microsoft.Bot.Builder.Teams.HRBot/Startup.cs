@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder.Abstractions;
 using Microsoft.Bot.Builder.Abstractions.Teams;
+using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Teams.HRBot.Engine;
+using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
 using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,11 +37,28 @@ namespace Microsoft.Bot.Builder.Teams.HRBot
                 options.WhitelistedTenants = this.Configuration["AllowedTenants"].Split(',', StringSplitOptions.RemoveEmptyEntries);
             });
 
+            services.Configure<OAuthSettings>((options) =>
+            {
+                options.Resource = this.Configuration["OAuthSettings:Resource"];
+                options.ClientId = this.Configuration["OAuthSettings:ClientId"];
+                options.RedirectUri = new Uri(this.Configuration["OAuthSettings:RedirectUri"]);
+            });
+
             services.AddSingleton<ICredentialProvider>(
                 new SimpleCredentialProvider(
                     this.Configuration["BotAppSettings:AppId"],
                     this.Configuration["BotAppSettings:AppPassword"]));
+
             services.AddSingleton<IMiddleware, TeamsMiddleware>();
+
+            // Using InMemoryStorage for storing tokens.
+            services.AddSingleton<IStorage, MemoryStorage>();
+
+            // This is ok for Sample but in real life you might want to encrypt tokens before serializing them.
+            services.AddSingleton<IMiddleware, ConversationState<UserDetails>>();
+
+            // Not working in Team.
+            services.AddSingleton<IMiddleware, DenyTeamMessages>();
             services.AddSingleton<IMessageActivityHandler, MessageActivityHandler>();
             services.AddSingleton<IActivityProcessor, TeamsActivityProcessor>();
             services.AddSingleton<BotFrameworkAdapter>((serviceProvider) =>
