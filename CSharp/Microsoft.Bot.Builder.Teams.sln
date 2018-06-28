@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Connector.Tea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}"
 	ProjectSection(SolutionItems) = preProject
-		Samples\Samples.MD = Samples\Samples.MD
+		Samples\ReadMe.MD = Samples\ReadMe.MD
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8BAE4F38-1C1E-4C64-B8AE-C87A040A995C}"
