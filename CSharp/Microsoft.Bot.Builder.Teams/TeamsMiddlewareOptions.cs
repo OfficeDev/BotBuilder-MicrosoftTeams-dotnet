@@ -6,6 +6,7 @@ namespace Microsoft.Bot.Builder.Teams
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Teams Middleware Options.
@@ -25,7 +26,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// <summary>
         /// Gets or sets the whitelisted tenants. Activities from these tenants will be accepted, everything else will be disregarded.
         /// </summary>
-        public List<string> WhitelistedTenants { get; set; } = new List<string>();
+        public IEnumerable<string> WhitelistedTenants { get; set; } = new List<string>();
 
         /// <summary>
         /// Gets the whitelisted tenant dictionary. This is a dictionary representation of Whitelisted Tenants.
@@ -38,8 +39,8 @@ namespace Microsoft.Bot.Builder.Teams
                 if (this.whitelistedTenantDictionary == null)
                 {
                     // Using IgnoreCase comparer here to ensure we can compare across case in incoming requests.
-                    this.whitelistedTenantDictionary = new Dictionary<string, string>(this.WhitelistedTenants.Count, StringComparer.OrdinalIgnoreCase);
-                    this.WhitelistedTenants.ForEach(tenantId =>
+                    this.whitelistedTenantDictionary = new Dictionary<string, string>(this.WhitelistedTenants.Count(), StringComparer.OrdinalIgnoreCase);
+                    foreach (string tenantId in this.WhitelistedTenants)
                     {
                         if (Guid.TryParse(tenantId, out Guid guidTenantId))
                         {
@@ -49,7 +50,7 @@ namespace Microsoft.Bot.Builder.Teams
                         {
                             throw new ArgumentException("Invalid Tenant Id '" + tenantId + "'. Tenant Id must a valid Guid", nameof(this.WhitelistedTenants));
                         }
-                    });
+                    }
                 }
 
                 return this.whitelistedTenantDictionary;

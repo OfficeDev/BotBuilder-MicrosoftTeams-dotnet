@@ -21,6 +21,11 @@ ASPNetCore 2.1 application which showcases how to
 
 1. Build compose extensions
 
+#### Microsoft.Bot.Builder.Teams.HRBot
+ASPNetCore 2.1 application which showcases how to
+
+1. Perform Tenant filtering using Teams Middleware
+
 #### Microsoft.Bot.Builder.Teams.ReminderBot
 ASPNetCore 2.0 application which showcases how to
 

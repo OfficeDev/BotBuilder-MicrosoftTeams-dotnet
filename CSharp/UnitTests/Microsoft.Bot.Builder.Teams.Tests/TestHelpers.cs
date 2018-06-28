@@ -35,7 +35,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
         {
             Mock<ICredentialProvider> mockCredentialProvider = new Mock<ICredentialProvider>();
             TestAdapter testAdapter = new TestAdapter(new ConversationReference(activity.Id, activity.From, activity.Recipient, activity.Conversation, activity.ChannelId, activity.ServiceUrl));
-            testAdapter.Use(new TeamsMiddleware(mockCredentialProvider.Object));
+            testAdapter.Use(new TeamsMiddleware(mockCredentialProvider.Object, (TeamsMiddlewareOptions)null));
             await testAdapter.ProcessActivity(
                 activity,
                 async (turnContext) =>
