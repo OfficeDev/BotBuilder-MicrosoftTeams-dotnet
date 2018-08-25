@@ -37,10 +37,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Controllers
 
         public async Task<IActionResult> PostActivityAsync([FromBody] Activity activity)
         {
-            var activityResponse = await this.botFrameworkAdapter.ProcessActivity(
+            var activityResponse = await this.botFrameworkAdapter.ProcessActivityAsync(
                 this.Request.Headers["Authorization"],
                 activity,
-                this.activityProcessor.ProcessIncomingActivityAsync);
+                this.activityProcessor.ProcessIncomingActivityAsync,
+                this.Request.HttpContext.RequestAborted);
 
             if (activityResponse == null)
             {

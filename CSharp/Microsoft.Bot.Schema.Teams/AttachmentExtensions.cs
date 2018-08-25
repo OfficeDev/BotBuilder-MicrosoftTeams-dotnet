@@ -17,7 +17,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         /// <param name="attachment">The attachment.</param>
         /// <param name="previewAttachment">The preview attachment.</param>
-        /// <returns>Compose extension attachment</returns>
+        /// <returns>Compose extension attachment.</returns>
         public static ComposeExtensionAttachment ToComposeExtensionAttachment(this Attachment attachment, Attachment previewAttachment = null)
         {
             // We are recreating the attachment so that JsonSerializerSettings with ReferenceLoopHandling set to Error does not generate error

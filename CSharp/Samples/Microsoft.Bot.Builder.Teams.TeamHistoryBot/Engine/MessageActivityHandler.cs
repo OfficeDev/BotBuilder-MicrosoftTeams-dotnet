@@ -14,15 +14,22 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
 {
     public class MessageActivityHandler : IMessageActivityHandler
     {
+        private readonly IStatePropertyAccessor<TeamOperationHistory> teamHistoryAccessor;
+
+        public MessageActivityHandler(IStatePropertyAccessor<TeamOperationHistory> teamHistoryAccessor)
+        {
+            this.teamHistoryAccessor = teamHistoryAccessor;
+        }
+
         public async Task HandleMessageAsync(ITurnContext turnContext)
         {
-            ITeamsExtension teamsExtension = turnContext.Services.Get<ITeamsExtension>();
+            ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
 
             string actualText = teamsExtension.GetActivityTextWithoutMentions();
             if (actualText.Equals("ShowHistory", StringComparison.OrdinalIgnoreCase) ||
                 actualText.Equals("Show History", StringComparison.OrdinalIgnoreCase))
             {
-                TeamOperationHistory memberHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(turnContext);
+                TeamOperationHistory memberHistory = await this.teamHistoryAccessor.GetAsync(turnContext).ConfigureAwait(false);
 
                 Activity replyActivity = turnContext.Activity.CreateReply();
 
@@ -31,7 +38,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
 
                 // Temporary Fix for Mentions not working
                 (replyActivity.Entities[0] as Mention).Type = "mention";
-                await turnContext.SendActivity(replyActivity);
+                await turnContext.SendActivityAsync(replyActivity);
 
                 // Going in reverse chronological order.
                 for (int i = memberHistory.MemberOperations.Count % 10; i >= 0; i--)
@@ -48,14 +55,14 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                         }
 
                         Activity memberListActivity = turnContext.Activity.CreateReply(stringBuilder.ToString());
-                        await turnContext.SendActivity(memberListActivity);
+                        await turnContext.SendActivityAsync(memberListActivity);
                     }
                 }
             }
             else if (actualText.Equals("ShowCurrentMembers", StringComparison.OrdinalIgnoreCase) ||
                 actualText.Equals("Show Current Members", StringComparison.OrdinalIgnoreCase))
             {
-                List<ChannelAccount> teamMembers = (await turnContext.Services.Get<IConnectorClient>().Conversations.GetConversationMembersAsync(
+                List<ChannelAccount> teamMembers = (await turnContext.TurnState.Get<IConnectorClient>().Conversations.GetConversationMembersAsync(
                     turnContext.Activity.GetChannelData<TeamsChannelData>().Team.Id)).ToList();
 
                 Activity replyActivity = turnContext.Activity.CreateReply();
@@ -64,7 +71,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
 
                 // Temporary Fix for Mentions not working
                 (replyActivity.Entities[0] as Mention).Type = "mention";
-                await turnContext.SendActivity(replyActivity);
+                await turnContext.SendActivityAsync(replyActivity);
 
                 for (int i = teamMembers.Count % 10; i >= 0; i--)
                 {
@@ -80,7 +87,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                         }
 
                         Activity memberListActivity = turnContext.Activity.CreateReply(stringBuilder.ToString());
-                        await turnContext.SendActivity(memberListActivity);
+                        await turnContext.SendActivityAsync(memberListActivity);
                     }
                 }
             }
@@ -97,7 +104,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
 
                 // Temporary Fix for Mentions not working
                 (replyActivity.Entities[0] as Mention).Type = "mention";
-                await turnContext.SendActivity(replyActivity);
+                await turnContext.SendActivityAsync(replyActivity);
 
                 for (int i = channelList.Conversations.Count % 10; i >= 0; i--)
                 {
@@ -113,13 +120,13 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                         }
 
                         Activity memberListActivity = turnContext.Activity.CreateReply(stringBuilder.ToString());
-                        await turnContext.SendActivity(memberListActivity);
+                        await turnContext.SendActivityAsync(memberListActivity);
                     }
                 }
             }
             else
             {
-                await turnContext.SendActivity("Invalid command");
+                await turnContext.SendActivityAsync("Invalid command");
             }
         }
     }

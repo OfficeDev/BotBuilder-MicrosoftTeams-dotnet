@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Schema.Teams;
 
@@ -8,17 +9,17 @@ namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
 {
     public class DenyTeamMessages : IMiddleware
     {
-        public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate next)
+        public async Task OnTurnAsync(ITurnContext context, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
         {
             TeamsChannelData teamsChannelData = context.Activity.GetChannelData<TeamsChannelData>();
 
             if (teamsChannelData.Team == null)
             {
-                await next.Invoke().ConfigureAwait(false);
+                await next(cancellationToken).ConfigureAwait(false);
             }
             else
             {
-                await context.SendActivity("This bot does not work in teams");
+                await context.SendActivityAsync("This bot does not work in teams");
             }
         }
     }

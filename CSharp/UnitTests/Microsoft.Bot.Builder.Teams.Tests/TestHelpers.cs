@@ -36,11 +36,11 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             Mock<ICredentialProvider> mockCredentialProvider = new Mock<ICredentialProvider>();
             TestAdapter testAdapter = new TestAdapter(new ConversationReference(activity.Id, activity.From, activity.Recipient, activity.Conversation, activity.ChannelId, activity.ServiceUrl));
             testAdapter.Use(new TeamsMiddleware(mockCredentialProvider.Object, (TeamsMiddlewareOptions)null));
-            await testAdapter.ProcessActivity(
+            await testAdapter.ProcessActivityAsync(
                 activity,
-                async (turnContext) =>
+                async (turnContext, cancellationToken) =>
                 {
-                    ITeamsExtension teamsExtension = turnContext.Services.Get<ITeamsExtension>();
+                    ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
                     await callback(teamsExtension).ConfigureAwait(false);
                 }).ConfigureAwait(false);
         }
@@ -78,8 +78,6 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 new Uri("https://testservice.com"),
                 new MicrosoftAppCredentials("Test", "Test"),
                 testDelegatingHandler);
-
-            conClient.UseSharedHttpClient = false;
 
             var callResponse = await conClient.Conversations.SendToConversationAsync(activity).ConfigureAwait(false);
 

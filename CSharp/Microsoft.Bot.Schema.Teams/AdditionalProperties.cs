@@ -7,7 +7,7 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCard"/>
+    /// Content type for <see cref="O365ConnectorCard"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCard
@@ -19,7 +19,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardViewAction"/>
+    /// Content type for <see cref="O365ConnectorCardViewAction"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardViewAction
@@ -31,7 +31,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardOpenUri"/>
+    /// Content type for <see cref="O365ConnectorCardOpenUri"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardOpenUri
@@ -43,7 +43,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardHttpPOST"/>
+    /// Content type for <see cref="O365ConnectorCardHttpPOST"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardHttpPOST
@@ -55,7 +55,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardActionCard"/>
+    /// Content type for <see cref="O365ConnectorCardActionCard"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardActionCard
@@ -67,7 +67,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardTextInput"/>
+    /// Content type for <see cref="O365ConnectorCardTextInput"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardTextInput
@@ -79,7 +79,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardDateInput"/>
+    /// Content type for <see cref="O365ConnectorCardDateInput"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardDateInput
@@ -91,7 +91,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="O365ConnectorCardMultichoiceInput"/>
+    /// Content type for <see cref="O365ConnectorCardMultichoiceInput"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class O365ConnectorCardMultichoiceInput
@@ -103,7 +103,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="FileConsentCard"/>
+    /// Content type for <see cref="FileConsentCard"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class FileConsentCard
@@ -115,7 +115,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="FileDownloadInfo"/>
+    /// Content type for <see cref="FileDownloadInfo"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class FileDownloadInfo
@@ -127,7 +127,7 @@ namespace Microsoft.Bot.Schema.Teams
     }
 
     /// <summary>
-    /// Content type for <see cref="FileConsentCard"/>
+    /// Content type for <see cref="FileConsentCard"/>.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Using one file for all additional properties.")]
     public partial class FileInfoCard

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Adapters;
 using Microsoft.Bot.Connector.Authentication;
@@ -30,7 +31,7 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
             {
                 await Task.Delay(timeToWait);
 
-                await this.botFrameworkAdapter.CreateConversation(
+                await this.botFrameworkAdapter.CreateConversationAsync(
                     turnContext.Activity.ChannelId, turnContext.Activity.ServiceUrl,
                     await this.GetMicrosoftAppCredentials(turnContext),
                     new ConversationParameters
@@ -49,7 +50,7 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
                             NullValueHandling = NullValueHandling.Ignore
                         }))
                     },
-                    async (context) =>
+                    async (context, cancellationToken) =>
                     {
                         Activity activityToSend = new Activity
                         {
@@ -58,18 +59,19 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
                             Text = messageToSend,
                             ChannelId = context.Activity.ChannelId,
                             ServiceUrl = context.Activity.ServiceUrl,
-                            Type = ActivityTypes.Message
+                            Type = ActivityTypes.Message,
                         };
 
-                        await context.SendActivity(activityToSend);
-                    });
+                        await context.SendActivityAsync(activityToSend, cancellationToken);
+                    },
+                    CancellationToken.None);
                 return Task.CompletedTask;
             });
         }
 
         private async Task<MicrosoftAppCredentials> GetMicrosoftAppCredentials(ITurnContext turnContext)
         {
-            ClaimsIdentity claimsIdentity = turnContext.Services.Get<ClaimsIdentity>("BotIdentity");
+            ClaimsIdentity claimsIdentity = turnContext.TurnState.Get<ClaimsIdentity>("BotIdentity");
 
             // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For
             // unauthenticated requests we have anonymouse identity provided auth is disabled.

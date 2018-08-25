@@ -10,18 +10,18 @@ namespace Microsoft.Bot.Builder.Teams.ComposeExtension.Engine.Models
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Return the query data that Wikipedia API returns
+    /// Return the query data that Wikipedia API returns.
     /// </summary>
     internal class WikipediaQuery
     {
         /// <summary>
-        /// Gets or sets Wikipedia search result
+        /// Gets or sets Wikipedia search result.
         /// </summary>
         [JsonProperty(PropertyName = "search")]
         public IList<WikipediaResult> Results { get; set; }
 
         /// <summary>
-        /// Gets or sets pages from Wikipedia article
+        /// Gets or sets pages from Wikipedia article.
         /// </summary>
         public IList<WikipediaPage> Pages { get; set; }
     }

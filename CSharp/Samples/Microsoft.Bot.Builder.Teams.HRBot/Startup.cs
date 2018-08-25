@@ -55,7 +55,13 @@ namespace Microsoft.Bot.Builder.Teams.HRBot
             services.AddSingleton<IStorage, MemoryStorage>();
 
             // This is ok for Sample but in real life you might want to encrypt tokens before serializing them.
-            services.AddSingleton<IMiddleware, ConversationState<UserDetails>>();
+            services.AddSingleton<BotState, ConversationState>();
+            services.AddSingleton<IMiddleware>(factory => factory.GetRequiredService<BotState>());
+            services.AddSingleton<IStatePropertyAccessor<UserDetails>>(factory =>
+            {
+                BotState botState = factory.GetRequiredService<BotState>();
+                return botState.CreateProperty<UserDetails>("UserDetails");
+            });
 
             // Not working in Team.
             services.AddSingleton<IMiddleware, DenyTeamMessages>();

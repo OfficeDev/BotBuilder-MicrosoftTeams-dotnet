@@ -21,8 +21,8 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         /// Gets the general channel for a team.
         /// </summary>
         /// <returns>Channel data for general channel.</returns>
-        /// <exception cref="ArgumentException">Failed to process channel data in Activity</exception>
-        /// <exception cref="ArgumentNullException">ChannelData missing in Activity</exception>
+        /// <exception cref="ArgumentException">Failed to process channel data in Activity.</exception>
+        /// <exception cref="ArgumentNullException">ChannelData missing in Activity.</exception>
         public ChannelInfo GetGeneralChannel()
         {
             if (this.turnContext.Activity.ChannelData != null)
@@ -70,8 +70,8 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         /// Gets the tenant id of the user who sent the message.
         /// </summary>
         /// <returns>Tenant Id of the user who sent the message.</returns>
-        /// <exception cref="ArgumentException">Failed to process channel data in Activity</exception>
-        /// <exception cref="ArgumentNullException">ChannelData missing in Activity</exception>
+        /// <exception cref="ArgumentException">Failed to process channel data in Activity.</exception>
+        /// <exception cref="ArgumentNullException">ChannelData missing in Activity.</exception>
         public string GetActivityTenantId()
         {
             if (this.turnContext.Activity.ChannelData != null)

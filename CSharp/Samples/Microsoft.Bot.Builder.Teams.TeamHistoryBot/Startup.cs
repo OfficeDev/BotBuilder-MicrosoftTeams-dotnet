@@ -55,7 +55,10 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
             services.AddSingleton<IStorage, CosmosDbStorage>();
 
             // We want conversation state to be stored at Team level not conversation (channel).
-            services.AddSingleton<IMiddleware, TeamSpecificConversationState<TeamOperationHistory>>();
+            services.AddSingleton<BotState, TeamSpecificConversationState>();
+            services.AddSingleton<IMiddleware>(context => context.GetRequiredService<BotState>());
+            services.AddSingleton<IStatePropertyAccessor<TeamOperationHistory>>((context) =>
+                context.GetRequiredService<TeamSpecificConversationState>().CreateProperty<TeamOperationHistory>("TeamHistory"));
 
             // We only service Team message.
             services.AddSingleton<IMiddleware, DenyNonTeamMessage>();

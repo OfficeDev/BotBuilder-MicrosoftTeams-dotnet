@@ -1,44 +1,40 @@
 ﻿namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
 {
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
     /// Teams specific conversation state management.
     /// </summary>
     /// <typeparam name="TState">The type of the state.</typeparam>
-    /// <seealso cref="Microsoft.Bot.Builder.BotState{TState}" />
-    public class TeamSpecificConversationState<TState> : BotState<TState>
-        where TState : class, new()
+    /// <seealso cref="Microsoft.Bot.Builder.BotState" />
+    public class TeamSpecificConversationState : BotState
     {
         /// <summary>
         /// The key to use to read and write this conversation state object to storage.
         /// </summary>
-        public static string PropertyName = $"TeamSpecificConversationState:{typeof(TeamSpecificConversationState<TState>).Namespace}.{typeof(TeamSpecificConversationState<TState>).Name}";
+        public static string PropertyName = $"TeamSpecificConversationState:{typeof(TeamSpecificConversationState).Namespace}.{typeof(TeamSpecificConversationState).Name}";
 
         /// <summary>
-        /// Creates a new <see cref="TeamSpecificConversationState{TState}"/> object.
+        /// Initializes a new instance of the <see cref="TeamSpecificConversationState"/> class.
+        /// Creates a new <see cref="TeamSpecificConversationState"/> object.
         /// </summary>
         /// <param name="storage">The storage provider to use.</param>
         /// <param name="settings">The state persistance options to use.</param>
-        public TeamSpecificConversationState(IStorage storage, StateSettings settings = null) :
-            base(storage, PropertyName,
-                (context) =>
-                {
-                    TeamsChannelData teamsChannelData = context.Activity.GetChannelData<TeamsChannelData>();
-                    return $"conversation/{context.Activity.ChannelId}/{teamsChannelData.Team.Id}";
-                },
-                settings)
+        public TeamSpecificConversationState(IStorage storage)
+            : base(storage, PropertyName)
         {
         }
 
         /// <summary>
-        /// Gets the conversation state object from turn context.
+        /// Gets the key to use when reading and writing state to and from storage.
         /// </summary>
-        /// <param name="context">The context object for this turn.</param>
-        /// <returns>The coversation state object.</returns>
-        public static TState Get(ITurnContext context)
+        /// <param name="turnContext">The context object for this turn.</param>
+        /// <returns>The storage key.</returns>
+        protected override string GetStorageKey(ITurnContext turnContext)
         {
-            return context.Services.Get<TState>(PropertyName);
+            TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
+            return $"conversation/{turnContext.Activity.ChannelId}/{teamsChannelData.Team.Id}";
         }
     }
 }

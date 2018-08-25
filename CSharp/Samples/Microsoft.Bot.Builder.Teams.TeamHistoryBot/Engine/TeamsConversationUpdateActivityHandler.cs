@@ -12,14 +12,21 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
 {
     public class TeamsConversationUpdateActivityHandler : ITeamsConversationUpdateActivityHandler
     {
+        private readonly IStatePropertyAccessor<TeamOperationHistory> teamHistoryAccessor;
+
+        public TeamsConversationUpdateActivityHandler(IStatePropertyAccessor<TeamOperationHistory> teamHistoryAccessor)
+        {
+            this.teamHistoryAccessor = teamHistoryAccessor;
+        }
+
         /// <summary>
         /// Handles the channel created event asynchronous.
         /// </summary>
         /// <param name="channelCreatedEvent">The channel created event.</param>
         /// <returns></returns>
-        public Task HandleChannelCreatedEventAsync(ChannelCreatedEvent channelCreatedEvent)
+        public async Task HandleChannelCreatedEventAsync(ChannelCreatedEvent channelCreatedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(channelCreatedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(channelCreatedEvent.TurnContext).ConfigureAwait(false);
 
             if (conversationHistory.MemberOperations == null)
             {
@@ -32,13 +39,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                 Operation = "ChannelCreated",
                 OperationTime = DateTimeOffset.Now
             });
-
-            return Task.CompletedTask;
         }
 
-        public Task HandleChannelDeletedEventAsync(ChannelDeletedEvent channelDeletedEvent)
+        public async Task HandleChannelDeletedEventAsync(ChannelDeletedEvent channelDeletedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(channelDeletedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(channelDeletedEvent.TurnContext).ConfigureAwait(false);
 
             if (conversationHistory.MemberOperations == null)
             {
@@ -51,13 +56,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                 Operation = "ChannelDeleted",
                 OperationTime = DateTimeOffset.Now
             });
-
-            return Task.CompletedTask;
         }
 
-        public Task HandleChannelRenamedEventAsync(ChannelRenamedEvent channelRenamedEvent)
+        public async Task HandleChannelRenamedEventAsync(ChannelRenamedEvent channelRenamedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(channelRenamedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(channelRenamedEvent.TurnContext).ConfigureAwait(false);
 
             if (conversationHistory.MemberOperations == null)
             {
@@ -70,8 +73,6 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                 Operation = "ChannelRenamed",
                 OperationTime = DateTimeOffset.Now
             });
-
-            return Task.CompletedTask;
         }
 
         public Task HandleConversationUpdateActivityTask(ITurnContext turnContext)
@@ -79,13 +80,13 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
             return Task.CompletedTask;
         }
 
-        public Task HandleTeamMembersAddedEventAsync(TeamMembersAddedEvent teamMembersAddedEvent)
+        public async Task HandleTeamMembersAddedEventAsync(TeamMembersAddedEvent teamMembersAddedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(teamMembersAddedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(teamMembersAddedEvent.TurnContext).ConfigureAwait(false);
 
             foreach (ChannelAccount memberAdded in teamMembersAddedEvent.MembersAdded)
             {
-                ITeamsExtension teamsExtension = teamMembersAddedEvent.TurnContext.Services.Get<ITeamsExtension>();
+                ITeamsExtension teamsExtension = teamMembersAddedEvent.TurnContext.TurnState.Get<ITeamsExtension>();
                 TeamsChannelAccount teamsChannelAccount = teamsExtension.AsTeamsChannelAccount(memberAdded);
 
                 if (conversationHistory.MemberOperations == null)
@@ -100,17 +101,15 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                     OperationTime = DateTimeOffset.Now
                 });
             }
-
-            return Task.CompletedTask;
         }
 
-        public Task HandleTeamMembersRemovedEventAsync(TeamMembersRemovedEvent teamMembersRemovedEvent)
+        public async Task HandleTeamMembersRemovedEventAsync(TeamMembersRemovedEvent teamMembersRemovedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(teamMembersRemovedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(teamMembersRemovedEvent.TurnContext).ConfigureAwait(false);
 
             foreach (ChannelAccount memberAdded in teamMembersRemovedEvent.MembersRemoved)
             {
-                ITeamsExtension teamsExtension = teamMembersRemovedEvent.TurnContext.Services.Get<ITeamsExtension>();
+                ITeamsExtension teamsExtension = teamMembersRemovedEvent.TurnContext.TurnState.Get<ITeamsExtension>();
                 TeamsChannelAccount teamsChannelAccount = teamsExtension.AsTeamsChannelAccount(memberAdded);
 
                 if (conversationHistory.MemberOperations == null)
@@ -125,13 +124,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                     OperationTime = DateTimeOffset.Now
                 });
             }
-
-            return Task.CompletedTask;
         }
 
-        public Task HandleTeamRenamedEventAsync(TeamRenamedEvent teamRenamedEvent)
+        public async Task HandleTeamRenamedEventAsync(TeamRenamedEvent teamRenamedEvent)
         {
-            TeamOperationHistory conversationHistory = TeamSpecificConversationState<TeamOperationHistory>.Get(teamRenamedEvent.TurnContext);
+            TeamOperationHistory conversationHistory = await this.teamHistoryAccessor.GetAsync(teamRenamedEvent.TurnContext).ConfigureAwait(false);
 
             if (conversationHistory.MemberOperations == null)
             {
@@ -144,8 +141,6 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine
                 Operation = "TeamRenamed",
                 OperationTime = DateTimeOffset.Now
             });
-
-            return Task.CompletedTask;
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Bot.Builder.Abstractions.Teams;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
 using Microsoft.Bot.Builder.Teams.TeamHistoryBot.Engine;
+using Microsoft.Bot.Connector;
 using Microsoft.Bot.Connector.Authentication;
 
 namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
@@ -53,8 +54,12 @@ namespace Microsoft.Bot.Builder.Teams.TeamHistoryBot
             builder.RegisterType<DenyNonTeamMessage>().As<IMiddleware>().SingleInstance();
 
             builder.RegisterType<MessageActivityHandler>().As<IMessageActivityHandler>().SingleInstance();
+
             builder.RegisterType<TeamsConversationUpdateActivityHandler>().As<ITeamsConversationUpdateActivityHandler>().SingleInstance();
-            builder.RegisterType<TeamSpecificConversationState<TeamOperationHistory>>().As<IMiddleware>().SingleInstance();
+            builder.RegisterType<TeamSpecificConversationState>().As<BotState>().SingleInstance();
+            builder.Register<IMiddleware>((context) => context.Resolve<BotState>());
+            builder.Register<IStatePropertyAccessor<TeamOperationHistory>>((context) =>
+                context.Resolve<TeamSpecificConversationState>().CreateProperty<TeamOperationHistory>("TeamHistory"));
 
             builder.RegisterType<TeamsActivityProcessor>().As<IActivityProcessor>().SingleInstance();
             builder.RegisterType<CosmosDbStorage>().As<IStorage>().SingleInstance();

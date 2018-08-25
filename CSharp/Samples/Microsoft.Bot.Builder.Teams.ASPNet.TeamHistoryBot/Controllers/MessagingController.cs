@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.Bot.Builder.Abstractions;
 using Microsoft.Bot.Schema;
@@ -37,10 +39,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamsMemberHistoryBot.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> PostActivityAsync([FromBody] Activity activity)
         {
-            var activityResponse = await this.botFrameworkAdapter.ProcessActivity(
+            var activityResponse = await this.botFrameworkAdapter.ProcessActivityAsync(
                 this.Request.Headers.Authorization.ToString(),
                 activity,
-                this.activityProcessor.ProcessIncomingActivityAsync);
+                this.activityProcessor.ProcessIncomingActivityAsync,
+                CancellationToken.None).ConfigureAwait(false);
 
             if (activityResponse == null)
             {

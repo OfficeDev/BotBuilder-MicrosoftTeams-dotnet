@@ -22,7 +22,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         /// <param name="mentionedEntity">The mentioned entity.</param>
         /// <param name="mentionText">The mention text. This is how you want to mention the entity.</param>
         /// <returns>Activity with added mention.</returns>
-        /// <exception cref="Rest.ValidationException">Either mentioned user name or mentionText must have a value</exception>
+        /// <exception cref="Rest.ValidationException">Either mentioned user name or mentionText must have a value.</exception>
         public T AddMentionToText<T>(
             T activity,
             ChannelAccount mentionedEntity,

@@ -37,10 +37,11 @@ namespace Microsoft.Bot.Builder.Teams.HRBot.Controllers
 
         public async Task<IActionResult> PostActivityAsync([FromBody] Activity activity)
         {
-            var activityResponse = await this.botFrameworkAdapter.ProcessActivity(
+            var activityResponse = await this.botFrameworkAdapter.ProcessActivityAsync(
                 this.Request.Headers["Authorization"],
                 activity,
-                this.activityProcessor.ProcessIncomingActivityAsync);
+                this.activityProcessor.ProcessIncomingActivityAsync,
+                this.HttpContext.RequestAborted);
 
             if (activityResponse == null)
             {

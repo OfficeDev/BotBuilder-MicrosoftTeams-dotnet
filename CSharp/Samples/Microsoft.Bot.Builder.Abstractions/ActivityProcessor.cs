@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
 
@@ -28,11 +29,11 @@ namespace Microsoft.Bot.Builder.Abstractions
             this.messageReactionActivityHandler = messageReactionActivityHandler;
         }
 
-        public virtual async Task ProcessIncomingActivityAsync(ITurnContext turnContext)
+        public virtual async Task ProcessIncomingActivityAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             switch (turnContext.Activity.Type)
             {
-                case (ActivityTypes.Message):
+                case ActivityTypes.Message:
                     {
                         if (this.messageActivityHandler != null)
                         {
@@ -41,7 +42,8 @@ namespace Microsoft.Bot.Builder.Abstractions
 
                         return;
                     }
-                case (ActivityTypes.ConversationUpdate):
+
+                case ActivityTypes.ConversationUpdate:
                     {
                         if (this.conversationUpdateActivityHandler != null)
                         {
@@ -50,17 +52,19 @@ namespace Microsoft.Bot.Builder.Abstractions
 
                         return;
                     }
-                case (ActivityTypes.Invoke):
+
+                case ActivityTypes.Invoke:
                     {
                         if (this.invokeActivityHandler != null)
                         {
                             InvokeResponse invokeResponse = await this.invokeActivityHandler.HandleInvokeTask(turnContext);
-                            await turnContext.SendActivity(new Activity { Value = invokeResponse });
+                            await turnContext.SendActivityAsync(new Activity { Value = invokeResponse });
                         }
 
                         return;
                     }
-                case (ActivityTypes.MessageReaction):
+
+                case ActivityTypes.MessageReaction:
                     {
                         if (this.messageReactionActivityHandler != null)
                         {

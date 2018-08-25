@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.Bot.Builder.Abstractions.Teams
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate;
     using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
@@ -29,11 +30,11 @@
             this.messageReactionActivityHandler = messageReactionActivityHandler;
         }
 
-        public virtual async Task ProcessIncomingActivityAsync(ITurnContext turnContext)
+        public virtual async Task ProcessIncomingActivityAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             switch (turnContext.Activity.Type)
             {
-                case (ActivityTypes.Message):
+                case ActivityTypes.Message:
                     {
                         if (this.messageActivityHandler != null)
                         {
@@ -42,7 +43,8 @@
 
                         return;
                     }
-                case (ActivityTypes.ConversationUpdate):
+
+                case ActivityTypes.ConversationUpdate:
                     {
                         if (this.conversationUpdateActivityHandler != null)
                         {
@@ -51,12 +53,13 @@
 
                         return;
                     }
-                case (ActivityTypes.Invoke):
+
+                case ActivityTypes.Invoke:
                     {
                         if (this.invokeActivityHandler != null)
                         {
                             InvokeResponse invokeResponse = await this.ProcessTeamsInvokeActivityAsync(turnContext);
-                            await turnContext.SendActivity(
+                            await turnContext.SendActivityAsync(
                                 new Activity
                                 {
                                     Value = invokeResponse,
@@ -66,7 +69,8 @@
 
                         return;
                     }
-                case (ActivityTypes.MessageReaction):
+
+                case ActivityTypes.MessageReaction:
                     {
                         if (this.messageReactionActivityHandler != null)
                         {
@@ -100,6 +104,7 @@
 
                                 return;
                             }
+
                         case "teamMemberRemoved":
                             {
                                 await this.conversationUpdateActivityHandler.HandleTeamMembersRemovedEventAsync(new TeamMembersRemovedEvent
@@ -112,6 +117,7 @@
 
                                 return;
                             }
+
                         case "channelCreated":
                             {
                                 await this.conversationUpdateActivityHandler.HandleChannelCreatedEventAsync(new ChannelCreatedEvent
@@ -124,6 +130,7 @@
 
                                 return;
                             }
+
                         case "channelDeleted":
                             {
                                 await this.conversationUpdateActivityHandler.HandleChannelDeletedEventAsync(new ChannelDeletedEvent
@@ -136,6 +143,7 @@
 
                                 return;
                             }
+
                         case "channelRenamed":
                             {
                                 await this.conversationUpdateActivityHandler.HandleChannelRenamedEventAsync(new ChannelRenamedEvent
@@ -148,6 +156,7 @@
 
                                 return;
                             }
+
                         case "teamRenamed":
                             {
                                 await this.conversationUpdateActivityHandler.HandleTeamRenamedEventAsync(new TeamRenamedEvent
@@ -168,7 +177,7 @@
 
         private async Task<InvokeResponse> ProcessTeamsInvokeActivityAsync(ITurnContext turnContext)
         {
-            ITeamsExtension teamsExtension = turnContext.Services.Get<ITeamsExtension>();
+            ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
 
             if (teamsExtension.IsRequestComposeExtensionQuery())
             {

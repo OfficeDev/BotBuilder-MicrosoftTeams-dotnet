@@ -10,6 +10,7 @@ namespace Microsoft.Bot.Builder.Teams
     using System.Linq;
     using System.Net.Http;
     using System.Security.Claims;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Teams.Internal;
     using Microsoft.Bot.Connector.Authentication;
@@ -95,6 +96,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// </summary>
         /// <param name="context">The context object for this turn.</param>
         /// <param name="nextDelegate">The delegate to call to continue the bot middleware pipeline.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>
         /// Task tracking operation.
         /// </returns>
@@ -108,9 +110,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// </remarks>
         /// <seealso cref="ITurnContext" />
         /// <seealso cref="Schema.IActivity" />
-#pragma warning disable UseAsyncSuffix // Use Async suffix. Interface implementation can't change.
-        public async Task OnTurn(ITurnContext context, MiddlewareSet.NextDelegate nextDelegate)
-#pragma warning restore UseAsyncSuffix // Use Async suffix. Interface implementation can't change.
+        public async Task OnTurnAsync(ITurnContext context, NextDelegate nextDelegate, CancellationToken cancellationToken = default(CancellationToken))
         {
             BotAssert.ContextNotNull(context);
 
@@ -120,7 +120,7 @@ namespace Microsoft.Bot.Builder.Teams
                 this.AssertRequestIsFromValidTenant(context);
 
                 // BotFrameworkAdapter when processing activity, post Auth adds BotIdentity into the context.
-                ClaimsIdentity claimsIdentity = context.Services.Get<ClaimsIdentity>("BotIdentity");
+                ClaimsIdentity claimsIdentity = context.TurnState.Get<ClaimsIdentity>("BotIdentity");
 
                 // If we failed to find ClaimsIdentity, create a new AnonymousIdentity. This tells us that Auth is off.
                 if (claimsIdentity == null)
@@ -130,10 +130,10 @@ namespace Microsoft.Bot.Builder.Teams
 
                 ITeamsConnectorClient teamsConnectorClient = await this.CreateTeamsConnectorClientAsync(context.Activity.ServiceUrl, claimsIdentity).ConfigureAwait(false);
 
-                context.Services.Add((ITeamsExtension)new TeamsExtension(context, teamsConnectorClient));
+                context.TurnState.Add((ITeamsExtension)new TeamsExtension(context, teamsConnectorClient));
             }
 
-            await nextDelegate().ConfigureAwait(false);
+            await nextDelegate(cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>

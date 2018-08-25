@@ -21,7 +21,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// <summary>
         /// Adds the mention to text. Mention is added at the end of existing text.
         /// </summary>
-        /// <typeparam name="T">Type of activity</typeparam>
+        /// <typeparam name="T">Type of activity.</typeparam>
         /// <param name="activity">The activity.</param>
         /// <param name="mentionedEntity">The mentioned entity.</param>
         /// <param name="mentionText">The mention text.</param>

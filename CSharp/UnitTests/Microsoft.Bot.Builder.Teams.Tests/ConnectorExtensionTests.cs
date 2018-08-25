@@ -78,7 +78,6 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                     });
 
                     ConnectorClient conClient = new ConnectorClient(new Uri("https://testservice.com"), "Test", "Test", testDelegatingHandler);
-                    conClient.UseSharedHttpClient = false;
 
                     var memberList = (await conClient.Conversations.GetConversationMembersAsync("TestConversationId").ConfigureAwait(false))
                         .ToList()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,17 +9,18 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
 {
     public class ReminderTextRecognizer : IRecognizer
     {
-        public Task<RecognizerResult> Recognize(string utterance, CancellationToken ct)
+        public Task<RecognizerResult> RecognizeAsync(ITurnContext turnContext, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
-            return Task.FromResult(this.RecognizeInternal(utterance));
+            return Task.FromResult(this.RecognizeInternal(turnContext.Activity.Text));
         }
 
-        public Task<T> Recognize<T>(string utterance, CancellationToken ct) where T : IRecognizerConvert, new()
+        public Task<T> RecognizeAsync<T>(ITurnContext turnContext, CancellationToken ct)
+            where T : IRecognizerConvert, new()
         {
             ct.ThrowIfCancellationRequested();
             T result = new T();
-            RecognizerResult recognizerResult = this.RecognizeInternal(utterance);
+            RecognizerResult recognizerResult = this.RecognizeInternal(turnContext.Activity.Text);
             result.Convert(recognizerResult);
             return Task.FromResult(result);
         }
@@ -86,9 +88,9 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
 
                 return new RecognizerResult
                 {
-                    Intents = new JObject
+                    Intents = new Dictionary<string, IntentScore>
                     {
-                        { "RemindMe", 0.9 }
+                        { "RemindMe", new IntentScore { Score = 0.9 } }
                     },
                     Entities = new JObject
                     {

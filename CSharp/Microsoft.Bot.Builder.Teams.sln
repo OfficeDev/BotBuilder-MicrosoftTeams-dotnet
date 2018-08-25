@@ -31,13 +31,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Swagger\TeamsAPI.json = ..\Swagger\TeamsAPI.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.ComposeExtension", "Samples\Microsoft.Bot.Builder.Teams.ComposeExtension\Microsoft.Bot.Builder.Teams.ComposeExtension.csproj", "{0A885953-CB7E-48D4-B4CB-01DA5ABAB7A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ComposeExtension", "Samples\Microsoft.Bot.Builder.Teams.ComposeExtension\Microsoft.Bot.Builder.Teams.ComposeExtension.csproj", "{0A885953-CB7E-48D4-B4CB-01DA5ABAB7A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot.csproj", "{FA5885B2-F65A-4CC2-8273-C0E4178BD492}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Microsoft.Bot.Builder.Teams.TeamHistoryBot.csproj", "{76E95DCE-C9EB-438D-9751-1388B5D693D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.HRBot", "Samples\Microsoft.Bot.Builder.Teams.HRBot\Microsoft.Bot.Builder.Teams.HRBot.csproj", "{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.HRBot", "Samples\Microsoft.Bot.Builder.Teams.HRBot\Microsoft.Bot.Builder.Teams.HRBot.csproj", "{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

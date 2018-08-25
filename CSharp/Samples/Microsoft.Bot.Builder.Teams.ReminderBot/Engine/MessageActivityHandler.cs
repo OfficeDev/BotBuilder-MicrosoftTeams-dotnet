@@ -23,11 +23,11 @@ namespace Microsoft.Bot.Builder.Teams.ReminderBot.Engine
 
         public async Task HandleMessageAsync(ITurnContext turnContext)
         {
-            RecognizerResult recognizerResult = await this.recognizer.Recognize(turnContext.Activity.Text, CancellationToken.None);
+            RecognizerResult recognizerResult = await this.recognizer.RecognizeAsync(turnContext, CancellationToken.None);
 
             if (recognizerResult.Intents == null || recognizerResult.Intents["RemindMe"] == null)
             {
-                await turnContext.SendActivity("Sorry, I did not get that");
+                await turnContext.SendActivityAsync("Sorry, I did not get that");
             }
             else
             {
