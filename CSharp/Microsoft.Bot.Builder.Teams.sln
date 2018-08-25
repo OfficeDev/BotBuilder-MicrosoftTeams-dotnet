@@ -9,35 +9,35 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Schema.Teams"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Connector.Teams", "Microsoft.Bot.Connector.Teams\Microsoft.Bot.Connector.Teams.csproj", "{FD84EFEB-A45A-4B72-A517-2E766EF80940}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DI-Samples", "DI-Samples", "{8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}"
 	ProjectSection(SolutionItems) = preProject
-		Samples\ReadMe.MD = Samples\ReadMe.MD
+		DI-Samples\ReadMe.MD = DI-Samples\ReadMe.MD
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8BAE4F38-1C1E-4C64-B8AE-C87A040A995C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.Tests", "UnitTests\Microsoft.Bot.Builder.Teams.Tests\Microsoft.Bot.Builder.Teams.Tests.csproj", "{91418A9A-1DF2-4D97-9FD5-3AF6885BAA10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ReminderBot", "Samples\Microsoft.Bot.Builder.Teams.ReminderBot\Microsoft.Bot.Builder.Teams.ReminderBot.csproj", "{12806F9B-359D-41CD-B8E6-E698D6EB8C23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ReminderBot", "DI-Samples\Microsoft.Bot.Builder.Teams.ReminderBot\Microsoft.Bot.Builder.Teams.ReminderBot.csproj", "{12806F9B-359D-41CD-B8E6-E698D6EB8C23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.SampleMiddlewares", "Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj", "{AB64B4BD-5BEE-410F-B1C1-162CAB125B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.SampleMiddlewares", "DI-Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj", "{AB64B4BD-5BEE-410F-B1C1-162CAB125B81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions", "Samples\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj", "{3317EBF0-F306-478D-B421-C58A72F401AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions", "DI-Samples\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj", "{3317EBF0-F306-478D-B421-C58A72F401AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions.Teams", "Samples\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj", "{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions.Teams", "DI-Samples\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj", "{0CF53550-43C2-4BD2-BF67-3A7FD9F48120}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16CEE01F-F897-4FAD-99F7-DC7328BD4DA1}"
 	ProjectSection(SolutionItems) = preProject
 		..\Swagger\TeamsAPI.json = ..\Swagger\TeamsAPI.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ComposeExtension", "Samples\Microsoft.Bot.Builder.Teams.ComposeExtension\Microsoft.Bot.Builder.Teams.ComposeExtension.csproj", "{0A885953-CB7E-48D4-B4CB-01DA5ABAB7A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.ComposeExtension", "DI-Samples\Microsoft.Bot.Builder.Teams.ComposeExtension\Microsoft.Bot.Builder.Teams.ComposeExtension.csproj", "{0A885953-CB7E-48D4-B4CB-01DA5ABAB7A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot.csproj", "{FA5885B2-F65A-4CC2-8273-C0E4178BD492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot", "DI-Samples\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot\Microsoft.Bot.Builder.Teams.ASPNet.TeamHistoryBot.csproj", "{FA5885B2-F65A-4CC2-8273-C0E4178BD492}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamHistoryBot", "Samples\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Microsoft.Bot.Builder.Teams.TeamHistoryBot.csproj", "{76E95DCE-C9EB-438D-9751-1388B5D693D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamHistoryBot", "DI-Samples\Microsoft.Bot.Builder.Teams.TeamHistoryBot\Microsoft.Bot.Builder.Teams.TeamHistoryBot.csproj", "{76E95DCE-C9EB-438D-9751-1388B5D693D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.HRBot", "Samples\Microsoft.Bot.Builder.Teams.HRBot\Microsoft.Bot.Builder.Teams.HRBot.csproj", "{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.HRBot", "DI-Samples\Microsoft.Bot.Builder.Teams.HRBot\Microsoft.Bot.Builder.Teams.HRBot.csproj", "{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
