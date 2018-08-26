@@ -34,7 +34,15 @@
         protected override string GetStorageKey(ITurnContext turnContext)
         {
             TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
-            return $"conversation/{turnContext.Activity.ChannelId}/{teamsChannelData.Team.Id}";
+
+            if (string.IsNullOrEmpty(teamsChannelData.Team?.Id))
+            {
+                return $"chat/{turnContext.Activity.ChannelId}/{turnContext.Activity.Conversation.Id}";
+            }
+            else
+            {
+                return $"team/{turnContext.Activity.ChannelId}/{teamsChannelData.Team.Id}";
+            }
         }
     }
 }

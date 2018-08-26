@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.HRBot", "DI-Samples\Microsoft.Bot.Builder.Teams.HRBot\Microsoft.Bot.Builder.Teams.HRBot.csproj", "{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BFStyle-Samples", "BFStyle-Samples", "{696D57E4-820D-47AD-BE30-79A32B390604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.TeamEchoBot", "BFStyle-Samples\Microsoft.Bot.Builder.Teams.TeamEchoBot\Microsoft.Bot.Builder.Teams.TeamEchoBot.csproj", "{662E25A2-78B8-4AEB-AC52-2327FBB13EC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,10 @@ Global
 		{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37F2FC7C-F658-4B51-8867-D6ABE5D905F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662E25A2-78B8-4AEB-AC52-2327FBB13EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662E25A2-78B8-4AEB-AC52-2327FBB13EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662E25A2-78B8-4AEB-AC52-2327FBB13EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662E25A2-78B8-4AEB-AC52-2327FBB13EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +115,7 @@ Global
 		{FA5885B2-F65A-4CC2-8273-C0E4178BD492} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{76E95DCE-C9EB-438D-9751-1388B5D693D8} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
 		{37F2FC7C-F658-4B51-8867-D6ABE5D905F9} = {8DAF7066-DD7F-4FAA-8B08-9A7268EE8D3B}
+		{662E25A2-78B8-4AEB-AC52-2327FBB13EC4} = {696D57E4-820D-47AD-BE30-79A32B390604}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16728CD-744D-4803-BE18-14BF0CEC1DD7}
