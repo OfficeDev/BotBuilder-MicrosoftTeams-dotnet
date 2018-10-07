@@ -20,11 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.AuditBot", "Samples\Microsoft.Bot.Builder.Teams.AuditBot\Microsoft.Bot.Builder.Teams.AuditBot.csproj", "{5C75E01F-FE5C-4287-B757-F974229BE917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.AuditBot", "Samples\Microsoft.Bot.Builder.Teams.AuditBot\Microsoft.Bot.Builder.Teams.AuditBot.csproj", "{5C75E01F-FE5C-4287-B757-F974229BE917}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.RemindMeBot", "Samples\Microsoft.Bot.Builder.Teams.RemindMeBot\Microsoft.Bot.Builder.Teams.RemindMeBot.csproj", "{5A274756-22D6-4C4D-BD52-A37A58266D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension", "Samples\Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension\Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.csproj", "{CF36B626-B13D-4790-B4AB-1A3F44926C71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension", "Samples\Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension\Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.csproj", "{CF36B626-B13D-4790-B4AB-1A3F44926C71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions", "Samples\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj", "{5F511775-1A93-4026-8780-1EE6F675F87B}"
 EndProject
@@ -33,6 +33,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.SampleMiddlewares", "Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj", "{27E53704-CCCB-4008-9622-12BD4A5870DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamEchoBot", "Samples\Microsoft.Bot.Builder.Teams.TeamEchoBot\Microsoft.Bot.Builder.Teams.TeamEchoBot.csproj", "{4B71E075-36F3-48AB-A77C-BF11D521C9BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.AuditBot.AspNet", "Samples\Microsoft.Bot.Builder.Teams.AuditBot.AspNet\Microsoft.Bot.Builder.Teams.AuditBot.AspNet.csproj", "{732F6086-455E-41FF-9187-C030C70A1EC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732F6086-455E-41FF-9187-C030C70A1EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732F6086-455E-41FF-9187-C030C70A1EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732F6086-455E-41FF-9187-C030C70A1EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732F6086-455E-41FF-9187-C030C70A1EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{27E53704-CCCB-4008-9622-12BD4A5870DE} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
+		{732F6086-455E-41FF-9187-C030C70A1EC4} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16728CD-744D-4803-BE18-14BF0CEC1DD7}
