@@ -1,5 +1,5 @@
 ﻿{
-  "name": "AuditBot",
+  "name": "WikipediaMessagingExtension",
   "services": [
     {
       "type": "endpoint",
