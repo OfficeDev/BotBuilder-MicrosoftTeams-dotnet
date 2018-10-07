@@ -1,0 +1,15 @@
+﻿{
+  "name": "AuditBot",
+  "services": [
+    {
+      "type": "endpoint",
+      "name": "development",
+      "endpoint": "",
+      "appId": "36c331a0-5800-403c-bfff-c9a3bec2a3c5",
+      "appPassword": "vqTVA2)_mxjcpWAFT8810~%",
+      "id": "1"
+    }
+  ],
+  "padlock": "",
+  "version": "2.0"
+}
