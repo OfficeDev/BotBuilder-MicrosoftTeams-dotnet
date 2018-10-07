@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Micosoft.Bot.Builder.Teams.RemindMeBot
+namespace Microsoft.Bot.Builder.Teams.RemindMeBot
 {
     public class Startup
     {

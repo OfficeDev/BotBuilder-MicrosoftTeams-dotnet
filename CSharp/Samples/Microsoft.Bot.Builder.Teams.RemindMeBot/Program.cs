@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Micosoft.Bot.Builder.Teams.RemindMeBot
+namespace Microsoft.Bot.Builder.Teams.RemindMeBot
 {
     public class Program
     {
