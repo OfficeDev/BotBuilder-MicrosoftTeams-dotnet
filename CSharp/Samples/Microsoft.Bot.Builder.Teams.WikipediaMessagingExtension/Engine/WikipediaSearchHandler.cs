@@ -158,7 +158,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         /// <returns>Wikipedia search result.</returns>
         private async Task<WikipediaQueryResult> InvokeWikipediaApiAsync(string apiUrl)
         {
-            var response = await this.httpClient.GetAsync(apiUrl).ConfigureAwait(false);
+            HttpResponseMessage response = await this.httpClient.GetAsync(apiUrl).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return JsonConvert.DeserializeObject<WikipediaQueryResult>(responseBody);

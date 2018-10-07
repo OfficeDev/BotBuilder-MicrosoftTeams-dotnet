@@ -28,7 +28,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
         /// <param name="env">The hosting env.</param>
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
+            IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
@@ -73,13 +73,13 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 
             services.AddSingleton(sp =>
             {
-                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                BotFrameworkOptions options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
                 if (options == null)
                 {
                     throw new InvalidOperationException("BotFrameworkOptions must be configured prior to setting up the State Accessors");
                 }
 
-                var conversationState = options.State.OfType<TeamSpecificConversationState>().FirstOrDefault();
+                TeamSpecificConversationState conversationState = options.State.OfType<TeamSpecificConversationState>().FirstOrDefault();
                 if (conversationState == null)
                 {
                     throw new InvalidOperationException("ConversationState must be defined and added before adding conversation-scoped state accessors.");

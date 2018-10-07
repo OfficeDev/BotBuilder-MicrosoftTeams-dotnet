@@ -78,7 +78,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 new MicrosoftAppCredentials("Test", "Test"),
                 testDelegatingHandler);
 
-            var callResponse = await conClient.Conversations.SendToConversationAsync(activity).ConfigureAwait(false);
+            ResourceResponse callResponse = await conClient.Conversations.SendToConversationAsync(activity).ConfigureAwait(false);
 
             Assert.IsTrue(conClient.Conversations.SendToConversation(activity).Id == "TestId");
         }

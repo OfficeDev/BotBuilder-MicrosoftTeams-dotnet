@@ -152,7 +152,7 @@ namespace Microsoft.Bot.Builder.Teams
 
             // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For
             // unauthenticated requests we have anonymouse identity provided auth is disabled.
-            var botAppIdClaim = claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AudienceClaim)
+            Claim botAppIdClaim = claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AudienceClaim)
                 ??
                 claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AppIdClaim);
 
@@ -160,7 +160,7 @@ namespace Microsoft.Bot.Builder.Teams
             if (botAppIdClaim != null)
             {
                 string botId = botAppIdClaim.Value;
-                var appCredentials = await this.GetAppCredentialsAsync(botId).ConfigureAwait(false);
+                MicrosoftAppCredentials appCredentials = await this.GetAppCredentialsAsync(botId).ConfigureAwait(false);
                 return this.CreateTeamsConnectorClient(serviceUrl, appCredentials);
             }
             else
@@ -182,7 +182,7 @@ namespace Microsoft.Bot.Builder.Teams
                 return MicrosoftAppCredentials.Empty;
             }
 
-            if (!this.appCredentialMap.TryGetValue(appId, out var appCredentials))
+            if (!this.appCredentialMap.TryGetValue(appId, out MicrosoftAppCredentials appCredentials))
             {
                 string appPassword = await this.credentialProvider.GetAppPasswordAsync(appId).ConfigureAwait(false);
                 appCredentials = new MicrosoftAppCredentials(appId, appPassword);

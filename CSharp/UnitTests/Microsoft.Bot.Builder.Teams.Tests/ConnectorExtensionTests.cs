@@ -5,6 +5,7 @@
 namespace Microsoft.Bot.Builder.Teams.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -79,7 +80,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
                     ConnectorClient conClient = new ConnectorClient(new Uri("https://testservice.com"), "Test", "Test", testDelegatingHandler);
 
-                    var memberList = (await conClient.Conversations.GetConversationMembersAsync("TestConversationId").ConfigureAwait(false))
+                    List<TeamsChannelAccount> memberList = (await conClient.Conversations.GetConversationMembersAsync("TestConversationId").ConfigureAwait(false))
                         .ToList()
                         .ConvertAll(member =>
                         {

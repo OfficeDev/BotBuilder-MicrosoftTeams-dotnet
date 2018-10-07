@@ -35,7 +35,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
         {
             this.isProduction = env.IsProduction();
 
-            var builder = new ConfigurationBuilder()
+            IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
@@ -55,8 +55,8 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var secretKey = this.Configuration.GetSection("botFileSecret")?.Value;
-            var botFilePath = this.Configuration.GetSection("botFilePath")?.Value;
+            string secretKey = this.Configuration.GetSection("botFileSecret")?.Value;
+            string botFilePath = this.Configuration.GetSection("botFilePath")?.Value;
 
             // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
             BotConfiguration botConfig = null;
@@ -66,7 +66,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
             }
             catch
             {
-                var msg = "Error reading bot file. Please ensure you have valid botFilePath and botFileSecret set for your environment.\n" +
+                string msg = "Error reading bot file. Please ensure you have valid botFilePath and botFileSecret set for your environment.\n" +
                     " - The botFileSecret is available under appsettings for your Azure Bot Service bot.\n" +
                     " - If you are running this bot locally, consider adding a appsettings.json file with botFilePath and botFileSecret.\n" +
                     " - See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.\n\n";
@@ -76,8 +76,8 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
             services.AddSingleton(sp => botConfig);
 
             // Retrieve current endpoint.
-            var environment = this.isProduction ? "production" : "development";
-            var botService = botConfig.Services.Where(s => s.Type == "endpoint" && s.Name == environment).FirstOrDefault();
+            string environment = this.isProduction ? "production" : "development";
+            ConnectedService botService = botConfig.Services.Where(s => s.Type == "endpoint" && s.Name == environment).FirstOrDefault();
             if (!(botService is EndpointService endpointService))
             {
                 throw new InvalidOperationException($"The .bot file does not contain an endpoint with name '{environment}'.");

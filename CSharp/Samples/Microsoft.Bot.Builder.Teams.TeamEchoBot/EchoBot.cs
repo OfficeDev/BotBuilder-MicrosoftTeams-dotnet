@@ -49,7 +49,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                     // --> Get Teams Extensions.
                     ITeamsExtension teamsExtension = context.TurnState.Get<ITeamsExtension>();
 
-                    var state = await this.echoStateAccessor.CounterState.GetAsync(context, () => new EchoState()).ConfigureAwait(false);
+                    EchoState state = await this.echoStateAccessor.CounterState.GetAsync(context, () => new EchoState()).ConfigureAwait(false);
 
                     state.TurnCount++;
 

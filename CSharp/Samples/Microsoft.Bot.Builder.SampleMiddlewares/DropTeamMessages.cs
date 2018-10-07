@@ -1,4 +1,4 @@
-﻿// <copyright file="DenyTeamMessages.cs" company="Microsoft">
+﻿// <copyright file="DropTeamMessages.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
@@ -12,7 +12,7 @@ namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
     /// Automatically drops all message from a Team.
     /// </summary>
     /// <seealso cref="IMiddleware" />
-    public class DenyTeamMessages : IMiddleware
+    public class DropTeamMessages : IMiddleware
     {
         /// <summary>
         /// Called in the activity processing pipeline to process incoming activity.
@@ -28,10 +28,6 @@ namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
             if (teamsChannelData.Team == null)
             {
                 await next(cancellationToken).ConfigureAwait(false);
-            }
-            else
-            {
-                await context.SendActivityAsync("This bot does not work in teams").ConfigureAwait(false);
             }
         }
     }

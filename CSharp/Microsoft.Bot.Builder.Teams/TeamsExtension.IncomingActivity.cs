@@ -105,7 +105,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
                 return activity.Text;
             }
 
-            var mentionEntities = activity.Entities.Where(entity => entity.Type.Equals("mention", StringComparison.OrdinalIgnoreCase));
+            IEnumerable<Entity> mentionEntities = activity.Entities.Where(entity => entity.Type.Equals("mention", StringComparison.OrdinalIgnoreCase));
 
             // Case 2. No Mention entities.
             if (!mentionEntities.Any())

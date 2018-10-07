@@ -36,7 +36,7 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
             config.MapBotFramework(botConfig =>
             {
                 // Load Connected Services from .bot file
-                var path = HostingEnvironment.MapPath(@"~/BotConfiguration.bot");
+                string path = HostingEnvironment.MapPath(@"~/BotConfiguration.bot");
                 var botConfigurationFile = BotConfiguration.Load(path);
                 var endpointService = (EndpointService)botConfigurationFile.Services.First(s => s.Type == "endpoint");
 
@@ -63,6 +63,9 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
                         null,
                         null));
 
+                // Automatically drop all non Team messages.
+                botConfig.BotFrameworkOptions.Middleware.Add(new DropNonTeamMessages());
+
                 // Create the custom state accessor.
                 // State accessors enable other components to read and write individual properties of state.
                 var accessors = new AuditLogAccessor(conversationState)
@@ -80,7 +83,7 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
             builder.RegisterType<AuditBot>().As<IBot>().InstancePerRequest();
 
             // Set the dependency resolver to be Autofac.
-            var container = builder.Build();
+            IContainer container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }

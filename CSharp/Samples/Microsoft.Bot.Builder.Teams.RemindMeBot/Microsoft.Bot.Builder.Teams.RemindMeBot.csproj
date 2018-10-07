@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj" />
   </ItemGroup>
 
   <ItemGroup>
