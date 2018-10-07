@@ -42,7 +42,6 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 
                 // --> Adding conversation state handler which understands a team as single conversation.
                 options.State.Add(new TeamSpecificConversationState(dataStore));
-                options.Middleware.Add(new BotStateSet(options.State.ToArray()));
 
                 // --> Add Teams Middleware.
                 options.Middleware.Add(
@@ -72,7 +71,14 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                     throw new InvalidOperationException("ConversationState must be defined and added before adding conversation-scoped state accessors.");
                 }
 
-                return conversationState.CreateProperty<EchoState>("State");
+                // Create the custom state accessor.
+                // State accessors enable other components to read and write individual properties of state.
+                var accessors = new EchoStateAccessor(conversationState)
+                {
+                    CounterState = conversationState.CreateProperty<EchoState>(EchoStateAccessor.CounterStateName),
+                };
+
+                return accessors;
             });
         }
 

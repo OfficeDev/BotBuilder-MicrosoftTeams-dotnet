@@ -9,11 +9,11 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 {
     public class EchoBot : IBot
     {
-        private readonly IStatePropertyAccessor<EchoState> stateAccessor;
+        private readonly EchoStateAccessor echoStateAccessor;
 
-        public EchoBot(IStatePropertyAccessor<EchoState> stateAccessor)
+        public EchoBot(EchoStateAccessor echoStateAccessor)
         {
-            this.stateAccessor = stateAccessor;
+            this.echoStateAccessor = echoStateAccessor;
         }
 
         /// <summary>
@@ -34,11 +34,13 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                     // --> Get Teams Extensions.
                     ITeamsExtension teamsExtension = context.TurnState.Get<ITeamsExtension>();
 
-                    var state = await stateAccessor.GetAsync(context, () => new EchoState());
+                    var state = await echoStateAccessor.CounterState.GetAsync(context, () => new EchoState());
 
                     state.TurnCount++;
 
-                    await stateAccessor.SetAsync(context, state);
+                    await echoStateAccessor.CounterState.SetAsync(context, state);
+
+                    await echoStateAccessor.ConversationState.SaveChangesAsync(context);
 
                     string suffixMessage = $"from tenant Id {teamsExtension.GetActivityTenantId()}";
 

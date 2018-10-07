@@ -11,11 +11,17 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.7" />
+    <PackageReference Include="Microsoft.Bot.Configuration" Version="4.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DI-Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="BotConfiguration.bot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
