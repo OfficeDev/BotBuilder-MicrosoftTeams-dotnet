@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // </copyright>
 
-namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
+namespace Microsoft.Bot.Builder.Teams.StateStorage
 {
     using Microsoft.Bot.Schema.Teams;
 

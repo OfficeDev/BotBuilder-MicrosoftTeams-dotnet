@@ -5,7 +5,7 @@
 namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 {
     using System;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Builder.Teams.StateStorage;
 
     /// <summary>
     /// Echo state accessor.

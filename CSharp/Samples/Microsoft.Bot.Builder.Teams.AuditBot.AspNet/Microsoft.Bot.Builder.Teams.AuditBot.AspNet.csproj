@@ -113,11 +113,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="AsyncUsageAnalyzers">
       <Version>1.0.0-alpha003</Version>
@@ -162,10 +158,6 @@
     <ProjectReference Include="..\Microsoft.Bot.Builder.Abstractions\Microsoft.Bot.Builder.Abstractions.csproj">
       <Project>{5f511775-1a93-4026-8780-1ee6f675f87b}</Project>
       <Name>Microsoft.Bot.Builder.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj">
-      <Project>{27E53704-CCCB-4008-9622-12BD4A5870DE}</Project>
-      <Name>Microsoft.Bot.Builder.Teams.SampleMiddlewares</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -30,8 +30,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Abstractions.Teams", "Samples\Microsoft.Bot.Builder.Abstractions.Teams\Microsoft.Bot.Builder.Abstractions.Teams.csproj", "{9A8068B7-2312-447F-B3C3-D1E5E107F91B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.SampleMiddlewares", "Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj", "{27E53704-CCCB-4008-9622-12BD4A5870DE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams.TeamEchoBot", "Samples\Microsoft.Bot.Builder.Teams.TeamEchoBot\Microsoft.Bot.Builder.Teams.TeamEchoBot.csproj", "{4B71E075-36F3-48AB-A77C-BF11D521C9BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.AuditBot.AspNet", "Samples\Microsoft.Bot.Builder.Teams.AuditBot.AspNet\Microsoft.Bot.Builder.Teams.AuditBot.AspNet.csproj", "{732F6086-455E-41FF-9187-C030C70A1EC4}"
@@ -78,10 +76,6 @@ Global
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27E53704-CCCB-4008-9622-12BD4A5870DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27E53704-CCCB-4008-9622-12BD4A5870DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27E53704-CCCB-4008-9622-12BD4A5870DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27E53704-CCCB-4008-9622-12BD4A5870DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -101,7 +95,6 @@ Global
 		{CF36B626-B13D-4790-B4AB-1A3F44926C71} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{5F511775-1A93-4026-8780-1EE6F675F87B} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
-		{27E53704-CCCB-4008-9622-12BD4A5870DE} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{732F6086-455E-41FF-9187-C030C70A1EC4} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 	EndGlobalSection

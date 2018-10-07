@@ -5,7 +5,7 @@
 namespace Microsoft.Bot.Builder.Teams.AuditBot
 {
     using System;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Builder.Teams.StateStorage;
 
     /// <summary>
     /// Accessor to read and write audit logs to storage.

@@ -12,7 +12,8 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
     using Microsoft.Bot.Builder.BotFramework;
     using Microsoft.Bot.Builder.Integration;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Builder.Teams.Middlewares;
+    using Microsoft.Bot.Builder.Teams.StateStorage;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
@@ -57,16 +58,13 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                 // --> Adding conversation state handler which understands a team as single conversation.
                 options.State.Add(new TeamSpecificConversationState(dataStore));
 
+                // Drop all activities not coming from Microsoft Teams.
+                options.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
+
                 // --> Add Teams Middleware.
                 options.Middleware.Add(
                     new TeamsMiddleware(
-                        new ConfigurationCredentialProvider(this.Configuration),
-                        new TeamsMiddlewareOptions
-                        {
-                            EnableTenantFiltering = false,
-                        },
-                        null,
-                        null));
+                        new ConfigurationCredentialProvider(this.Configuration)));
 
                 options.CredentialProvider = new ConfigurationCredentialProvider(this.Configuration);
             });

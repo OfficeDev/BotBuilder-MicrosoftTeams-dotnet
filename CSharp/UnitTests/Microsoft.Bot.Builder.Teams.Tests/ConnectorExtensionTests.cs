@@ -16,6 +16,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
     using Microsoft.Bot.Schema.Teams;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Connector extension tests.
@@ -49,7 +50,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                     Assert.AreEqual("UserId", conversationParameters.Members[0].Id);
                     Assert.AreEqual(
                         sampleActivity.GetChannelData<TeamsChannelData>().Tenant.Id,
-                        conversationParameters.ChannelData.AsJObject().ToObject<TeamsChannelData>().Tenant.Id);
+                        JObject.FromObject(conversationParameters.ChannelData).ToObject<TeamsChannelData>().Tenant.Id);
 
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);

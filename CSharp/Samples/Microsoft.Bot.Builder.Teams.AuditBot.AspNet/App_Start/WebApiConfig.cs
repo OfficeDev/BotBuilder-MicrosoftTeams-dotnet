@@ -13,7 +13,8 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
     using Microsoft.Bot.Builder.Abstractions;
     using Microsoft.Bot.Builder.Abstractions.Teams;
     using Microsoft.Bot.Builder.Integration.AspNet.WebApi;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Builder.Teams.Middlewares;
+    using Microsoft.Bot.Builder.Teams.StateStorage;
     using Microsoft.Bot.Configuration;
     using Microsoft.Bot.Connector.Authentication;
 
@@ -49,22 +50,19 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
 
                 // Create Conversation State object.
                 // The Conversation State object is where we persist anything at the conversation-scope.
-                var conversationState = new TeamSpecificConversationState(dataStore);
+                TeamSpecificConversationState conversationState = new TeamSpecificConversationState(dataStore);
                 botConfig.BotFrameworkOptions.State.Add(conversationState);
+
+                // Drop all activites not received from Microsoft Teams channel.
+                botConfig.BotFrameworkOptions.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
 
                 // --> Add Teams Middleware.
                 botConfig.BotFrameworkOptions.Middleware.Add(
                     new TeamsMiddleware(
-                        new SimpleCredentialProvider(endpointService?.AppId, endpointService?.AppPassword),
-                        new TeamsMiddlewareOptions
-                        {
-                            EnableTenantFiltering = false,
-                        },
-                        null,
-                        null));
+                        new SimpleCredentialProvider(endpointService?.AppId, endpointService?.AppPassword)));
 
                 // Automatically drop all non Team messages.
-                botConfig.BotFrameworkOptions.Middleware.Add(new DropNonTeamMessages());
+                botConfig.BotFrameworkOptions.Middleware.Add(new DropChatActivitiesMiddleware());
 
                 // Create the custom state accessor.
                 // State accessors enable other components to read and write individual properties of state.

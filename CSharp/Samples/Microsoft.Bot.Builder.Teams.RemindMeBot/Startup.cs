@@ -10,8 +10,8 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
+    using Microsoft.Bot.Builder.Teams.Middlewares;
     using Microsoft.Bot.Builder.Teams.RemindMeBot.Engine;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
     using Microsoft.Bot.Configuration;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
@@ -93,7 +93,11 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot
             {
                 options.CredentialProvider = credentialProvider;
 
-                options.Middleware.Add(new DropTeamMessages());
+                // Drop all activities not coming from Microsoft Teams.
+                options.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
+
+                // This bot does not work in Channels.
+                options.Middleware.Add(new DropChannelActivitiesMiddleware());
 
                 // Catches any errors that occur during a conversation turn and logs them.
                 options.OnTurnError = async (context, exception) =>

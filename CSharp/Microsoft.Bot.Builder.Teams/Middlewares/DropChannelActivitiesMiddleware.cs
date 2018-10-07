@@ -1,18 +1,18 @@
-﻿// <copyright file="DropNonTeamMessages.cs" company="Microsoft">
+﻿// <copyright file="DropChannelActivitiesMiddleware.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
-namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
+namespace Microsoft.Bot.Builder.Teams.Middlewares
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
-    /// Automatically drops all non-Team messages.
+    /// Automatically drops all messages from channels.
     /// </summary>
     /// <seealso cref="IMiddleware" />
-    public class DropNonTeamMessages : IMiddleware
+    public class DropChannelActivitiesMiddleware : IMiddleware
     {
         /// <summary>
         /// Called in the activity processing pipeline to process incoming activity.
@@ -25,7 +25,7 @@ namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
         {
             TeamsChannelData teamsChannelData = context.Activity.GetChannelData<TeamsChannelData>();
 
-            if (!string.IsNullOrEmpty(teamsChannelData.Team?.Id))
+            if (teamsChannelData.Team == null)
             {
                 await next(cancellationToken).ConfigureAwait(false);
             }

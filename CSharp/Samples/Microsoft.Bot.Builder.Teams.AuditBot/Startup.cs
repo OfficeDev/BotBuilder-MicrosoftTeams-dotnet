@@ -12,7 +12,8 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
     using Microsoft.Bot.Builder.Abstractions.Teams;
     using Microsoft.Bot.Builder.Integration;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Builder.Teams.Middlewares;
+    using Microsoft.Bot.Builder.Teams.StateStorage;
     using Microsoft.Bot.Configuration;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
@@ -98,19 +99,16 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
 
                 options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
+                // Drop all activities not coming from Microsoft Teams.
+                options.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
+
                 // --> Add Teams Middleware.
                 options.Middleware.Add(
                     new TeamsMiddleware(
-                        options.CredentialProvider,
-                        new TeamsMiddlewareOptions
-                        {
-                            EnableTenantFiltering = false,
-                        },
-                        null,
-                        null));
+                        options.CredentialProvider));
 
                 // Drop all non team messages.
-                options.Middleware.Add(new DropNonTeamMessages());
+                options.Middleware.Add(new DropChatActivitiesMiddleware());
             });
 
             services.AddSingleton(sp =>

@@ -11,6 +11,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
     using Microsoft.Bot.Builder.Abstractions;
     using Microsoft.Bot.Builder.Abstractions.Teams;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
+    using Microsoft.Bot.Builder.Teams.Middlewares;
     using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine;
     using Microsoft.Bot.Configuration;
     using Microsoft.Bot.Connector.Authentication;
@@ -94,13 +95,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
                 // --> Add Teams Middleware.
                 options.Middleware.Add(
                     new TeamsMiddleware(
-                        options.CredentialProvider,
-                        new TeamsMiddlewareOptions
-                        {
-                            EnableTenantFiltering = false,
-                        },
-                        null,
-                        null));
+                        options.CredentialProvider));
             });
         }
 

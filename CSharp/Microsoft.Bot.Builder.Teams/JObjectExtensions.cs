@@ -9,7 +9,7 @@ namespace Microsoft.Bot.Builder.Teams
     /// <summary>
     /// JObject extensions.
     /// </summary>
-    public static class JObjectExtensions
+    internal static class JObjectExtensions
     {
         /// <summary>
         /// Converts <see cref="object"/> into <see cref="JObject"/>.
