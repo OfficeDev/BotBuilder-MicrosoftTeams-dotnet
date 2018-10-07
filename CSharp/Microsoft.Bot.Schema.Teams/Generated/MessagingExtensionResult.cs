@@ -16,20 +16,20 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// Compose extension result
+    /// Messaging extension result
     /// </summary>
-    public partial class ComposeExtensionResult
+    public partial class MessagingExtensionResult
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionResult class.
+        /// Initializes a new instance of the MessagingExtensionResult class.
         /// </summary>
-        public ComposeExtensionResult()
+        public MessagingExtensionResult()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionResult class.
+        /// Initializes a new instance of the MessagingExtensionResult class.
         /// </summary>
         /// <param name="attachmentLayout">Hint for how to deal with multiple
         /// attachments.</param>
@@ -37,7 +37,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="attachments">(Only when type is result)
         /// Attachments</param>
         /// <param name="text">(Only when type is message) Text</param>
-        public ComposeExtensionResult(string attachmentLayout = default(string), string type = default(string), IList<ComposeExtensionAttachment> attachments = default(IList<ComposeExtensionAttachment>), ComposeExtensionSuggestedAction suggestedActions = default(ComposeExtensionSuggestedAction), string text = default(string))
+        public MessagingExtensionResult(string attachmentLayout = default(string), string type = default(string), IList<MessagingExtensionAttachment> attachments = default(IList<MessagingExtensionAttachment>), MessagingExtensionSuggestedAction suggestedActions = default(MessagingExtensionSuggestedAction), string text = default(string))
         {
             AttachmentLayout = attachmentLayout;
             Type = type;
@@ -68,12 +68,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// Gets or sets (Only when type is result) Attachments
         /// </summary>
         [JsonProperty(PropertyName = "attachments")]
-        public IList<ComposeExtensionAttachment> Attachments { get; set; }
+        public IList<MessagingExtensionAttachment> Attachments { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "suggestedActions")]
-        public ComposeExtensionSuggestedAction SuggestedActions { get; set; }
+        public MessagingExtensionSuggestedAction SuggestedActions { get; set; }
 
         /// <summary>
         /// Gets or sets (Only when type is message) Text

@@ -606,8 +606,8 @@
       }
     },
 
-    "ComposeExtensionQueryOptions": {
-      "description": "Compose extensions query options",
+    "MessagingExtensionQueryOptions": {
+      "description": "Messaging extension query options",
       "type": "object",
       "properties": {
         "skip": {
@@ -623,8 +623,8 @@
       }
     },
 
-    "ComposeExtensionParameter": {
-      "description": "Compose extension query parameters",
+    "MessagingExtensionParameter": {
+      "description": "Messaging extension query parameters",
       "type": "object",
       "properties": {
         "name": {
@@ -638,8 +638,8 @@
       }
     },
 
-    "ComposeExtensionQuery": {
-      "description": "Compose extension query",
+    "MessagingExtensionQuery": {
+      "description": "Messaging extension query",
       "type": "object",
       "properties": {
         "commandId": {
@@ -649,10 +649,10 @@
         "parameters": {
           "description": "Parameters for the query",
           "type": "array",
-          "items": { "$ref": "#/definitions/ComposeExtensionParameter" }
+          "items": { "$ref": "#/definitions/MessagingExtensionParameter" }
         },
         "queryOptions": {
-          "$ref": "#/definitions/ComposeExtensionQueryOptions"
+          "$ref": "#/definitions/MessagingExtensionQueryOptions"
         },
         "state": {
           "description": "State parameter passed back to the bot after authentication/configuration flow",
@@ -688,18 +688,18 @@
       }
     },
 
-    "ComposeExtensionResponse": {
-      "description": "Compose extension response",
+    "MessagingExtensionResponse": {
+      "description": "Messaging extension response",
       "type": "object",
       "properties": {
         "composeExtension": {
-          "$ref": "#/definitions/ComposeExtensionResult"
+          "$ref": "#/definitions/MessagingExtensionResult"
         }
       }
     },
 
-    "ComposeExtensionSuggestedAction": {
-      "description": "Compose extension Actions (Only when type is auth or config)",
+    "MessagingExtensionSuggestedAction": {
+      "description": "Messaging extension Actions (Only when type is auth or config)",
       "type": "object",
       "properties": {
         "actions": {
@@ -713,8 +713,8 @@
       }
     },
 
-    "ComposeExtensionResult": {
-      "description": "Compose extension result",
+    "MessagingExtensionResult": {
+      "description": "Messaging extension result",
       "type": "object",
       "properties": {
         "attachmentLayout": {
@@ -729,11 +729,11 @@
           "description": "(Only when type is result) Attachments",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ComposeExtensionAttachment"
+            "$ref": "#/definitions/MessagingExtensionAttachment"
           }
         },
         "suggestedActions": {
-          "$ref": "#/definitions/ComposeExtensionSuggestedAction"
+          "$ref": "#/definitions/MessagingExtensionSuggestedAction"
         },
         "text": {
           "description": "(Only when type is message) Text",
@@ -742,8 +742,8 @@
       }
     },
 
-    "ComposeExtensionAttachment": {
-      "description": "Compose extension attachment.",
+    "MessagingExtensionAttachment": {
+      "description": "Messaging extension attachment.",
       "allOf": [
         {
           "$ref": "#/definitions/Attachment"

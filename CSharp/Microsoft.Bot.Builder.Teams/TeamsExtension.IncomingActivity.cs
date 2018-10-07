@@ -166,10 +166,10 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         }
 
         /// <summary>
-        /// Checks if the activity is a compose extension query.
+        /// Checks if the activity is a messaging extension query.
         /// </summary>
-        /// <returns>True is activity is a compose extension query, false otherwise.</returns>
-        public bool IsRequestComposeExtensionQuery()
+        /// <returns>True is activity is a messaging extension query, false otherwise.</returns>
+        public bool IsRequestMessagingExtensionQuery()
         {
             return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
                 !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
@@ -177,12 +177,12 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         }
 
         /// <summary>
-        /// Gets the compose extension query data.
+        /// Gets the messaging extension query data.
         /// </summary>
-        /// <returns>Compose extension query data.</returns>
-        public ComposeExtensionQuery GetComposeExtensionQueryData()
+        /// <returns>Messaging extension query data.</returns>
+        public MessagingExtensionQuery GetMessagingExtensionQueryData()
         {
-            return this.turnContext.Activity.Value.AsJObject().ToObject<ComposeExtensionQuery>();
+            return this.turnContext.Activity.Value.AsJObject().ToObject<MessagingExtensionQuery>();
         }
 
         /// <summary>

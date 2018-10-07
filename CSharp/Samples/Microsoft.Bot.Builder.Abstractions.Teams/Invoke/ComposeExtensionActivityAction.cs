@@ -11,6 +11,6 @@
         /// <summary>
         /// Gets or sets the compose extension query.
         /// </summary>
-        public ComposeExtensionQuery ComposeExtensionQuery { get; set; }
+        public MessagingExtensionQuery ComposeExtensionQuery { get; set; }
     }
 }

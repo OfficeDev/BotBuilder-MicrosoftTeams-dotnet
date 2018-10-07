@@ -14,27 +14,24 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// Compose extension query parameters
+    /// Messaging extension response
     /// </summary>
-    public partial class ComposeExtensionParameter
+    public partial class MessagingExtensionResponse
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionParameter class.
+        /// Initializes a new instance of the MessagingExtensionResponse class.
         /// </summary>
-        public ComposeExtensionParameter()
+        public MessagingExtensionResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionParameter class.
+        /// Initializes a new instance of the MessagingExtensionResponse class.
         /// </summary>
-        /// <param name="name">Name of the parameter</param>
-        /// <param name="value">Value of the parameter</param>
-        public ComposeExtensionParameter(string name = default(string), object value = default(object))
+        public MessagingExtensionResponse(MessagingExtensionResult composeExtension = default(MessagingExtensionResult))
         {
-            Name = name;
-            Value = value;
+            ComposeExtension = composeExtension;
             CustomInit();
         }
 
@@ -44,16 +41,9 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets name of the parameter
         /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets value of the parameter
-        /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public object Value { get; set; }
+        [JsonProperty(PropertyName = "composeExtension")]
+        public MessagingExtensionResult ComposeExtension { get; set; }
 
     }
 }

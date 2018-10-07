@@ -16,26 +16,26 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// Compose extension query
+    /// Messaging extension query
     /// </summary>
-    public partial class ComposeExtensionQuery
+    public partial class MessagingExtensionQuery
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionQuery class.
+        /// Initializes a new instance of the MessagingExtensionQuery class.
         /// </summary>
-        public ComposeExtensionQuery()
+        public MessagingExtensionQuery()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionQuery class.
+        /// Initializes a new instance of the MessagingExtensionQuery class.
         /// </summary>
         /// <param name="commandId">Id of the command assigned by Bot</param>
         /// <param name="parameters">Parameters for the query</param>
         /// <param name="state">State parameter passed back to the bot after
         /// authentication/configuration flow</param>
-        public ComposeExtensionQuery(string commandId = default(string), IList<ComposeExtensionParameter> parameters = default(IList<ComposeExtensionParameter>), ComposeExtensionQueryOptions queryOptions = default(ComposeExtensionQueryOptions), string state = default(string))
+        public MessagingExtensionQuery(string commandId = default(string), IList<MessagingExtensionParameter> parameters = default(IList<MessagingExtensionParameter>), MessagingExtensionQueryOptions queryOptions = default(MessagingExtensionQueryOptions), string state = default(string))
         {
             CommandId = commandId;
             Parameters = parameters;
@@ -59,12 +59,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// Gets or sets parameters for the query
         /// </summary>
         [JsonProperty(PropertyName = "parameters")]
-        public IList<ComposeExtensionParameter> Parameters { get; set; }
+        public IList<MessagingExtensionParameter> Parameters { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "queryOptions")]
-        public ComposeExtensionQueryOptions QueryOptions { get; set; }
+        public MessagingExtensionQueryOptions QueryOptions { get; set; }
 
         /// <summary>
         /// Gets or sets state parameter passed back to the bot after

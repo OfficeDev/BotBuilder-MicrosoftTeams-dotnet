@@ -14,26 +14,26 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// Compose extensions query options
+    /// Messaging extension query options
     /// </summary>
-    public partial class ComposeExtensionQueryOptions
+    public partial class MessagingExtensionQueryOptions
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionQueryOptions
+        /// Initializes a new instance of the MessagingExtensionQueryOptions
         /// class.
         /// </summary>
-        public ComposeExtensionQueryOptions()
+        public MessagingExtensionQueryOptions()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionQueryOptions
+        /// Initializes a new instance of the MessagingExtensionQueryOptions
         /// class.
         /// </summary>
         /// <param name="skip">Number of entities to skip</param>
         /// <param name="count">Number of entities to fetch</param>
-        public ComposeExtensionQueryOptions(int? skip = default(int?), int? count = default(int?))
+        public MessagingExtensionQueryOptions(int? skip = default(int?), int? count = default(int?))
         {
             Skip = skip;
             Count = count;

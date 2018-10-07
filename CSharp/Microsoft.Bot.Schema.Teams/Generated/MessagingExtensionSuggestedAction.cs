@@ -11,27 +11,32 @@
 namespace Microsoft.Bot.Schema.Teams
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// Compose extension response
+    /// Messaging extension Actions (Only when type is auth or config)
     /// </summary>
-    public partial class ComposeExtensionResponse
+    public partial class MessagingExtensionSuggestedAction
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionResponse class.
+        /// Initializes a new instance of the MessagingExtensionSuggestedAction
+        /// class.
         /// </summary>
-        public ComposeExtensionResponse()
+        public MessagingExtensionSuggestedAction()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionResponse class.
+        /// Initializes a new instance of the MessagingExtensionSuggestedAction
+        /// class.
         /// </summary>
-        public ComposeExtensionResponse(ComposeExtensionResult composeExtension = default(ComposeExtensionResult))
+        /// <param name="actions">Actions</param>
+        public MessagingExtensionSuggestedAction(IList<CardAction> actions = default(IList<CardAction>))
         {
-            ComposeExtension = composeExtension;
+            Actions = actions;
             CustomInit();
         }
 
@@ -41,9 +46,10 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets actions
         /// </summary>
-        [JsonProperty(PropertyName = "composeExtension")]
-        public ComposeExtensionResult ComposeExtension { get; set; }
+        [JsonProperty(PropertyName = "actions")]
+        public IList<CardAction> Actions { get; set; }
 
     }
 }

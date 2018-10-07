@@ -23,7 +23,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             {
                 return new InvokeResponse
                 {
-                    Body = new ComposeExtensionResponse
+                    Body = new MessagingExtensionResponse
                     {
                         ComposeExtension = await this.searchHandler.GetSearchResultAsync(messagingExtensionAction)
                     },
@@ -34,7 +34,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             {
                 return new InvokeResponse
                 {
-                    Body = new ComposeExtensionResult
+                    Body = new MessagingExtensionResult
                     {
                         Text = "Failed to search " + ex.Message,
                         Type = "message"

@@ -179,11 +179,11 @@
         {
             ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
 
-            if (teamsExtension.IsRequestComposeExtensionQuery())
+            if (teamsExtension.IsRequestMessagingExtensionQuery())
             {
                 return await this.invokeActivityHandler.HandleMessagingExtensionActionAsync(new MessagingExtensionActivityAction
                 {
-                    ComposeExtensionQuery = teamsExtension.GetComposeExtensionQueryData(),
+                    ComposeExtensionQuery = teamsExtension.GetMessagingExtensionQueryData(),
                     TurnContext = turnContext,
                 });
             }

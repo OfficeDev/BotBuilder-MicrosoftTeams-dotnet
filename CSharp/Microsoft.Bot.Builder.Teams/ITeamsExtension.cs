@@ -58,10 +58,10 @@ namespace Microsoft.Bot.Builder.Teams
 
         /// <summary>
         /// Gets the compose extension query data. This should only be called on ComposeExtentionQuery messages.
-        /// Check this by calling <see cref="IsRequestComposeExtensionQuery"/>.
+        /// Check this by calling <see cref="IsRequestMessagingExtensionQuery"/>.
         /// </summary>
         /// <returns>Compose extension query data.</returns>
-        ComposeExtensionQuery GetComposeExtensionQueryData();
+        MessagingExtensionQuery GetMessagingExtensionQueryData();
 
         /// <summary>
         /// Gets the general channel for a given Team conversation.
@@ -89,7 +89,7 @@ namespace Microsoft.Bot.Builder.Teams
         /// <returns>
         ///   <c>true</c> if request is a compose extension query; otherwise, <c>false</c>.
         /// </returns>
-        bool IsRequestComposeExtensionQuery();
+        bool IsRequestMessagingExtensionQuery();
 
         /// <summary>
         /// Determines whether request is an O365 connector card action query.

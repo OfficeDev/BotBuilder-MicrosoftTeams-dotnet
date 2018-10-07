@@ -46,13 +46,13 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         /// </summary>
         /// <param name="messagingExtensionActivityAction">The messaging extension activity action.</param>
         /// <returns></returns>
-        public async Task<ComposeExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction)
+        public async Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction)
         {
-            ComposeExtensionResult composeExtensionResult = new ComposeExtensionResult
+            MessagingExtensionResult composeExtensionResult = new MessagingExtensionResult
             {
                 Type = "result",
                 AttachmentLayout = "list",
-                Attachments = new List<ComposeExtensionAttachment>()
+                Attachments = new List<MessagingExtensionAttachment>()
             };
             IList<WikipediaResult> searchResults = new List<WikipediaResult>();
 
@@ -123,7 +123,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             return result;
         }
 
-        private static string GenerateSearchAPIUrl(ComposeExtensionQuery query)
+        private static string GenerateSearchAPIUrl(MessagingExtensionQuery query)
         {
             return string.Format(
                 WikiSearchUrlFormat,

@@ -11,32 +11,32 @@
 namespace Microsoft.Bot.Schema.Teams
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// Compose extension Actions (Only when type is auth or config)
+    /// Messaging extension query parameters
     /// </summary>
-    public partial class ComposeExtensionSuggestedAction
+    public partial class MessagingExtensionParameter
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionSuggestedAction
+        /// Initializes a new instance of the MessagingExtensionParameter
         /// class.
         /// </summary>
-        public ComposeExtensionSuggestedAction()
+        public MessagingExtensionParameter()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionSuggestedAction
+        /// Initializes a new instance of the MessagingExtensionParameter
         /// class.
         /// </summary>
-        /// <param name="actions">Actions</param>
-        public ComposeExtensionSuggestedAction(IList<CardAction> actions = default(IList<CardAction>))
+        /// <param name="name">Name of the parameter</param>
+        /// <param name="value">Value of the parameter</param>
+        public MessagingExtensionParameter(string name = default(string), object value = default(object))
         {
-            Actions = actions;
+            Name = name;
+            Value = value;
             CustomInit();
         }
 
@@ -46,10 +46,16 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets actions
+        /// Gets or sets name of the parameter
         /// </summary>
-        [JsonProperty(PropertyName = "actions")]
-        public IList<CardAction> Actions { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets value of the parameter
+        /// </summary>
+        [JsonProperty(PropertyName = "value")]
+        public object Value { get; set; }
 
     }
 }

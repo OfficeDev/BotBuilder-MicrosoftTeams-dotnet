@@ -30,7 +30,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    Assert.IsTrue(teamsExtension.IsRequestComposeExtensionQuery());
+                    Assert.IsTrue(teamsExtension.IsRequestMessagingExtensionQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -48,7 +48,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    Assert.IsFalse(teamsExtension.IsRequestComposeExtensionQuery());
+                    Assert.IsFalse(teamsExtension.IsRequestMessagingExtensionQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -66,7 +66,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    ComposeExtensionQuery query = teamsExtension.GetComposeExtensionQueryData();
+                    MessagingExtensionQuery query = teamsExtension.GetMessagingExtensionQueryData();
                     Assert.AreEqual("testQuery", query.CommandId);
                     Assert.IsTrue(query.Parameters != null && query.Parameters.Count == 1);
                     Assert.AreEqual("selectedQueryJson", query.Parameters[0].Name);

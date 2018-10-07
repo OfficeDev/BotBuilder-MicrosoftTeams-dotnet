@@ -14,20 +14,22 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// Compose extension attachment.
+    /// Messaging extension attachment.
     /// </summary>
-    public partial class ComposeExtensionAttachment : Attachment
+    public partial class MessagingExtensionAttachment : Attachment
     {
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionAttachment class.
+        /// Initializes a new instance of the MessagingExtensionAttachment
+        /// class.
         /// </summary>
-        public ComposeExtensionAttachment()
+        public MessagingExtensionAttachment()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ComposeExtensionAttachment class.
+        /// Initializes a new instance of the MessagingExtensionAttachment
+        /// class.
         /// </summary>
         /// <param name="contentType">mimetype/Contenttype for the file</param>
         /// <param name="contentUrl">Content Url</param>
@@ -35,7 +37,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="name">(OPTIONAL) The name of the attachment</param>
         /// <param name="thumbnailUrl">(OPTIONAL) Thumbnail associated with
         /// attachment</param>
-        public ComposeExtensionAttachment(string contentType = default(string), string contentUrl = default(string), object content = default(object), string name = default(string), string thumbnailUrl = default(string), Attachment preview = default(Attachment))
+        public MessagingExtensionAttachment(string contentType = default(string), string contentUrl = default(string), object content = default(object), string name = default(string), string thumbnailUrl = default(string), Attachment preview = default(Attachment))
             : base(contentType, contentUrl, content, name, thumbnailUrl)
         {
             Preview = preview;

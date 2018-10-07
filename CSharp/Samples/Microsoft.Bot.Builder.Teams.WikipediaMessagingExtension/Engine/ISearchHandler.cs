@@ -6,6 +6,6 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
 {
     public interface ISearchHandler
     {
-        Task<ComposeExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction);
+        Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction);
     }
 }
