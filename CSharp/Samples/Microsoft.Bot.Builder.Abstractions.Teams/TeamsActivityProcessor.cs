@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Abstractions.Teams
+﻿// <copyright file="TeamsActivityProcessor.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Abstractions.Teams
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -8,16 +12,39 @@
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
 
+    /// <summary>
+    /// Teams activity processor.
+    /// </summary>
+    /// <seealso cref="IActivityProcessor" />
     public class TeamsActivityProcessor : IActivityProcessor
     {
+        /// <summary>
+        /// The message activity handler.
+        /// </summary>
         private readonly IMessageActivityHandler messageActivityHandler;
 
+        /// <summary>
+        /// The conversation update activity handler.
+        /// </summary>
         private readonly ITeamsConversationUpdateActivityHandler conversationUpdateActivityHandler;
 
+        /// <summary>
+        /// The invoke activity handler.
+        /// </summary>
         private readonly ITeamsInvokeActivityHandler invokeActivityHandler;
 
+        /// <summary>
+        /// The message reaction activity handler.
+        /// </summary>
         private readonly IMessageReactionActivityHandler messageReactionActivityHandler;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamsActivityProcessor"/> class.
+        /// </summary>
+        /// <param name="messageActivityHandler">The message activity handler.</param>
+        /// <param name="conversationUpdateActivityHandler">The conversation update activity handler.</param>
+        /// <param name="invokeActivityHandler">The invoke activity handler.</param>
+        /// <param name="messageReactionActivityHandler">The message reaction activity handler.</param>
         public TeamsActivityProcessor(
             IMessageActivityHandler messageActivityHandler = null,
             ITeamsConversationUpdateActivityHandler conversationUpdateActivityHandler = null,
@@ -30,6 +57,14 @@
             this.messageReactionActivityHandler = messageReactionActivityHandler;
         }
 
+        /// <summary>
+        /// Processes the incoming activity asynchronously.
+        /// </summary>
+        /// <param name="turnContext">The turn context.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// Task tracking operation.
+        /// </returns>
         public virtual async Task ProcessIncomingActivityAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             switch (turnContext.Activity.Type)
@@ -38,7 +73,7 @@
                     {
                         if (this.messageActivityHandler != null)
                         {
-                            await this.messageActivityHandler.HandleMessageAsync(turnContext);
+                            await this.messageActivityHandler.HandleMessageAsync(turnContext).ConfigureAwait(false);
                         }
 
                         return;
@@ -48,7 +83,7 @@
                     {
                         if (this.conversationUpdateActivityHandler != null)
                         {
-                            await this.ProcessTeamsConversationUpdateAsync(turnContext);
+                            await this.ProcessTeamsConversationUpdateAsync(turnContext).ConfigureAwait(false);
                         }
 
                         return;
@@ -58,13 +93,13 @@
                     {
                         if (this.invokeActivityHandler != null)
                         {
-                            InvokeResponse invokeResponse = await this.ProcessTeamsInvokeActivityAsync(turnContext);
+                            InvokeResponse invokeResponse = await this.ProcessTeamsInvokeActivityAsync(turnContext).ConfigureAwait(false);
                             await turnContext.SendActivityAsync(
                                 new Activity
                                 {
                                     Value = invokeResponse,
                                     Type = ActivityTypesEx.InvokeResponse,
-                                });
+                                }).ConfigureAwait(false);
                         }
 
                         return;
@@ -74,7 +109,7 @@
                     {
                         if (this.messageReactionActivityHandler != null)
                         {
-                            await this.messageReactionActivityHandler.HandleMessageReactionAsync(turnContext);
+                            await this.messageReactionActivityHandler.HandleMessageReactionAsync(turnContext).ConfigureAwait(false);
                         }
 
                         return;
@@ -100,7 +135,7 @@
                                     TurnContext = turnContext,
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -113,7 +148,7 @@
                                     TurnContext = turnContext,
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -126,7 +161,7 @@
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
                                     Channel = channelData.Channel,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -139,7 +174,7 @@
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
                                     Channel = channelData.Channel,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -152,7 +187,7 @@
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
                                     Channel = channelData.Channel,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -164,7 +199,7 @@
                                     TurnContext = turnContext,
                                     Team = channelData.Team,
                                     Tenant = channelData.Tenant,
-                                });
+                                }).ConfigureAwait(false);
 
                                 return;
                             }
@@ -172,7 +207,7 @@
                 }
             }
 
-            await this.conversationUpdateActivityHandler.HandleConversationUpdateActivityTask(turnContext);
+            await this.conversationUpdateActivityHandler.HandleConversationUpdateActivityTaskAsync(turnContext).ConfigureAwait(false);
         }
 
         private async Task<InvokeResponse> ProcessTeamsInvokeActivityAsync(ITurnContext turnContext)
@@ -183,9 +218,9 @@
             {
                 return await this.invokeActivityHandler.HandleMessagingExtensionActionAsync(new MessagingExtensionActivityAction
                 {
-                    ComposeExtensionQuery = teamsExtension.GetMessagingExtensionQueryData(),
+                    MessagingExtensionQuery = teamsExtension.GetMessagingExtensionQueryData(),
                     TurnContext = turnContext,
-                });
+                }).ConfigureAwait(false);
             }
 
             if (teamsExtension.IsRequestO365ConnectorCardActionQuery())
@@ -194,7 +229,7 @@
                 {
                     CardActionQuery = teamsExtension.GetO365ConnectorCardActionQueryData(),
                     TurnContext = turnContext,
-                });
+                }).ConfigureAwait(false);
             }
 
             if (teamsExtension.IsRequestSigninStateVerificationQuery())
@@ -203,10 +238,10 @@
                 {
                     TurnContext = turnContext,
                     VerificationQuery = teamsExtension.GetSigninStateVerificationQueryData(),
-                });
+                }).ConfigureAwait(false);
             }
 
-            return await this.invokeActivityHandler.HandleInvokeTask(turnContext);
+            return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);
         }
     }
 }

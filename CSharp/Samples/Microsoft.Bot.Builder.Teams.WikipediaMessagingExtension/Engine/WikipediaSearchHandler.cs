@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
-using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models;
-using Microsoft.Bot.Schema;
-using Microsoft.Bot.Schema.Teams;
-using Newtonsoft.Json;
+﻿// <copyright file="WikipediaSearchHandler.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
+    using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models;
+    using Microsoft.Bot.Schema;
+    using Microsoft.Bot.Schema.Teams;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Wikipedia search handler.
+    /// </summary>
+    /// <seealso cref="ISearchHandler" />
     public class WikipediaSearchHandler : ISearchHandler
     {
         /// <summary>
@@ -39,26 +45,29 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         /// </value>
         private const string DefaultImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wikipedia-logo-v2-en.svg/1200px-Wikipedia-logo-v2-en.svg.png";
 
+        /// <summary>
+        /// The HTTP client used to call Wikipedia.
+        /// </summary>
         private readonly HttpClient httpClient = new HttpClient();
 
         /// <summary>
         /// Gets the search result from wikipedia.
         /// </summary>
         /// <param name="messagingExtensionActivityAction">The messaging extension activity action.</param>
-        /// <returns></returns>
+        /// <returns>Messaging extension result.</returns>
         public async Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction)
         {
             MessagingExtensionResult composeExtensionResult = new MessagingExtensionResult
             {
                 Type = "result",
                 AttachmentLayout = "list",
-                Attachments = new List<MessagingExtensionAttachment>()
+                Attachments = new List<MessagingExtensionAttachment>(),
             };
             IList<WikipediaResult> searchResults = new List<WikipediaResult>();
 
             // Search Wikipedia
-            string apiUrl = GenerateSearchAPIUrl(messagingExtensionActivityAction.ComposeExtensionQuery);
-            WikipediaQueryResult queryResult = await this.InvokeWikipediaAPIAsync(apiUrl);
+            string apiUrl = GenerateSearchApiUrl(messagingExtensionActivityAction.MessagingExtensionQuery);
+            WikipediaQueryResult queryResult = await this.InvokeWikipediaApiAsync(apiUrl).ConfigureAwait(false);
             searchResults = queryResult.Query.Results;
 
             // Grab pageIds so that we can batch query to fetch image urls of the pages
@@ -68,7 +77,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                 pageIds.Add(searchResult.Pageid);
             }
 
-            IDictionary<string, string> imageResults = await this.GetImageUrlAsync(pageIds);
+            IDictionary<string, string> imageResults = await this.GetImageUrlAsync(pageIds).ConfigureAwait(false);
 
             // Genereate results
             foreach (WikipediaResult searchResult in searchResults)
@@ -82,7 +91,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                 ThumbnailCard previewCard = new ThumbnailCard
                 {
                     Title = HttpUtility.HtmlEncode(searchResult.Title),
-                    Text = searchResult.Snippet
+                    Text = searchResult.Snippet,
                 };
                 previewCard.Images = new CardImage[] { new CardImage(imageUrl, searchResult.Title) };
 
@@ -96,7 +105,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                         HttpUtility.HtmlEncode(searchResult.Title) +
                         "</a>",
                     Text = searchResult.Snippet,
-                    Images = previewCard.Images
+                    Images = previewCard.Images,
                 };
                 composeExtensionResult.Attachments.Add(card.ToAttachment().ToComposeExtensionAttachment(previewCard.ToAttachment()));
             }
@@ -104,11 +113,30 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             return composeExtensionResult;
         }
 
+        /// <summary>
+        /// Generates the search API URL.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>Search API url.</returns>
+        private static string GenerateSearchApiUrl(MessagingExtensionQuery query)
+        {
+            return string.Format(
+                WikiSearchUrlFormat,
+                Uri.EscapeDataString(query.Parameters[0].Value.ToString()),
+                query.QueryOptions.Count,
+                query.QueryOptions.Skip);
+        }
+
+        /// <summary>
+        /// Gets the image URL asynchronously.
+        /// </summary>
+        /// <param name="pageIds">The page ids.</param>
+        /// <returns>Image url map.</returns>
         private async Task<IDictionary<string, string>> GetImageUrlAsync(IList<string> pageIds)
         {
             string pageIdQuery = string.Join("|", pageIds);
             IDictionary<string, string> result = new Dictionary<string, string>();
-            WikipediaQueryResult queryResult = await this.InvokeWikipediaAPIAsync(ImageSearchUrl + pageIdQuery);
+            WikipediaQueryResult queryResult = await this.InvokeWikipediaApiAsync(ImageSearchUrl + pageIdQuery).ConfigureAwait(false);
             if (queryResult != null && queryResult.Query != null)
             {
                 foreach (WikipediaPage page in queryResult.Query.Pages)
@@ -123,20 +151,16 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             return result;
         }
 
-        private static string GenerateSearchAPIUrl(MessagingExtensionQuery query)
+        /// <summary>
+        /// Invokes the wikipedia API asynchronously.
+        /// </summary>
+        /// <param name="apiUrl">The API URL.</param>
+        /// <returns>Wikipedia search result.</returns>
+        private async Task<WikipediaQueryResult> InvokeWikipediaApiAsync(string apiUrl)
         {
-            return string.Format(
-                WikiSearchUrlFormat,
-                Uri.EscapeDataString(query.Parameters[0].Value.ToString()),
-                query.QueryOptions.Count,
-                query.QueryOptions.Skip);
-        }
-
-        private async Task<WikipediaQueryResult> InvokeWikipediaAPIAsync(string apiUrl)
-        {
-            var response = await this.httpClient.GetAsync(apiUrl);
+            var response = await this.httpClient.GetAsync(apiUrl).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
+            string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return JsonConvert.DeserializeObject<WikipediaQueryResult>(responseBody);
         }
     }

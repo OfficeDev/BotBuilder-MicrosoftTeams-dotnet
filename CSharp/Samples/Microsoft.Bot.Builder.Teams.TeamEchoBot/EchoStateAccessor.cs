@@ -1,21 +1,25 @@
-﻿using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="EchoStateAccessor.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 {
+    using System;
+    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+
+    /// <summary>
+    /// Echo state accessor.
+    /// </summary>
     public class EchoStateAccessor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EchoBotAccessors"/> class.
+        /// Initializes a new instance of the <see cref="EchoStateAccessor"/> class.
         /// Contains the <see cref="ConversationState"/> and associated <see cref="IStatePropertyAccessor{T}"/>.
         /// </summary>
         /// <param name="conversationState">The state object that stores the counter.</param>
         public EchoStateAccessor(TeamSpecificConversationState conversationState)
         {
-            ConversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
+            this.ConversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
         }
 
         /// <summary>

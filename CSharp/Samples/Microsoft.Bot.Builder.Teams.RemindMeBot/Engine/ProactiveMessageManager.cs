@@ -1,54 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Adapters;
-using Microsoft.Bot.Connector.Authentication;
-using Microsoft.Bot.Schema;
-using Microsoft.Bot.Schema.Teams;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿// <copyright file="ProactiveMessageManager.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.RemindMeBot.Engine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Bot.Schema;
+    using Microsoft.Bot.Schema.Teams;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
+    /// <summary>
+    /// Proactive message manager.
+    /// </summary>
+    /// <seealso cref="IProactiveMessageManager" />
     public class ProactiveMessageManager : IProactiveMessageManager
     {
         private readonly BotFrameworkAdapter botFrameworkAdapter;
 
         private readonly ICredentialProvider credentialProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProactiveMessageManager"/> class.
+        /// </summary>
+        /// <param name="botFrameworkAdapter">The bot framework adapter.</param>
+        /// <param name="credentialProvider">The credential provider.</param>
         public ProactiveMessageManager(BotFrameworkAdapter botFrameworkAdapter, ICredentialProvider credentialProvider)
         {
             this.botFrameworkAdapter = botFrameworkAdapter;
             this.credentialProvider = credentialProvider;
         }
 
+        /// <summary>
+        /// Queues the work item to be executed at a later point.
+        /// </summary>
+        /// <param name="turnContext">The turn context.</param>
+        /// <param name="messageToSend">The message to send.</param>
+        /// <param name="timeToWait">The time to wait.</param>
         public void QueueWorkItem(ITurnContext turnContext, string messageToSend, TimeSpan timeToWait)
         {
             Task.Run(async () =>
             {
-                await Task.Delay(timeToWait);
+                await Task.Delay(timeToWait).ConfigureAwait(false);
 
                 await this.botFrameworkAdapter.CreateConversationAsync(
-                    turnContext.Activity.ChannelId, turnContext.Activity.ServiceUrl,
-                    await this.GetMicrosoftAppCredentials(turnContext),
+                    turnContext.Activity.ChannelId,
+                    turnContext.Activity.ServiceUrl,
+                    await this.GetMicrosoftAppCredentialsAsync(turnContext).ConfigureAwait(false),
                     new ConversationParameters
                     {
                         Bot = turnContext.Activity.Recipient,
                         Members = new List<ChannelAccount> { turnContext.Activity.From },
-                        ChannelData = JObject.FromObject(new TeamsChannelData
-                        {
-                            Tenant = new TenantInfo
+                        ChannelData = JObject.FromObject(
+                            new TeamsChannelData
                             {
-                                Id = turnContext.Activity.GetChannelData<TeamsChannelData>()?.Tenant?.Id
-                            }
-                        },
-                        JsonSerializer.Create(new JsonSerializerSettings()
-                        {
-                            NullValueHandling = NullValueHandling.Ignore
-                        }))
+                                Tenant = new TenantInfo
+                                {
+                                    Id = turnContext.Activity.GetChannelData<TeamsChannelData>()?.Tenant?.Id,
+                                },
+                            },
+                            JsonSerializer.Create(new JsonSerializerSettings()
+                            {
+                                NullValueHandling = NullValueHandling.Ignore,
+                            })),
                     },
                     async (context, cancellationToken) =>
                     {
@@ -62,14 +82,19 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot.Engine
                             Type = ActivityTypes.Message,
                         };
 
-                        await context.SendActivityAsync(activityToSend, cancellationToken);
+                        await context.SendActivityAsync(activityToSend, cancellationToken).ConfigureAwait(false);
                     },
-                    CancellationToken.None);
+                    CancellationToken.None).ConfigureAwait(false);
                 return Task.CompletedTask;
             });
         }
 
-        private async Task<MicrosoftAppCredentials> GetMicrosoftAppCredentials(ITurnContext turnContext)
+        /// <summary>
+        /// Gets the microsoft application credentials asynchronously.
+        /// </summary>
+        /// <param name="turnContext">The turn context.</param>
+        /// <returns>Application credentials.</returns>
+        private async Task<MicrosoftAppCredentials> GetMicrosoftAppCredentialsAsync(ITurnContext turnContext)
         {
             ClaimsIdentity claimsIdentity = turnContext.TurnState.Get<ClaimsIdentity>("BotIdentity");
 

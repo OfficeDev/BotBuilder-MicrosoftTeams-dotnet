@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
+﻿// <copyright file="WikipediaPage.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
 {
     /// <summary>
     /// Represents page data Wikipedia API returns.

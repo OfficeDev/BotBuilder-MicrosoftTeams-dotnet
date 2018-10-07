@@ -5,9 +5,7 @@
 namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;

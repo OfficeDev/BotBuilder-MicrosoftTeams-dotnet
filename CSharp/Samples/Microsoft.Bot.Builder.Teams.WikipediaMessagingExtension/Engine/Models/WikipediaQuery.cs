@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
+﻿// <copyright file="WikipediaQuery.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;

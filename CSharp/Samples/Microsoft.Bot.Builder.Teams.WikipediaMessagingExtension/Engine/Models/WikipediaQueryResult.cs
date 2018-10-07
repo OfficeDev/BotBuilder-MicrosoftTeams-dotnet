@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
+﻿// <copyright file="WikipediaQueryResult.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models
 {
     /// <summary>
     /// Defines the object that contains Wikipedia query results.

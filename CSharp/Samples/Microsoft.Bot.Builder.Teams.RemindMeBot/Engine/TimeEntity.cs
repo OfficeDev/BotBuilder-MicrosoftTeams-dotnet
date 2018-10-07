@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="TimeEntity.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.RemindMeBot.Engine
 {
+    /// <summary>
+    /// Time entity.
+    /// </summary>
     public class TimeEntity
     {
         /// <summary>

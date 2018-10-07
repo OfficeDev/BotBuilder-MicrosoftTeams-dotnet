@@ -10,7 +10,6 @@ namespace Microsoft.Bot.Builder.Teams.Tests
     using Microsoft.Bot.Schema;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Newtonsoft.Json;
-    using Rest;
 
     /// <summary>
     /// @Mention tests.

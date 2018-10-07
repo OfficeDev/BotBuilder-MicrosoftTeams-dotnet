@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Bot.Builder.Abstractions;
-using Microsoft.Bot.Builder.Abstractions.Teams;
-using Microsoft.Bot.Builder.Integration.AspNet.Core;
-using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine;
-using Microsoft.Bot.Configuration;
-using Microsoft.Bot.Connector.Authentication;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿// <copyright file="Startup.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
 {
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Bot.Builder.Abstractions;
+    using Microsoft.Bot.Builder.Abstractions.Teams;
+    using Microsoft.Bot.Builder.Integration.AspNet.Core;
+    using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine;
+    using Microsoft.Bot.Configuration;
+    using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    /// <summary>
+    /// Starts up the web application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Is the current hosting environment production or not.
+        /// </summary>
         private bool isProduction = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="env">The hosting env.</param>
         public Startup(IHostingEnvironment env)
         {
-            isProduction = env.IsProduction();
+            this.isProduction = env.IsProduction();
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -30,17 +41,22 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+            this.Configuration = builder.Build();
         }
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        /// Configures the services. This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var secretKey = Configuration.GetSection("botFileSecret")?.Value;
-            var botFilePath = Configuration.GetSection("botFilePath")?.Value;
+            var secretKey = this.Configuration.GetSection("botFileSecret")?.Value;
+            var botFilePath = this.Configuration.GetSection("botFilePath")?.Value;
 
             // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
             BotConfiguration botConfig = null;
@@ -60,7 +76,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
             services.AddSingleton(sp => botConfig);
 
             // Retrieve current endpoint.
-            var environment = isProduction ? "production" : "development";
+            var environment = this.isProduction ? "production" : "development";
             var botService = botConfig.Services.Where(s => s.Type == "endpoint" && s.Name == environment).FirstOrDefault();
             if (!(botService is EndpointService endpointService))
             {
@@ -88,7 +104,11 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the specified application. This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="env">The hosting env.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

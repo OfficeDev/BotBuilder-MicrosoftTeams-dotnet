@@ -1,29 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Integration.AspNet.Core;
-using Microsoft.Bot.Builder.Teams.RemindMeBot.Engine;
-using Microsoft.Bot.Configuration;
-using Microsoft.Bot.Connector.Authentication;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿// <copyright file="Startup.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.RemindMeBot
 {
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Integration.AspNet.Core;
+    using Microsoft.Bot.Builder.Teams.RemindMeBot.Engine;
+    using Microsoft.Bot.Configuration;
+    using Microsoft.Bot.Connector.Authentication;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    /// <summary>
+    /// Starts up the web application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Is the hosting environment production.
+        /// </summary>
         private bool isProduction = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="env">The hosting env.</param>
         public Startup(IHostingEnvironment env)
         {
-            isProduction = env.IsProduction();
+            this.isProduction = env.IsProduction();
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -31,19 +40,25 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+            this.Configuration = builder.Build();
         }
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Configures the services. This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IProactiveMessageManager, ProactiveMessageManager>();
             services.AddTransient<IRecognizer, ReminderTextRecognizer>();
 
-            var secretKey = Configuration.GetSection("botFileSecret")?.Value;
-            var botFilePath = Configuration.GetSection("botFilePath")?.Value;
+            var secretKey = this.Configuration.GetSection("botFileSecret")?.Value;
+            var botFilePath = this.Configuration.GetSection("botFilePath")?.Value;
 
             // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
             BotConfiguration botConfig = null;
@@ -63,7 +78,7 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot
             services.AddSingleton(sp => botConfig);
 
             // Retrieve current endpoint.
-            var environment = isProduction ? "production" : "development";
+            var environment = this.isProduction ? "production" : "development";
             var service = botConfig.Services.Where(s => s.Type == "endpoint" && s.Name == environment).FirstOrDefault();
             if (!(service is EndpointService endpointService))
             {
@@ -80,12 +95,16 @@ namespace Microsoft.Bot.Builder.Teams.RemindMeBot
                 // Catches any errors that occur during a conversation turn and logs them.
                 options.OnTurnError = async (context, exception) =>
                 {
-                    await context.SendActivityAsync("Sorry, it looks like something went wrong.");
+                    await context.SendActivityAsync("Sorry, it looks like something went wrong.").ConfigureAwait(false);
                 };
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the specified application. This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="env">The hosting env.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

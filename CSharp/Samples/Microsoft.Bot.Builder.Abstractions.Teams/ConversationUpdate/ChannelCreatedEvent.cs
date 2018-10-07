@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
+﻿// <copyright file="ChannelCreatedEvent.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
 {
     using Microsoft.Bot.Schema.Teams;
 
@@ -20,7 +24,7 @@
         }
 
         /// <summary>
-        /// Gets the channel created.
+        /// Gets the created channel.
         /// </summary>
         public ChannelInfo Channel { get; internal set; }
     }

@@ -1,28 +1,29 @@
-﻿namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
+﻿// <copyright file="TeamSpecificConversationState.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Teams.SampleMiddlewares
 {
-    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
     /// Teams specific conversation state management.
     /// </summary>
-    /// <typeparam name="TState">The type of the state.</typeparam>
-    /// <seealso cref="Microsoft.Bot.Builder.BotState" />
+    /// <seealso cref="BotState" />
     public class TeamSpecificConversationState : BotState
     {
         /// <summary>
         /// The key to use to read and write this conversation state object to storage.
         /// </summary>
-        public static string PropertyName = $"TeamSpecificConversationState:{typeof(TeamSpecificConversationState).Namespace}.{typeof(TeamSpecificConversationState).Name}";
+        private static string propertyName = $"TeamSpecificConversationState:{typeof(TeamSpecificConversationState).Namespace}.{typeof(TeamSpecificConversationState).Name}";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamSpecificConversationState"/> class.
         /// Creates a new <see cref="TeamSpecificConversationState"/> object.
         /// </summary>
         /// <param name="storage">The storage provider to use.</param>
-        /// <param name="settings">The state persistance options to use.</param>
         public TeamSpecificConversationState(IStorage storage)
-            : base(storage, PropertyName)
+            : base(storage, propertyName)
         {
         }
 

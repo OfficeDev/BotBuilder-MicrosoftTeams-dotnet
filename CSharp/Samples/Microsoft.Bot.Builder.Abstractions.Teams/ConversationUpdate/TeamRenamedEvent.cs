@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
+﻿// <copyright file="TeamRenamedEvent.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
 {
     /// <summary>
     /// Team renamed event.

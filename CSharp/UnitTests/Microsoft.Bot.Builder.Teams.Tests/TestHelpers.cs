@@ -9,7 +9,6 @@ namespace Microsoft.Bot.Builder.Teams.Tests
     using System.IO;
     using System.Net;
     using System.Net.Http;
-    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Adapters;
     using Microsoft.Bot.Connector;

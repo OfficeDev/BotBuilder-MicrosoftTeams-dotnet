@@ -1,21 +1,25 @@
-﻿using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="AuditLogAccessor.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.AuditBot
 {
+    using System;
+    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+
+    /// <summary>
+    /// Accessor to read and write audit logs to storage.
+    /// </summary>
     public class AuditLogAccessor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EchoBotAccessors"/> class.
+        /// Initializes a new instance of the <see cref="AuditLogAccessor"/> class.
         /// Contains the <see cref="ConversationState"/> and associated <see cref="IStatePropertyAccessor{T}"/>.
         /// </summary>
-        /// <param name="conversationState">The state object that stores the counter.</param>
+        /// <param name="conversationState">The state object that stores the logs.</param>
         public AuditLogAccessor(TeamSpecificConversationState conversationState)
         {
-            ConversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
+            this.ConversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
         }
 
         /// <summary>

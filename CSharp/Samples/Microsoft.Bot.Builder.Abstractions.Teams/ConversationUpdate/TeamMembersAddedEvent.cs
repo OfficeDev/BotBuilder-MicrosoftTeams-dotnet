@@ -1,4 +1,8 @@
-﻿namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
+﻿// <copyright file="TeamMembersAddedEvent.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
+
+namespace Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate
 {
     using System.Collections.Generic;
     using Microsoft.Bot.Schema;
@@ -21,7 +25,7 @@
         }
 
         /// <summary>
-        /// Gets the members added.
+        /// Gets the list of added members.
         /// </summary>
         public IList<ChannelAccount> MembersAdded { get; internal set; }
     }

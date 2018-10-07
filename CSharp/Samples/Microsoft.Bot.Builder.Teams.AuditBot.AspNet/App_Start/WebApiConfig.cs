@@ -1,35 +1,33 @@
-﻿using Autofac;
-using Autofac.Integration.WebApi;
-using Microsoft.Bot.Builder.Abstractions;
-using Microsoft.Bot.Builder.Abstractions.Teams;
-using Microsoft.Bot.Builder.Integration.AspNet.WebApi;
-using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
-using Microsoft.Bot.Configuration;
-using Microsoft.Bot.Connector.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web.Hosting;
-using System.Web.Http;
+﻿// <copyright file="WebApiConfig.cs" company="Microsoft">
+// Licensed under the MIT License.
+// </copyright>
 
 namespace Microsoft.Bot.Builder.Teams.AuditBot.AspNet
 {
+    using System.Linq;
+    using System.Reflection;
+    using System.Web.Hosting;
+    using System.Web.Http;
+    using Autofac;
+    using Autofac.Integration.WebApi;
+    using Microsoft.Bot.Builder.Abstractions;
+    using Microsoft.Bot.Builder.Abstractions.Teams;
+    using Microsoft.Bot.Builder.Integration.AspNet.WebApi;
+    using Microsoft.Bot.Builder.Teams.SampleMiddlewares;
+    using Microsoft.Bot.Configuration;
+    using Microsoft.Bot.Connector.Authentication;
+
+    /// <summary>
+    /// Configure the application.
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers the specified configuration.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
         public static void Register(HttpConfiguration config)
         {
-            ////// Web API configuration and services
-
-            ////// Web API routes
-            ////config.MapHttpAttributeRoutes();
-
-            ////config.Routes.MapHttpRoute(
-            ////    name: "DefaultApi",
-            ////    routeTemplate: "api/{controller}/{id}",
-            ////    defaults: new { id = RouteParameter.Optional }
-            ////);
-
             var builder = new ContainerBuilder();
 
             // Register your Web API controllers.
