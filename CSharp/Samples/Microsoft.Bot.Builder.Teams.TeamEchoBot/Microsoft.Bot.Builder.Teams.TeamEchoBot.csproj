@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DI-Samples\Microsoft.Bot.Builder.SampleMiddlewares\Microsoft.Bot.Builder.Teams.SampleMiddlewares.csproj" />
     <ProjectReference Include="..\..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
   </ItemGroup>
 

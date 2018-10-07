@@ -9,6 +9,6 @@
 
         Task<InvokeResponse> HandleSigninStateVerificationActionAsync(SigninStateVerificationActivityAction signinStateVerificationAction);
 
-        Task<InvokeResponse> HandleComposeExtensionActionAsync(ComposeExtensionActivityAction composeExtensionAction);
+        Task<InvokeResponse> HandleMessagingExtensionActionAsync(MessagingExtensionActivityAction messagingExtensionAction);
     }
 }

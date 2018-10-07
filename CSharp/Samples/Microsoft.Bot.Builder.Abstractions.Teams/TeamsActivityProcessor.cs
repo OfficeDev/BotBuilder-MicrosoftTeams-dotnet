@@ -181,7 +181,7 @@
 
             if (teamsExtension.IsRequestComposeExtensionQuery())
             {
-                return await this.invokeActivityHandler.HandleComposeExtensionActionAsync(new ComposeExtensionActivityAction
+                return await this.invokeActivityHandler.HandleMessagingExtensionActionAsync(new MessagingExtensionActivityAction
                 {
                     ComposeExtensionQuery = teamsExtension.GetComposeExtensionQueryData(),
                     TurnContext = turnContext,

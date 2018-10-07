@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.Bot.Schema.Teams;
 
-    public class ComposeExtensionActivityAction : TeamsInvokeActivityActionBase
+    public class MessagingExtensionActivityAction : TeamsInvokeActivityActionBase
     {
         /// <summary>
         /// Gets or sets the compose extension query.
