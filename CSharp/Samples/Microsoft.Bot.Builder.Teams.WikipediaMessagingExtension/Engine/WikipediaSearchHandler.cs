@@ -107,7 +107,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                     Text = searchResult.Snippet,
                     Images = previewCard.Images,
                 };
-                composeExtensionResult.Attachments.Add(card.ToAttachment().ToComposeExtensionAttachment(previewCard.ToAttachment()));
+                composeExtensionResult.Attachments.Add(card.ToAttachment().ToMessagingExtensionAttachment(previewCard.ToAttachment()));
             }
 
             return composeExtensionResult;

@@ -57,8 +57,6 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                 teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {memberHistory.MemberOperations.Count} operations were performed";
 
-                // Temporary Fix for Mentions not working
-                (replyActivity.Entities[0] as Mention).Type = "mention";
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
 
                 // Going in reverse chronological order.
@@ -90,8 +88,6 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                 teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {teamMembers.Count} members are currently in team";
 
-                // Temporary Fix for Mentions not working
-                (replyActivity.Entities[0] as Mention).Type = "mention";
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
 
                 for (int i = teamMembers.Count % 10; i >= 0; i--)
@@ -123,8 +119,6 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                 teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {channelList.Conversations.Count} channels are currently in team";
 
-                // Temporary Fix for Mentions not working
-                (replyActivity.Entities[0] as Mention).Type = "mention";
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
 
                 for (int i = channelList.Conversations.Count % 10; i >= 0; i--)

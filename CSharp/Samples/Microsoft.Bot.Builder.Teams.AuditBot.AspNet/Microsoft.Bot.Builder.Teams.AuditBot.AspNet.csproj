@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="TeamsAppManifest\color.png" />
+    <Content Include="TeamsAppManifest\outline.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +108,8 @@
     <Content Include="BotConfiguration.bot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReadMe.md" />
+    <Content Include="TeamsAppManifest\manifest.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -92,6 +92,8 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension
             {
                 options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
+                options.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
+
                 // --> Add Teams Middleware.
                 options.Middleware.Add(
                     new TeamsMiddleware(

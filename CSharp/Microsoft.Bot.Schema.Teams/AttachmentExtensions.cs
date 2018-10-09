@@ -13,12 +13,12 @@ namespace Microsoft.Bot.Schema.Teams
     public static class AttachmentExtensions
     {
         /// <summary>
-        /// Converts normal attachment into the compose extension attachment.
+        /// Converts normal attachment into the messaging extension attachment.
         /// </summary>
         /// <param name="attachment">The attachment.</param>
         /// <param name="previewAttachment">The preview attachment.</param>
-        /// <returns>Compose extension attachment.</returns>
-        public static MessagingExtensionAttachment ToComposeExtensionAttachment(this Attachment attachment, Attachment previewAttachment = null)
+        /// <returns>Messaging extension attachment.</returns>
+        public static MessagingExtensionAttachment ToMessagingExtensionAttachment(this Attachment attachment, Attachment previewAttachment = null)
         {
             // We are recreating the attachment so that JsonSerializerSettings with ReferenceLoopHandling set to Error does not generate error
             // while serializing. Refer to issue - https://github.com/OfficeDev/BotBuilder-MicrosoftTeams/issues/52.
