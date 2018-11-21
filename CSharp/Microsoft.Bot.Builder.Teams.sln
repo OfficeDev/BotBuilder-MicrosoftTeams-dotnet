@@ -34,6 +34,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Bot.Builder.Teams
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Builder.Teams.AuditBot.AspNet", "Samples\Microsoft.Bot.Builder.Teams.AuditBot.AspNet\Microsoft.Bot.Builder.Teams.AuditBot.AspNet.csproj", "{732F6086-455E-41FF-9187-C030C70A1EC4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{91B729B0-5A51-42E9-B24F-12AD674FF636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsBotBuilderIntegration.WebApi", "TeamsBotBuilderIntegration.WebApi\TeamsBotBuilderIntegration.WebApi.csproj", "{F50A437E-0950-431C-999C-97ACFD52696B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsBotBuilderIntegration.Core", "TeamsBotBuilderIntegration.Core\TeamsBotBuilderIntegration.Core.csproj", "{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +90,14 @@ Global
 		{732F6086-455E-41FF-9187-C030C70A1EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{732F6086-455E-41FF-9187-C030C70A1EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{732F6086-455E-41FF-9187-C030C70A1EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F50A437E-0950-431C-999C-97ACFD52696B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F50A437E-0950-431C-999C-97ACFD52696B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F50A437E-0950-431C-999C-97ACFD52696B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F50A437E-0950-431C-999C-97ACFD52696B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +111,8 @@ Global
 		{9A8068B7-2312-447F-B3C3-D1E5E107F91B} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{4B71E075-36F3-48AB-A77C-BF11D521C9BC} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
 		{732F6086-455E-41FF-9187-C030C70A1EC4} = {A81FD3C0-3A70-41EF-8DE0-2560C0A182F9}
+		{F50A437E-0950-431C-999C-97ACFD52696B} = {91B729B0-5A51-42E9-B24F-12AD674FF636}
+		{BA33BD17-97E6-4DAA-8640-5F32B8EC4EC2} = {91B729B0-5A51-42E9-B24F-12AD674FF636}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16728CD-744D-4803-BE18-14BF0CEC1DD7}

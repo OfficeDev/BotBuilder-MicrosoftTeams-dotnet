@@ -100,7 +100,7 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                     {
                         for (int j = elementsToSend.Count - 1; j >= 0; j--)
                         {
-                            stringBuilder.Append($"{elementsToSend[j].AadObjectId} --> {elementsToSend[j].Name} -->  {elementsToSend[j].UserPrincipalName} </br>");
+                            stringBuilder.Append($"{elementsToSend[j].AadObjectId} --> {elementsToSend[j].GivenName} -->  {elementsToSend[j].UserPrincipalName} </br>");
                         }
 
                         Activity memberListActivity = turnContext.Activity.CreateReply(stringBuilder.ToString());

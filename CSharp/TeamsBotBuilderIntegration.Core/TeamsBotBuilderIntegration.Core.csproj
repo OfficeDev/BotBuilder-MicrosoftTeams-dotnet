@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Version>4.0.0-local</Version>
+    <Authors>microsoft,MicrosoftTeamsBotFramework</Authors>
+    <Company>Microsoft</Company>
+    <Product>Microsoft Bot Builder SDK - Extensions for Microsoft Teams</Product>
+    <Description>Contains Bot Builder SDK extensions for developing bots for Microsoft Teams exposing functionality which is otherwise not present in Bot Builder SDK.</Description>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <PackageLicenseUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams</PackageProjectUrl>
+    <PackageIconUrl>http://docs.botframework.com/images/bot_icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams</RepositoryUrl>
+    <PackageTags>bots;ai;botframework;botbuilder;msteams;teams;microsoft</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>..\outputpackages</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AsyncUsageAnalyzers" Version="1.0.0-alpha003">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Bot.Builder" Version="4.0.0-local" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Net.Http.Headers" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Bot.Builder.Teams\Microsoft.Bot.Builder.Teams.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Connector.Teams\Microsoft.Bot.Connector.Teams.csproj" />
+  </ItemGroup>
+
+</Project>
