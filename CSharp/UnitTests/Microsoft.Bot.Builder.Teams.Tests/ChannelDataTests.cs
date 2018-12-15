@@ -112,8 +112,8 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    Assert.IsNotNull(teamsExtension.GetActivityTenantId());
-                    Assert.AreEqual(teamsExtension.GetActivityTenantId(), "3b9e9fbb-ed2f-415b-b776-cf788e573366");
+                    Assert.IsNotNull(teamsExtension.Tenant.Id);
+                    Assert.AreEqual(teamsExtension.Tenant.Id, "3b9e9fbb-ed2f-415b-b776-cf788e573366");
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -132,7 +132,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    teamsExtension.GetActivityTenantId();
+                    var id = teamsExtension.Tenant.Id;
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -141,7 +141,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
         /// Channel data test to get tenant Id with missing tenant Id.
         /// </summary>
         /// <returns>Task tracking operation.</returns>
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(NullReferenceException))]
         [TestMethod]
         public async Task ChannelData_GetTenantIdMissingTenantDataAsync()
         {
@@ -153,7 +153,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 sampleActivity,
                 (teamsExtension) =>
                 {
-                    teamsExtension.GetActivityTenantId();
+                    var id = teamsExtension.Tenant.Id;
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
