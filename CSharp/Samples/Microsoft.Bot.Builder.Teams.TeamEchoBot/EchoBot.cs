@@ -47,7 +47,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                 try
                 {
                     // --> Get Teams Extensions.
-                    ITeamsContext teamsExtension = context.TurnState.Get<ITeamsContext>();
+                    ITeamsContext teamsContext = context.TurnState.Get<ITeamsContext>();
 
                     EchoState state = await this.echoStateAccessor.CounterState.GetAsync(context, () => new EchoState()).ConfigureAwait(false);
 
@@ -57,7 +57,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
 
                     await this.echoStateAccessor.ConversationState.SaveChangesAsync(context).ConfigureAwait(false);
 
-                    string suffixMessage = $"from tenant Id {teamsExtension.Tenant.Id}";
+                    string suffixMessage = $"from tenant Id {teamsContext.Tenant.Id}";
 
                     // Echo back to the user whatever they typed.
                     await context.SendActivityAsync($"Turn {state.TurnCount}: You sent '{context.Activity.Text}' {suffixMessage}").ConfigureAwait(false);

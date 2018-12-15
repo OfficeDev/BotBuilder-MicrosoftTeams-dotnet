@@ -212,32 +212,32 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
 
         private async Task<InvokeResponse> ProcessTeamsInvokeActivityAsync(ITurnContext turnContext)
         {
-            ITeamsContext teamsExtension = turnContext.TurnState.Get<ITeamsContext>();
+            ITeamsContext teamsContext = turnContext.TurnState.Get<ITeamsContext>();
 
-            if (teamsExtension.IsRequestMessagingExtensionQuery())
+            if (teamsContext.IsRequestMessagingExtensionQuery())
             {
                 return await this.invokeActivityHandler.HandleMessagingExtensionActionAsync(new MessagingExtensionActivityAction
                 {
-                    MessagingExtensionQuery = teamsExtension.GetMessagingExtensionQueryData(),
+                    MessagingExtensionQuery = teamsContext.GetMessagingExtensionQueryData(),
                     TurnContext = turnContext,
                 }).ConfigureAwait(false);
             }
 
-            if (teamsExtension.IsRequestO365ConnectorCardActionQuery())
+            if (teamsContext.IsRequestO365ConnectorCardActionQuery())
             {
                 return await this.invokeActivityHandler.HandleO365ConnectorCardActionAsync(new O365ConnectorCardActivityAction
                 {
-                    CardActionQuery = teamsExtension.GetO365ConnectorCardActionQueryData(),
+                    CardActionQuery = teamsContext.GetO365ConnectorCardActionQueryData(),
                     TurnContext = turnContext,
                 }).ConfigureAwait(false);
             }
 
-            if (teamsExtension.IsRequestSigninStateVerificationQuery())
+            if (teamsContext.IsRequestSigninStateVerificationQuery())
             {
                 return await this.invokeActivityHandler.HandleSigninStateVerificationActionAsync(new SigninStateVerificationActivityAction
                 {
                     TurnContext = turnContext,
-                    VerificationQuery = teamsExtension.GetSigninStateVerificationQueryData(),
+                    VerificationQuery = teamsContext.GetSigninStateVerificationQueryData(),
                 }).ConfigureAwait(false);
             }
 

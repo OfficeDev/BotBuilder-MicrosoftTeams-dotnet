@@ -26,9 +26,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             Activity sampleActivity = JsonConvert.DeserializeObject<Activity>(File.ReadAllText(@"Jsons\SampleActivitySigninAuthStateVerification.json"));
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    Assert.IsTrue(teamsExtension.IsRequestSigninStateVerificationQuery());
+                    Assert.IsTrue(teamsContext.IsRequestSigninStateVerificationQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -43,9 +43,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             Activity sampleActivity = JsonConvert.DeserializeObject<Activity>(File.ReadAllText(@"Jsons\SampleActivityInvoke.json"));
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    Assert.IsFalse(teamsExtension.IsRequestSigninStateVerificationQuery());
+                    Assert.IsFalse(teamsContext.IsRequestSigninStateVerificationQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }

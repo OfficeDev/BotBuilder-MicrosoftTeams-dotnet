@@ -40,8 +40,8 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 activity,
                 async (turnContext, cancellationToken) =>
                 {
-                    ITeamsContext teamsExtension = turnContext.TurnState.Get<ITeamsContext>();
-                    await callback(teamsExtension).ConfigureAwait(false);
+                    ITeamsContext teamsContext = turnContext.TurnState.Get<ITeamsContext>();
+                    await callback(teamsContext).ConfigureAwait(false);
                 }).ConfigureAwait(false);
         }
 

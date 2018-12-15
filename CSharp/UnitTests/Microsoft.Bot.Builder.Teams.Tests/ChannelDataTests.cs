@@ -29,9 +29,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             Activity sampleActivity = JsonConvert.DeserializeObject<Activity>(File.ReadAllText(@"Jsons\SampleActivityAtMention.json"));
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    ChannelInfo generalChannel = teamsExtension.GetGeneralChannel();
+                    ChannelInfo generalChannel = teamsContext.GetGeneralChannel();
 
                     TeamsChannelData channelData = sampleActivity.GetChannelData<TeamsChannelData>();
 
@@ -55,9 +55,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             sampleActivity.ChannelData = null;
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    ChannelInfo generalChannel = teamsExtension.GetGeneralChannel();
+                    ChannelInfo generalChannel = teamsContext.GetGeneralChannel();
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -76,9 +76,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             sampleActivity.ChannelData = JObject.FromObject(channelData);
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    ChannelInfo generalChannel = teamsExtension.GetGeneralChannel();
+                    ChannelInfo generalChannel = teamsContext.GetGeneralChannel();
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -110,10 +110,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             Activity sampleActivity = JsonConvert.DeserializeObject<Activity>(File.ReadAllText(@"Jsons\SampleActivityAtMention.json"));
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    Assert.IsNotNull(teamsExtension.Tenant.Id);
-                    Assert.AreEqual(teamsExtension.Tenant.Id, "3b9e9fbb-ed2f-415b-b776-cf788e573366");
+                    Assert.IsNotNull(teamsContext.Tenant.Id);
+                    Assert.AreEqual(teamsContext.Tenant.Id, "3b9e9fbb-ed2f-415b-b776-cf788e573366");
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -130,9 +130,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             sampleActivity.ChannelData = null;
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    var id = teamsExtension.Tenant.Id;
+                    var id = teamsContext.Tenant.Id;
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -151,9 +151,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
             sampleActivity.ChannelData = JObject.FromObject(channelData);
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    var id = teamsExtension.Tenant.Id;
+                    var id = teamsContext.Tenant.Id;
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -169,10 +169,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity replyActivity = JObject.FromObject(sampleActivity).ToObject<Activity>();
-                    Activity modifiedActivity = teamsExtension.NotifyUser(replyActivity);
+                    Activity modifiedActivity = teamsContext.NotifyUser(replyActivity);
 
                     Assert.IsNotNull(modifiedActivity.ChannelData);
                     Assert.IsNotNull(modifiedActivity.GetChannelData<TeamsChannelData>().Notification);
@@ -194,10 +194,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity replyActivity = JObject.FromObject(sampleActivity).ToObject<Activity>();
-                    Activity modifiedActivity = teamsExtension.NotifyUser(replyActivity);
+                    Activity modifiedActivity = teamsContext.NotifyUser(replyActivity);
 
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
