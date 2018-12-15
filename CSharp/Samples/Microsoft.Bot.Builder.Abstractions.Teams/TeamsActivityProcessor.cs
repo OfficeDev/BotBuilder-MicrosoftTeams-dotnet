@@ -212,7 +212,7 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
 
         private async Task<InvokeResponse> ProcessTeamsInvokeActivityAsync(ITurnContext turnContext)
         {
-            ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
+            ITeamsContext teamsExtension = turnContext.TurnState.Get<ITeamsContext>();
 
             if (teamsExtension.IsRequestMessagingExtensionQuery())
             {

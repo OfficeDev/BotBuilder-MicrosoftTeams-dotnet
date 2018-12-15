@@ -62,7 +62,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         }
 
         /// <summary>
-        /// Processess an incoming activity and if it is for MsTeams attaches <see cref="ITeamsExtension"/> instances along with the context.
+        /// Processess an incoming activity and if it is for MsTeams attaches <see cref="ITeamsContext"/> instances along with the context.
         /// </summary>
         /// <param name="context">The context object for this turn.</param>
         /// <param name="nextDelegate">The delegate to call to continue the bot middleware pipeline.</param>
@@ -97,7 +97,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
 
                 ITeamsConnectorClient teamsConnectorClient = await this.CreateTeamsConnectorClientAsync(context.Activity.ServiceUrl, claimsIdentity).ConfigureAwait(false);
 
-                context.TurnState.Add((ITeamsExtension)new TeamsExtension(context, teamsConnectorClient));
+                context.TurnState.Add((ITeamsContext)new TeamsContext(context, teamsConnectorClient));
             }
 
             await nextDelegate(cancellationToken).ConfigureAwait(false);

@@ -15,7 +15,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
     /// <summary>
     /// Teams extension methods which operate on incoming activity.
     /// </summary>
-    public partial class TeamsExtension
+    public partial class TeamsContext
     {
         /// <summary>
         /// Gets the general channel for a team.

@@ -1,4 +1,4 @@
-﻿// <copyright file="ITeamsExtension.cs" company="Microsoft">
+﻿// <copyright file="ITeamsContext.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
@@ -11,12 +11,12 @@ namespace Microsoft.Bot.Builder.Teams
     /// <summary>
     /// Teams extension for Bot Builder SDK.
     /// </summary>
-    public interface ITeamsExtension
+    public interface ITeamsContext
     {
         /// <summary>
         /// Gets the teams operations. These are extended set of operations available only for 'MsTeams' channel.
         /// </summary>
-        ITeamsOperations Teams { get; }
+        ITeamsOperations Operations { get; }
 
         /// <summary>
         /// Adds the mention to text. Mention is added at the end of existing text.

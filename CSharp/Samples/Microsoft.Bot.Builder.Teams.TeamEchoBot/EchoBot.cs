@@ -47,7 +47,7 @@ namespace Microsoft.Bot.Builder.Teams.TeamEchoBot
                 try
                 {
                     // --> Get Teams Extensions.
-                    ITeamsExtension teamsExtension = context.TurnState.Get<ITeamsExtension>();
+                    ITeamsContext teamsExtension = context.TurnState.Get<ITeamsContext>();
 
                     EchoState state = await this.echoStateAccessor.CounterState.GetAsync(context, () => new EchoState()).ConfigureAwait(false);
 

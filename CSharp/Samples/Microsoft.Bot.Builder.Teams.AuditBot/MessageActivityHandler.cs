@@ -44,9 +44,9 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
         /// </returns>
         public async Task HandleMessageAsync(ITurnContext turnContext)
         {
-            ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
+            ITeamsContext teamsContext = turnContext.TurnState.Get<ITeamsContext>();
 
-            string actualText = teamsExtension.GetActivityTextWithoutMentions();
+            string actualText = teamsContext.GetActivityTextWithoutMentions();
             if (actualText.Equals("ShowHistory", StringComparison.OrdinalIgnoreCase) ||
                 actualText.Equals("Show History", StringComparison.OrdinalIgnoreCase))
             {
@@ -54,7 +54,7 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
 
                 Activity replyActivity = turnContext.Activity.CreateReply();
 
-                teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
+                teamsContext.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {memberHistory.MemberOperations.Count} operations were performed";
 
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
@@ -85,14 +85,14 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                     turnContext.Activity.GetChannelData<TeamsChannelData>().Team.Id).ConfigureAwait(false)).ToList();
 
                 Activity replyActivity = turnContext.Activity.CreateReply();
-                teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
+                teamsContext.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {teamMembers.Count} members are currently in team";
 
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
 
                 for (int i = teamMembers.Count % 10; i >= 0; i--)
                 {
-                    List<TeamsChannelAccount> elementsToSend = teamMembers.Skip(10 * i).Take(10).ToList().ConvertAll<TeamsChannelAccount>((account) => teamsExtension.AsTeamsChannelAccount(account));
+                    List<TeamsChannelAccount> elementsToSend = teamMembers.Skip(10 * i).Take(10).ToList().ConvertAll<TeamsChannelAccount>((account) => teamsContext.AsTeamsChannelAccount(account));
 
                     StringBuilder stringBuilder = new StringBuilder();
 
@@ -113,10 +113,10 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
                 actualText.Equals("ShowChannels", StringComparison.OrdinalIgnoreCase) ||
                 actualText.Equals("Show Channel List", StringComparison.OrdinalIgnoreCase))
             {
-                ConversationList channelList = await teamsExtension.Teams.FetchChannelListAsync(turnContext.Activity.GetChannelData<TeamsChannelData>().Team.Id).ConfigureAwait(false);
+                ConversationList channelList = await teamsContext.Operations.FetchChannelListAsync(turnContext.Activity.GetChannelData<TeamsChannelData>().Team.Id).ConfigureAwait(false);
 
                 Activity replyActivity = turnContext.Activity.CreateReply();
-                teamsExtension.AddMentionToText(replyActivity, turnContext.Activity.From);
+                teamsContext.AddMentionToText(replyActivity, turnContext.Activity.From);
                 replyActivity.Text = replyActivity.Text + $" Total of {channelList.Conversations.Count} channels are currently in team";
 
                 await turnContext.SendActivityAsync(replyActivity).ConfigureAwait(false);
