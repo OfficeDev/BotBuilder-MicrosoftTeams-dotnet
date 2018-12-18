@@ -15,8 +15,52 @@ namespace Microsoft.Bot.Builder.Teams.Internal
     /// <summary>
     /// Teams extension methods which operate on incoming activity.
     /// </summary>
-    public partial class TeamsExtension
+    public partial class TeamsContext
     {
+        /// <summary>
+        /// Gets the type of event.
+        /// </summary>
+        public string EventType
+        {
+            get
+            {
+                return this.GetTeamsChannelData().EventType;
+            }
+        }
+
+        /// <summary>
+        /// Gets info about the team in which this activity fired.
+        /// </summary>
+        public TeamInfo Team
+        {
+            get
+            {
+                return this.GetTeamsChannelData().Team;
+            }
+        }
+
+        /// <summary>
+        /// Gets info about the channel in which this activity fired.
+        /// </summary>
+        public ChannelInfo Channel
+        {
+            get
+            {
+                return this.GetTeamsChannelData().Channel;
+            }
+        }
+
+        /// <summary>
+        /// Gets tenant info for the activity.
+        /// </summary>
+        public TenantInfo Tenant
+        {
+            get
+            {
+                return this.GetTeamsChannelData().Tenant;
+            }
+        }
+
         /// <summary>
         /// Gets the general channel for a team.
         /// </summary>
@@ -67,23 +111,17 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         }
 
         /// <summary>
-        /// Gets the tenant id of the user who sent the message.
+        /// Gets the Teams channel data associated with the current activity.
         /// </summary>
-        /// <returns>Tenant Id of the user who sent the message.</returns>
-        /// <exception cref="ArgumentException">Failed to process channel data in Activity.</exception>
+        /// <returns>Teams channel data <see cref="TeamsChannelData"/>Teams channel data for current activity.</returns>
         /// <exception cref="ArgumentNullException">ChannelData missing in Activity.</exception>
-        public string GetActivityTenantId()
+        public TeamsChannelData GetTeamsChannelData()
         {
             if (this.turnContext.Activity.ChannelData != null)
             {
                 TeamsChannelData channelData = this.turnContext.Activity.GetChannelData<TeamsChannelData>();
 
-                if (!string.IsNullOrEmpty(channelData?.Tenant?.Id))
-                {
-                    return channelData.Tenant.Id;
-                }
-
-                throw new ArgumentException("Failed to process channel data in Activity");
+                return channelData;
             }
             else
             {
@@ -200,7 +238,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
                     {
                         Tenant = new TenantInfo
                         {
-                            Id = this.GetActivityTenantId(),
+                            Id = this.Tenant.Id,
                         },
                     },
                     JsonSerializer.Create(new JsonSerializerSettings()

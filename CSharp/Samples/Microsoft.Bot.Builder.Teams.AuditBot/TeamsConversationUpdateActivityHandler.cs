@@ -136,8 +136,8 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
 
             foreach (ChannelAccount memberAdded in teamMembersAddedEvent.MembersAdded)
             {
-                ITeamsExtension teamsExtension = teamMembersAddedEvent.TurnContext.TurnState.Get<ITeamsExtension>();
-                TeamsChannelAccount teamsChannelAccount = teamsExtension.AsTeamsChannelAccount(memberAdded);
+                ITeamsContext teamsContext = teamMembersAddedEvent.TurnContext.TurnState.Get<ITeamsContext>();
+                TeamsChannelAccount teamsChannelAccount = teamsContext.AsTeamsChannelAccount(memberAdded);
 
                 if (conversationHistory.MemberOperations == null)
                 {
@@ -169,8 +169,8 @@ namespace Microsoft.Bot.Builder.Teams.AuditBot
 
             foreach (ChannelAccount memberRemoved in teamMembersRemovedEvent.MembersRemoved)
             {
-                ITeamsExtension teamsExtension = teamMembersRemovedEvent.TurnContext.TurnState.Get<ITeamsExtension>();
-                TeamsChannelAccount teamsChannelAccount = teamsExtension.AsTeamsChannelAccount(memberRemoved);
+                ITeamsContext teamsContext = teamMembersRemovedEvent.TurnContext.TurnState.Get<ITeamsContext>();
+                TeamsChannelAccount teamsChannelAccount = teamsContext.AsTeamsChannelAccount(memberRemoved);
 
                 if (conversationHistory.MemberOperations == null)
                 {

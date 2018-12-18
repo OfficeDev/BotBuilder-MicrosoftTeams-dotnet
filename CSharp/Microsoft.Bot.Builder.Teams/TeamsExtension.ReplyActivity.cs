@@ -12,7 +12,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
     /// <summary>
     /// Teams extensions methods which operate on reply activity.
     /// </summary>
-    public partial class TeamsExtension
+    public partial class TeamsContext
     {
         /// <summary>
         /// Adds the mention text to an existing activity.

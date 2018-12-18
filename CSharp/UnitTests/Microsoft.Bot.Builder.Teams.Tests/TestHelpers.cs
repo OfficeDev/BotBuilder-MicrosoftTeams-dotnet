@@ -31,7 +31,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
         /// <param name="activity">The activity.</param>
         /// <param name="callback">The callback.</param>
         /// <returns>Task tracking operation.</returns>
-        internal static async Task RunTestPipelineWithActivityAsync(Activity activity, Func<ITeamsExtension, Task> callback)
+        internal static async Task RunTestPipelineWithActivityAsync(Activity activity, Func<ITeamsContext, Task> callback)
         {
             Mock<ICredentialProvider> mockCredentialProvider = new Mock<ICredentialProvider>();
             TestAdapter testAdapter = new TestAdapter(new ConversationReference(activity.Id, activity.From, activity.Recipient, activity.Conversation, activity.ChannelId, activity.ServiceUrl));
@@ -40,8 +40,8 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                 activity,
                 async (turnContext, cancellationToken) =>
                 {
-                    ITeamsExtension teamsExtension = turnContext.TurnState.Get<ITeamsExtension>();
-                    await callback(teamsExtension).ConfigureAwait(false);
+                    ITeamsContext teamsContext = turnContext.TurnState.Get<ITeamsContext>();
+                    await callback(teamsContext).ConfigureAwait(false);
                 }).ConfigureAwait(false);
         }
 

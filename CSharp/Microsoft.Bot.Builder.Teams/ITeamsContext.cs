@@ -1,4 +1,4 @@
-﻿// <copyright file="ITeamsExtension.cs" company="Microsoft">
+﻿// <copyright file="ITeamsContext.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
@@ -11,12 +11,32 @@ namespace Microsoft.Bot.Builder.Teams
     /// <summary>
     /// Teams extension for Bot Builder SDK.
     /// </summary>
-    public interface ITeamsExtension
+    public interface ITeamsContext
     {
+        /// <summary>
+        /// Gets the type of event.
+        /// </summary>
+        string EventType { get; }
+
+        /// <summary>
+        /// Gets info about the team in which this activity fired.
+        /// </summary>
+        TeamInfo Team { get; }
+
+        /// <summary>
+        /// Gets info about the channel in which this activity fired.
+        /// </summary>
+        ChannelInfo Channel { get; }
+
+        /// <summary>
+        /// Gets tenant info for the activity.
+        /// </summary>
+        TenantInfo Tenant { get; }
+
         /// <summary>
         /// Gets the teams operations. These are extended set of operations available only for 'MsTeams' channel.
         /// </summary>
-        ITeamsOperations Teams { get; }
+        ITeamsOperations Operations { get; }
 
         /// <summary>
         /// Adds the mention to text. Mention is added at the end of existing text.
@@ -45,10 +65,10 @@ namespace Microsoft.Bot.Builder.Teams
         Activity CreateReplyToGeneralChannel(string text = null, string locale = null);
 
         /// <summary>
-        /// Gets the tenant identifier on the message.
+        /// Gets the Teams channel data associated with the current activity.
         /// </summary>
-        /// <returns>Tenant Identifier on the message.</returns>
-        string GetActivityTenantId();
+        /// <returns>Teams channel data <see cref="TeamsChannelData"/>Teams channel data for current activity.</returns>
+        TeamsChannelData GetTeamsChannelData();
 
         /// <summary>
         /// Gets the activity text without mentions. This method replaces at mentions with empty string.

@@ -35,9 +35,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    ConversationParameters conversationParameters = teamsExtension.GetConversationParametersForCreateOrGetDirectConversation(new ChannelAccount
+                    ConversationParameters conversationParameters = teamsContext.GetConversationParametersForCreateOrGetDirectConversation(new ChannelAccount
                     {
                         Id = "UserId",
                         Name = "UserName",
@@ -67,7 +67,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                async (teamsExtension) =>
+                async (teamsContext) =>
                 {
                     TestDelegatingHandler testDelegatingHandler = new TestDelegatingHandler((request) =>
                     {
@@ -85,7 +85,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests
                         .ToList()
                         .ConvertAll(member =>
                         {
-                            return teamsExtension.AsTeamsChannelAccount(member);
+                            return teamsContext.AsTeamsChannelAccount(member);
                         });
 
                     Assert.IsTrue(memberList.Count() == 2);

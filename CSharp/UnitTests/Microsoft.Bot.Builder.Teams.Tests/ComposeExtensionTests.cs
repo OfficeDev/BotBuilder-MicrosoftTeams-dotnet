@@ -28,9 +28,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    Assert.IsTrue(teamsExtension.IsRequestMessagingExtensionQuery());
+                    Assert.IsTrue(teamsContext.IsRequestMessagingExtensionQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -46,9 +46,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    Assert.IsFalse(teamsExtension.IsRequestMessagingExtensionQuery());
+                    Assert.IsFalse(teamsContext.IsRequestMessagingExtensionQuery());
                     return Task.CompletedTask;
                 }).ConfigureAwait(false);
         }
@@ -64,9 +64,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    MessagingExtensionQuery query = teamsExtension.GetMessagingExtensionQueryData();
+                    MessagingExtensionQuery query = teamsContext.GetMessagingExtensionQueryData();
                     Assert.AreEqual("testQuery", query.CommandId);
                     Assert.IsTrue(query.Parameters != null && query.Parameters.Count == 1);
                     Assert.AreEqual("selectedQueryJson", query.Parameters[0].Name);

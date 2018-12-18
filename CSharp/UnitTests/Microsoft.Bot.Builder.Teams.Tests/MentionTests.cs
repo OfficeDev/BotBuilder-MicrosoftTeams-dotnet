@@ -28,10 +28,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity reply = sampleActivity.CreateReply();
-                    reply = teamsExtension.AddMentionToText(reply, sampleActivity.From);
+                    reply = teamsContext.AddMentionToText(reply, sampleActivity.From);
 
                     Assert.IsTrue(reply.Entities.Count == 1);
                     Assert.IsInstanceOfType(reply.Entities[0], typeof(Mention));
@@ -54,10 +54,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity reply = sampleActivity.CreateReply();
-                    reply = teamsExtension.AddMentionToText(reply, sampleActivity.From, mentionText: "SampleName");
+                    reply = teamsContext.AddMentionToText(reply, sampleActivity.From, mentionText: "SampleName");
 
                     Assert.IsTrue(reply.Entities.Count == 1);
                     Assert.IsInstanceOfType(reply.Entities[0], typeof(Mention));
@@ -81,10 +81,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity reply = sampleActivity.CreateReply();
-                    reply = teamsExtension.AddMentionToText(
+                    reply = teamsContext.AddMentionToText(
                         reply, new ChannelAccount
                         {
                             Id = sampleActivity.From.Id,
@@ -104,11 +104,11 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
                     Activity reply = sampleActivity.CreateReply();
                     reply.Entities = null;
-                    reply = teamsExtension.AddMentionToText(reply, sampleActivity.From);
+                    reply = teamsContext.AddMentionToText(reply, sampleActivity.From);
                     Assert.IsTrue(reply.Entities.Count == 1);
                     Assert.IsInstanceOfType(reply.Entities[0], typeof(Mention));
                     Assert.IsTrue(reply.Text.Contains((reply.Entities[0] as Mention).Text));
@@ -128,9 +128,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    string noMentionText = teamsExtension.GetActivityTextWithoutMentions();
+                    string noMentionText = teamsContext.GetActivityTextWithoutMentions();
                     Assert.IsTrue(sampleActivity.Text.Contains(noMentionText));
                     Assert.AreEqual("TestMessage", noMentionText);
                     return Task.CompletedTask;
@@ -148,9 +148,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests
 
             await TestHelpers.RunTestPipelineWithActivityAsync(
                 sampleActivity,
-                (teamsExtension) =>
+                (teamsContext) =>
                 {
-                    string noMentionText = teamsExtension.GetActivityTextWithoutMentions();
+                    string noMentionText = teamsContext.GetActivityTextWithoutMentions();
                     Assert.IsTrue(sampleActivity.Text.Contains(noMentionText));
                     Assert.AreEqual(sampleActivity.Text, noMentionText);
                     return Task.CompletedTask;

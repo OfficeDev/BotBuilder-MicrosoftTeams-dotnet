@@ -1,4 +1,4 @@
-﻿// <copyright file="TeamsExtension.IncomingChannelAccount.cs" company="Microsoft">
+﻿// <copyright file="TeamsContext.IncomingChannelAccount.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
@@ -11,7 +11,7 @@ namespace Microsoft.Bot.Builder.Teams.Internal
     /// <summary>
     /// Channel account operations.
     /// </summary>
-    public partial class TeamsExtension
+    public partial class TeamsContext
     {
         /// <summary>
         /// Gets teams channel account data.
