@@ -13,23 +13,33 @@
     <Authors>microsoft,MicrosoftTeamsBotFramework</Authors>
     <Product>Microsoft Bot Builder SDK - Extensions for Microsoft Teams</Product>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet</PackageProjectUrl>
     <PackageIconUrl>http://docs.botframework.com/images/bot_icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet/blob/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams</RepositoryUrl>
-    <LicenseUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams/blob/master/LICENSE</LicenseUrl>
-    <RepositoryType />
+    <RepositoryUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet</RepositoryUrl>
+    <License>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet/blob/master/LICENSE</License>
     <PackageTags>bots;ai;botframework;botbuilder;msteams;teams;microsoft</PackageTags>
     <NeutralLanguage />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Contains Bot Builder SDK extensions for developing bots for Microsoft Teams exposing functionality which is otherwise not present in Bot Builder SDK.</Description>
-  </PropertyGroup>
+</PropertyGroup>
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Microsoft.Bot.Builder.Teams.sln))\Build\Analyzer.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\$(Configuration)\$(Platform)\$(AssemblyName).xml</DocumentationFile>
-    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'True'">
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Include the PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\272MSSharedLibSN2048.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +52,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Bot.Schema" Version="4.0.7" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008">
       <PrivateAssets>all</PrivateAssets>
