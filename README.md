@@ -1,4 +1,32 @@
 
+# Bot Builder SDK 4 - Microsoft Teams Extensions
+
+The Microsoft Bot Builder SDK 4 Teams Extensions allow you to build bots for Microsoft Teams quickly and easily. **[Review the documentation](https://msdn.microsoft.com/en-us/microsoft-teams/bots)** to get started!
+
+# This SDK allows you to easily...
+
+* Fetch a list of channels in a team
+* Fetch profile info about all members of a team
+* Fetch tenant-id from an incoming message to bot
+* Create 1:1 chat with a specific user
+* Mention a specific user
+* Consume various events like channel-created, team-renamed, etc.
+* Accept messages only from specific tenants
+* Write Compose Extensions
+* _and more!_
+
+# Installing
+
+If you are building your bot in .NET, simply grab the [Microsoft.Bot.Connector.Teams](https://www.nuget.org/packages/Microsoft.Bot.Connector.Teams) nuget.
+
+If you are using Node, grab the [botbuilder-teams](https://www.npmjs.com/package/botbuilder-teams) NPM instead.
+
+# Get started quickly with our samples:
+Take a look [here](CSharp/Samples).
+
+# Questions, bugs, feature requests, and contributions
+Please review the information [here](https://msdn.microsoft.com/en-us/microsoft-teams/feedback).
+
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
