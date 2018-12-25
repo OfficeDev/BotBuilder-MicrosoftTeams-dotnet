@@ -70,7 +70,9 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         public T NotifyUser<T>(T replyActivity)
             where T : IMessageActivity
         {
-            TeamsChannelData channelData = replyActivity.ChannelData == null ? new TeamsChannelData() : replyActivity.GetChannelData<TeamsChannelData>();
+            TeamsChannelData channelData = replyActivity.GetChannelData<TeamsChannelData>() == null ?
+                new TeamsChannelData() :
+                replyActivity.GetChannelData<TeamsChannelData>();
             channelData.Notification = new NotificationInfo
             {
                 Alert = true,
