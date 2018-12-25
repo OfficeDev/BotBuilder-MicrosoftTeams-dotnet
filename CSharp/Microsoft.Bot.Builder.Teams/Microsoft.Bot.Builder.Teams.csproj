@@ -39,7 +39,7 @@
     <!-- Include the PDB in the built .nupkg -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
+    <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>..\272MSSharedLibSN2048.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
