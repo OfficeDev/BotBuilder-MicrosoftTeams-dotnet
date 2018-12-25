@@ -17,9 +17,9 @@ The Microsoft Bot Builder SDK 4 Teams Extensions allow you to build bots for Mic
 
 # Installing
 
-If you are building your bot in .NET, simply grab the [Microsoft.Bot.Connector.Teams](https://www.nuget.org/packages/Microsoft.Bot.Connector.Teams) nuget.
+Simply grab the [Microsoft.Bot.Builder.Teams](https://www.nuget.org/packages/Microsoft.Bot.Builder.Teams) nuget.
 
-If you are using Node, grab the [botbuilder-teams](https://www.npmjs.com/package/botbuilder-teams) NPM instead.
+Bot Builder SDK 4 - Microsoft Teams extensions for Node are not available yet.
 
 # Get started quickly with our samples:
 Take a look [here](CSharp/Samples).
