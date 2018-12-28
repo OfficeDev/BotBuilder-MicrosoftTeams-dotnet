@@ -31,7 +31,7 @@
   
   <PropertyGroup>
     <Company>Microsoft</Company>
-	<Authors>Microsoft,MicrosoftTeamsBotFramework</Authors>
+	<Authors>Microsoft</Authors>
     <Product>Microsoft Bot Builder SDK - Extensions for Microsoft Teams</Product>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet</PackageProjectUrl>
