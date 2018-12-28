@@ -31,7 +31,7 @@
   
   <PropertyGroup>
     <Company>Microsoft</Company>
-    <Authors>microsoft,MicrosoftTeamsBotFramework</Authors>
+	<Authors>Microsoft,MicrosoftTeamsBotFramework</Authors>
     <Product>Microsoft Bot Builder SDK - Extensions for Microsoft Teams</Product>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet</PackageProjectUrl>
@@ -39,7 +39,6 @@
     <PackageLicenseUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet/blob/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet</RepositoryUrl>
-    <License>https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-dotnet/blob/master/LICENSE</License>
     <PackageTags>bots;ai;botframework;botbuilder;msteams;teams;microsoft</PackageTags>
     <NeutralLanguage />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
