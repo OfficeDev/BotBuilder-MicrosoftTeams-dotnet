@@ -688,8 +688,8 @@
       }
     },
 
-    "IMessageActivity": {
-      "description": "Dummy class to shadow Microsoft.Bot.Schema.IMessageActivity",
+    "Activity": {
+      "description": "Dummy class to shadow Microsoft.Bot.Schema.Activity",
       "type": "object",
       "properties": {
         "dummyProperty": {
@@ -752,7 +752,7 @@
         },
         "activityPreview": {
           "description": "(Only when type is botMessagePreview) Message activity to preview",
-          "$ref": "#/definitions/IMessageActivity"
+          "$ref": "#/definitions/Activity"
         }
       }
     },
