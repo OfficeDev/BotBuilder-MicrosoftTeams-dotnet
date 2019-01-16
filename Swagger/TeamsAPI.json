@@ -688,6 +688,17 @@
       }
     },
 
+    "IMessageActivity": {
+      "description": "Dummy class to shadow Microsoft.Bot.Schema.IMessageActivity",
+      "type": "object",
+      "properties": {
+        "dummyProperty": {
+          "description": "Just a dummy property to make binding class being generated.",
+          "type": "string"
+        }
+      }
+    },
+
     "MessagingExtensionResponse": {
       "description": "Messaging extension response",
       "type": "object",
@@ -738,6 +749,10 @@
         "text": {
           "description": "(Only when type is message) Text",
           "type": "string"
+        },
+        "activityPreview": {
+          "description": "(Only when type is botMessagePreview) Message activity to preview",
+          "$ref": "#/definitions/IMessageActivity"
         }
       }
     },
