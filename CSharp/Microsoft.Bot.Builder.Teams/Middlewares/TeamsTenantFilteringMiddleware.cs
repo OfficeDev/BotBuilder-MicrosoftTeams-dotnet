@@ -51,23 +51,17 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// </remarks>
         /// <seealso cref="ITurnContext" />
         /// <seealso cref="Schema.IActivity" />
-        public Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // Ignoring cases where ChannelData is missing or does not contain TenantId.
-            if (turnContext.Activity.ChannelData != null)
-            {
-                TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
+            TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
+            string tenantId = teamsChannelData?.Tenant?.Id;
 
-                if (!string.IsNullOrEmpty(teamsChannelData?.Tenant?.Id))
-                {
-                    if (!this.tenantMap.ContainsKey(teamsChannelData.Tenant.Id))
-                    {
-                        throw new UnauthorizedAccessException("Tenant Id '" + teamsChannelData.Tenant.Id + "' is not allowed access.");
-                    }
-                }
+            if (string.IsNullOrEmpty(tenantId) || !this.tenantMap.ContainsKey(tenantId))
+            {
+                throw new UnauthorizedAccessException("Tenant Id '" + tenantId + "' is not allowed access.");
             }
 
-            return Task.CompletedTask;
+            await next(cancellationToken).ConfigureAwait(false);
         }
     }
 }
