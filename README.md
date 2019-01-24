@@ -21,7 +21,45 @@ Simply grab the [Microsoft.Bot.Builder.Teams](https://www.nuget.org/packages/Mic
 
 Bot Builder SDK 4 - Microsoft Teams extensions for Node are not available yet.
 
-# Get started quickly with our samples:
+# Getting started
+
+* If you don't already have it, install the Visual Studio [project template for Bot Framework V4 bot](https://marketplace.visualstudio.com/items?itemName=BotBuilder.botbuilderv4).
+* Add a reference to `Microsoft.Bot.Builder.Teams` nuget package.
+* Go to `Startup.cs` and add the following snippet of code:
+```csharp
+services.AddBot<EchoBot1Bot>(options =>
+{
+    // ... other stuff snipped for brevity
+    
+    // Add Teams Middleware.
+    options.Middleware.Add(
+        new TeamsMiddleware(
+            new ConfigurationCredentialProvider(this.Configuration)));
+
+    // ... other stuff snipped for brevity
+}    
+```
+* Now in the `OnTurnAsync` method of your bot, to do any Teams specific stuff, first grab the ITeamsContext as shown below:
+```csharp
+           var teamsContext = turnContext.TurnState.Get<ITeamsContext>();
+```
+* And once you have `teamsContext`, you can use intellisense built into Visual Studio to discover all the operations you can do. For instance, here's how you can fetch the list of channels in the team and fetch information about the team:
+```csharp
+// Now fetch the Team ID, Channel ID, and Tenant ID off of the incoming activity
+var incomingTeamId = teamsContext.Team.Id;
+var incomingChannelid = teamsContext.Channel.Id;
+var incomingTenantId = teamsContext.Tenant.Id;
+
+// Make an operation call to fetch the list of channels in the team, and print count of channels.
+var channels = await teamsContext.Operations.FetchChannelListAsync(incomingTeamId);
+await turnContext.SendActivityAsync($"You have {channels.Conversations.Count} channels in this team");
+
+// Make an operation call to fetch details of the team where the activity was posted, and print it.
+var teamInfo = await teamsContext.Operations.FetchTeamDetailsAsync(incomingTeamId);
+await turnContext.SendActivityAsync($"Name of this team is {teamInfo.Name} and group-id is {teamInfo.AadGroupId}");
+```
+
+# Samples:
 Take a look [here](CSharp/Samples).
 
 # Questions, bugs, feature requests, and contributions
