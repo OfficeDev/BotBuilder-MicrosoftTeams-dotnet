@@ -62,6 +62,8 @@ await turnContext.SendActivityAsync($"Name of this team is {teamInfo.Name} and g
 # Samples:
 Take a look [here](CSharp/Samples).
 
+Stand-alone sample can be found [here](https://github.com/OfficeDev/msteams-samples-dotnet-echobot-bf4).
+
 # Questions, bugs, feature requests, and contributions
 Please review the information [here](https://msdn.microsoft.com/en-us/microsoft-teams/feedback).
 
