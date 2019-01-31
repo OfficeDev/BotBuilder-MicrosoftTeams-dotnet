@@ -55,8 +55,13 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         {
             TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
             string tenantId = teamsChannelData?.Tenant?.Id;
+            
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                throw new UnauthorizedAccessException("Tenant Id is missing.");
+            }
 
-            if (string.IsNullOrEmpty(tenantId) || !this.tenantMap.ContainsKey(tenantId))
+            if (!this.tenantMap.ContainsKey(tenantId))
             {
                 throw new UnauthorizedAccessException("Tenant Id '" + tenantId + "' is not allowed access.");
             }
