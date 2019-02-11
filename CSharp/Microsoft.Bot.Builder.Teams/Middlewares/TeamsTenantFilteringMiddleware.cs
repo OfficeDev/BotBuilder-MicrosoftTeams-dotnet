@@ -28,6 +28,11 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <param name="allowedTenantIds">The list of allowed tenants.</param>
         public TeamsTenantFilteringMiddleware(IEnumerable<string> allowedTenantIds)
         {
+            if (allowedTenantIds == null)
+            {
+                throw new ArgumentNullException(nameof(allowedTenantIds));
+            }
+
             this.tenantMap = allowedTenantIds.ToDictionary((tenantId) => tenantId, (tenantId) => tenantId);
         }
 
@@ -53,9 +58,15 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <seealso cref="Schema.IActivity" />
         public async Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (!turnContext.Activity.ChannelId.Equals("msteams", StringComparison.OrdinalIgnoreCase))
+            {
+                await next(cancellationToken).ConfigureAwait(false);
+                return;
+            }
+
             TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
             string tenantId = teamsChannelData?.Tenant?.Id;
-            
+
             if (string.IsNullOrEmpty(tenantId))
             {
                 throw new UnauthorizedAccessException("Tenant Id is missing.");
