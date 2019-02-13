@@ -7,6 +7,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Connector;
 
     /// <summary>
     /// Automatically drop all messages received from any channel except Microsoft Teams.
@@ -37,7 +38,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         {
             BotAssert.ContextNotNull(turnContext);
 
-            if (turnContext.Activity.ChannelId.Equals("msteams", StringComparison.OrdinalIgnoreCase))
+            if (turnContext.Activity.ChannelId.Equals(Channels.Msteams, StringComparison.OrdinalIgnoreCase))
             {
                 await next(cancellationToken).ConfigureAwait(false);
             }
