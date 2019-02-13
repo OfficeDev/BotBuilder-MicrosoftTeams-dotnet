@@ -128,10 +128,10 @@
       <Version>5.2.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.WebApi">
-      <Version>4.0.7</Version>
+      <Version>4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bot.Configuration">
-      <Version>4.0.7</Version>
+      <Version>4.1.1</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.0-beta008</Version>

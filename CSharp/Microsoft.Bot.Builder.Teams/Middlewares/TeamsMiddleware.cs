@@ -13,6 +13,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Teams.Internal;
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Connector.Teams;
     using Microsoft.Rest.TransientFaultHandling;
@@ -84,7 +85,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         {
             BotAssert.ContextNotNull(context);
 
-            if (context.Activity.ChannelId.Equals("msteams", StringComparison.OrdinalIgnoreCase))
+            if (context.Activity.ChannelId.Equals(Channels.Msteams, StringComparison.OrdinalIgnoreCase))
             {
                 // BotFrameworkAdapter when processing activity, post Auth adds BotIdentity into the context.
                 ClaimsIdentity claimsIdentity = context.TurnState.Get<ClaimsIdentity>("BotIdentity");

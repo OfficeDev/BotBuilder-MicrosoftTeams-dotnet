@@ -9,6 +9,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
@@ -28,6 +29,11 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <param name="allowedTenantIds">The list of allowed tenants.</param>
         public TeamsTenantFilteringMiddleware(IEnumerable<string> allowedTenantIds)
         {
+            if (allowedTenantIds == null)
+            {
+                throw new ArgumentNullException(nameof(allowedTenantIds));
+            }
+
             this.tenantMap = allowedTenantIds.ToDictionary((tenantId) => tenantId, (tenantId) => tenantId);
         }
 
@@ -51,23 +57,28 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// </remarks>
         /// <seealso cref="ITurnContext" />
         /// <seealso cref="Schema.IActivity" />
-        public Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // Ignoring cases where ChannelData is missing or does not contain TenantId.
-            if (turnContext.Activity.ChannelData != null)
+            if (!turnContext.Activity.ChannelId.Equals(Channels.Msteams, StringComparison.OrdinalIgnoreCase))
             {
-                TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
-
-                if (!string.IsNullOrEmpty(teamsChannelData?.Tenant?.Id))
-                {
-                    if (!this.tenantMap.ContainsKey(teamsChannelData.Tenant.Id))
-                    {
-                        throw new UnauthorizedAccessException("Tenant Id '" + teamsChannelData.Tenant.Id + "' is not allowed access.");
-                    }
-                }
+                await next(cancellationToken).ConfigureAwait(false);
+                return;
             }
 
-            return Task.CompletedTask;
+            TeamsChannelData teamsChannelData = turnContext.Activity.GetChannelData<TeamsChannelData>();
+            string tenantId = teamsChannelData?.Tenant?.Id;
+
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                throw new UnauthorizedAccessException("Tenant Id is missing.");
+            }
+
+            if (!this.tenantMap.ContainsKey(tenantId))
+            {
+                throw new UnauthorizedAccessException("Tenant Id '" + tenantId + "' is not allowed access.");
+            }
+
+            await next(cancellationToken).ConfigureAwait(false);
         }
     }
 }

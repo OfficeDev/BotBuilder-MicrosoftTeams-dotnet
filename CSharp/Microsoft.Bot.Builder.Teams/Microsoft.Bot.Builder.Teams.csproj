@@ -7,7 +7,7 @@
   <Import Project="..\Build\Common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bot.Builder" Version="4.0.7" />
+    <PackageReference Include="Microsoft.Bot.Builder" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
