@@ -7,7 +7,7 @@
   <Import Project="..\Build\Common.props" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bot.Schema" Version="4.2.2" />
+    <PackageReference Include="Microsoft.Bot.Schema" Version="4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 </Project>
