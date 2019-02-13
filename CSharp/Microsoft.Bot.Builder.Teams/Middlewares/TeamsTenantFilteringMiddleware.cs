@@ -9,6 +9,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
@@ -58,7 +59,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <seealso cref="Schema.IActivity" />
         public async Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (!turnContext.Activity.ChannelId.Equals("msteams", StringComparison.OrdinalIgnoreCase))
+            if (!turnContext.Activity.ChannelId.Equals(Channels.Msteams, StringComparison.OrdinalIgnoreCase))
             {
                 await next(cancellationToken).ConfigureAwait(false);
                 return;

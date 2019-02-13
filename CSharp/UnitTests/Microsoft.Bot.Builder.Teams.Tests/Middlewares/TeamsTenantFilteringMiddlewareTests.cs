@@ -9,6 +9,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests.Middleware
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Teams.Middlewares;
+    using Microsoft.Bot.Connector;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -173,7 +174,7 @@ namespace Microsoft.Bot.Builder.Teams.Tests.Middleware
         {
             return new Activity()
             {
-                ChannelId = teamsChannel ? "msteams" : "skype",
+                ChannelId = teamsChannel ? Channels.Msteams : Channels.Skype,
                 ChannelData = new TeamsChannelData
                 {
                     Tenant = tenantId == null ? null : new TenantInfo
