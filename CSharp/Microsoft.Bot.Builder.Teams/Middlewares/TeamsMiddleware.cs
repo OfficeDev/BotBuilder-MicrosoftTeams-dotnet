@@ -48,7 +48,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <summary>
         /// HttpClient to use to fetch tokens.
         /// </summary>
-        private readonly HttpClient customHttpClient;
+        private readonly HttpClient credentialHttpClient;
 
         /// <summary>
         /// The delegating handler used to process requests.
@@ -60,22 +60,21 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// ASP.Net WebApi projects.
         /// </summary>
         /// <param name="credentialProvider">The credential provider.</param>
-        /// <param name="channelProvider">The channel provider.</param>
         /// <param name="connectorClientRetryPolicy">The connector client retry policy.</param>
-        /// <param name="customHttpClient">Custom HttpClient to be used.</param>
         /// <param name="delegatingHandler">The delegating handler.</param>
+        /// <param name="channelProvider">The channel provider.</param>
         public TeamsMiddleware(
             ICredentialProvider credentialProvider,
-            IChannelProvider channelProvider = null,
             RetryPolicy connectorClientRetryPolicy = null,
-            HttpClient customHttpClient = null,
-            DelegatingHandler delegatingHandler = null)
+            DelegatingHandler delegatingHandler = null,
+            IChannelProvider channelProvider = null)
         {
             this.credentialProvider = credentialProvider;
-            this.channelProvider = channelProvider;
             this.connectorClientRetryPolicy = connectorClientRetryPolicy;
-            this.customHttpClient = customHttpClient ?? new HttpClient();
             this.delegatingHandler = delegatingHandler;
+            this.channelProvider = channelProvider;
+
+            this.credentialHttpClient = delegatingHandler == null ? new HttpClient() : new HttpClient(delegatingHandler);
         }
 
         /// <summary>
@@ -171,8 +170,8 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
             {
                 string appPassword = await this.credentialProvider.GetAppPasswordAsync(appId).ConfigureAwait(false);
                 appCredentials = (this.channelProvider != null && this.channelProvider.IsGovernment()) ?
-                    new MicrosoftGovernmentAppCredentials(appId, appPassword, this.customHttpClient) :
-                    new MicrosoftAppCredentials(appId, appPassword, this.customHttpClient);
+                    new MicrosoftGovernmentAppCredentials(appId, appPassword, this.credentialHttpClient) :
+                    new MicrosoftAppCredentials(appId, appPassword, this.credentialHttpClient);
                 this.appCredentialMap[appId] = appCredentials;
             }
 
