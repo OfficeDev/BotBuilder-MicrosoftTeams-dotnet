@@ -36,9 +36,19 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         private readonly ICredentialProvider credentialProvider;
 
         /// <summary>
+        /// Channel provider.
+        /// </summary>
+        private readonly IChannelProvider channelProvider;
+
+        /// <summary>
         /// The connector client retry policy.
         /// </summary>
         private readonly RetryPolicy connectorClientRetryPolicy;
+
+        /// <summary>
+        /// HttpClient to use to fetch tokens.
+        /// </summary>
+        private readonly HttpClient credentialHttpClient;
 
         /// <summary>
         /// The delegating handler used to process requests.
@@ -52,14 +62,19 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <param name="credentialProvider">The credential provider.</param>
         /// <param name="connectorClientRetryPolicy">The connector client retry policy.</param>
         /// <param name="delegatingHandler">The delegating handler.</param>
+        /// <param name="channelProvider">The channel provider.</param>
         public TeamsMiddleware(
             ICredentialProvider credentialProvider,
             RetryPolicy connectorClientRetryPolicy = null,
-            DelegatingHandler delegatingHandler = null)
+            DelegatingHandler delegatingHandler = null,
+            IChannelProvider channelProvider = null)
         {
             this.credentialProvider = credentialProvider;
             this.connectorClientRetryPolicy = connectorClientRetryPolicy;
             this.delegatingHandler = delegatingHandler;
+            this.channelProvider = channelProvider;
+
+            this.credentialHttpClient = delegatingHandler == null ? new HttpClient() : new HttpClient(delegatingHandler);
         }
 
         /// <summary>
@@ -143,6 +158,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// </summary>
         /// <param name="appId">The application identifier (AAD Id for the bot).</param>
         /// <returns>App credentials.</returns>
+        /// <remarks>This is copied from https://github.com/Microsoft/botbuilder-dotnet/blob/master/libraries/Microsoft.Bot.Connector/Authentication/MicrosoftAppCredentials.cs</remarks>
         private async Task<MicrosoftAppCredentials> GetAppCredentialsAsync(string appId)
         {
             if (appId == null)
@@ -153,7 +169,9 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
             if (!this.appCredentialMap.TryGetValue(appId, out MicrosoftAppCredentials appCredentials))
             {
                 string appPassword = await this.credentialProvider.GetAppPasswordAsync(appId).ConfigureAwait(false);
-                appCredentials = new MicrosoftAppCredentials(appId, appPassword);
+                appCredentials = (this.channelProvider != null && this.channelProvider.IsGovernment()) ?
+                    new MicrosoftGovernmentAppCredentials(appId, appPassword, this.credentialHttpClient) :
+                    new MicrosoftAppCredentials(appId, appPassword, this.credentialHttpClient);
                 this.appCredentialMap[appId] = appCredentials;
             }
 
