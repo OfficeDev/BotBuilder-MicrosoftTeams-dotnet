@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "v3",
-    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - v3.0",
+    "title": "Microsoft Bot Connector API - Microsoft Teams Extensions - v4.0",
     "description": "﻿﻿The Bot Connector REST API extension for Microsoft Teams allows your bot to perform extended operations on to Microsoft Teams channel configured in the\r\n[Bot Framework Developer Portal](https://dev.botframework.com). The Connector service uses industry-standard REST and JSON over HTTPS.\r\n\r\nClient libraries for this REST API are available. See below for a list.\r\n\r\n\r\n\r\nAuthentication for both the Bot Connector and Bot State REST APIs is accomplished with JWT Bearer tokens, and is\r\ndescribed in detail in the [Connector Authentication](https://docs.botframework.com/en-us/restapi/authentication) document.\r\n\r\n# Client Libraries for the Bot Connector REST API\r\n\r\n* [Bot Builder for C#](https://docs.botframework.com/en-us/csharp/builder/sdkreference/)\r\n* [Bot Builder for Node.js](https://docs.botframework.com/en-us/node/builder/overview/)\r\n\r\n© 2016 Microsoft",
     "termsOfService": "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright/default.aspx",
     "contact": {
@@ -17,16 +17,21 @@
   },
 
   "host": "api.botframework.com",
-  "schemes": [ "https" ],
+  "schemes": ["https"],
   "paths": {
     "/v3/teams/{teamId}/conversations": {
       "get": {
-        "tags": [ "Teams" ],
+        "tags": ["Teams"],
         "summary": "Fetches channel list for a given team",
         "description": "Fetch the channel list.",
         "operationId": "Teams_FetchChannelList",
         "consumes": [],
-        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
         "parameters": [
           {
             "name": "teamId",
@@ -50,12 +55,17 @@
 
     "/v3/teams/{teamId}": {
       "get": {
-        "tags": [ "Teams" ],
+        "tags": ["Teams"],
         "summary": "Fetches details related to a team",
         "description": "Fetch details for a team",
         "operationId": "Teams_FetchTeamDetails",
         "consumes": [],
-        "produces": [ "application/json", "text/json", "application/xml", "text/xml" ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
         "parameters": [
           {
             "name": "teamId",
@@ -192,6 +202,51 @@
           "description": "Unique identifier representing a tenant"
         }
       }
+    },
+
+    "ChannelAccount": {
+      "description": "Channel account information needed to route a message",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Channel id for the user or bot on this channel (Example: joe@smith.com, or @joesmith or 123456)",
+          "type": "string"
+        },
+        "name": {
+          "description": "Display friendly name",
+          "type": "string"
+        }
+      }
+    },
+
+    "TeamsChannelAccount": {
+      "description": "Teams channel account detailing user Azure Active Directory details.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ChannelAccount"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "givenName": {
+              "description": "Given name part of the user name.",
+              "type": "string"
+            },
+            "surname": {
+              "description": "Surname part of the user name.",
+              "type": "string"
+            },
+            "email": {
+              "description": "Email Id of the user.",
+              "type": "string"
+            },
+            "userPrincipalName": {
+              "description": "Unique user principal name",
+              "type": "string"
+            }
+          }
+        }
+      ]
     },
 
     "Object": {
@@ -365,7 +420,8 @@
       "properties": {
         "@type": {
           "description": "Type of the action",
-          "type": "string"
+          "type": "string",
+          "enum": [ "ViewAction", "OpenUri", "HttpPOST", "ActionCard" ]
         },
         "name": {
           "description": "Name of the action that will be used as button title",
@@ -480,7 +536,8 @@
       "properties": {
         "@type": {
           "description": "Input type name",
-          "type": "string"
+          "type": "string",
+          "enum": [ "textInput", "dateInput", "multichoiceInput" ]
         },
         "id": {
           "description": "Input Id. It must be unique per entire O365 connector card.",
@@ -656,7 +713,6 @@
           "items": { "$ref": "#/definitions/MessagingExtensionParameter" }
         },
         "queryOptions": {
-          "description": "Options for the query",
           "$ref": "#/definitions/MessagingExtensionQueryOptions"
         },
         "state": {
@@ -723,12 +779,14 @@
       "type": "object",
       "properties": {
         "attachmentLayout": {
-          "description": "Hint for how to display multiple attachments.",
-          "type": "string"
+          "description": "Hint for how to deal with multiple attachments.",
+          "type": "string",
+          "enum": [ "list", "grid" ]
         },
         "type": {
           "description": "The type of the result",
-          "type": "string"
+          "type": "string",
+          "enum": [ "result", "auth", "config", "message" ]
         },
         "attachments": {
           "description": "(Only when type is result) Attachments",
@@ -738,7 +796,6 @@
           }
         },
         "suggestedActions": {
-          "description": "(Only when type of auth or config) Suggested actions",
           "$ref": "#/definitions/MessagingExtensionSuggestedAction"
         },
         "text": {
@@ -758,53 +815,7 @@
           "type": "object",
           "properties": {
             "preview": {
-              "description": "Specifies how the result should be displayed in the preview window",
               "$ref": "#/definitions/Attachment"
-            }
-          }
-        }
-      ]
-    },
-
-    "ChannelAccount": {
-      "description": "Channel account information needed to route a message",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Channel id for the user or bot on this channel (Example: joe@smith.com, or @joesmith or 123456)",
-          "type": "string"
-        },
-        "name": {
-          "description": "Display friendly name",
-          "type": "string"
-        }
-      }
-    },
-
-    "TeamsChannelAccount": {
-      "description": "Teams channel account detailing user Azure Active Directory details.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ChannelAccount"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "givenName": {
-              "description": "Given name part of the user name.",
-              "type": "string"
-            },
-            "surname": {
-              "description": "Surname part of the user name.",
-              "type": "string"
-            },
-            "email": {
-              "description": "Email Id of the user.",
-              "type": "string"
-            },
-            "userPrincipalName": {
-              "description": "Unique user principal name",
-              "type": "string"
             }
           }
         }
@@ -850,6 +861,10 @@
         "fileType": {
           "description": "Type of file.",
           "type": "string"
+        },
+        "etag": {
+          "description": "ETag for the file.",
+          "type": "object"
         }
       }
     },
@@ -865,53 +880,57 @@
         "fileType": {
           "description": "Type of file.",
           "type": "string"
-        }
-      }
-    },
-
-    "FileUploadInfo": {
-      "description": "Upload information for the file.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "File name.",
-          "type": "string"
         },
-        "uploadUrl": {
-          "description": "URL to an upload session for the file contents.",
-          "type": "string"
-        },
-        "contentUrl": {
-          "description": "URL to the file.",
-          "type": "string"
-        },
-        "uniqueId": {
-          "description": "Identifier that uniquely identifies the file.",
-          "type": "string"
-        },
-        "fileType": {
-          "description": "File type.",
-          "type": "string"
+        "etag": {
+          "description": "ETag for the file.",
+          "type": "object"
         }
       }
     },
 
     "FileConsentCardResponse": {
-      "description": "File consent card response invoke activity payload.",
+      "description": "Represents the value of the invoke activity sent when the user acts on a file consent card",
       "type": "object",
       "properties": {
         "action": {
-          "description": "User action on the file consent card.",
+          "description": "The action the user took.",
           "type": "string",
           "enum": [ "accept", "decline" ]
         },
         "context": {
-          "description": "Context sent with the file consent card.",
+          "description": "The context associated with the action.",
           "type": "object"
         },
         "uploadInfo": {
-          "description": "Context sent back to the Bot if user declined. This is free flow schema and is sent back in Value field of Activity.",
+          "description": "If the user accepted the file, contains information about the file to be uploaded.",
           "$ref": "#/definitions/FileUploadInfo"
+        }
+      }
+    },
+
+    "FileUploadInfo": {
+      "description": "Information about the file to be uploaded.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the file.",
+          "type": "string"
+        },
+        "uploadUrl": {
+          "description": "URL to an upload session that the bot can use to set the file contents.",
+          "type": "string"
+        },
+        "contentUrl": {
+          "description": "URL to file.",
+          "type": "string"
+        },
+        "uniqueId": {
+          "description": "ID that uniquely identifies the file.",
+          "type": "string"
+        },
+        "fileType": {
+          "description": "Type of the file.",
+          "type": "string"
         }
       }
     },

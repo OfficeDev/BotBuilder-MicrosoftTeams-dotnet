@@ -31,13 +31,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// <summary>
         /// Initializes a new instance of the MessagingExtensionResult class.
         /// </summary>
-        /// <param name="attachmentLayout">Hint for how to display multiple
-        /// attachments.</param>
-        /// <param name="type">The type of the result</param>
+        /// <param name="attachmentLayout">Hint for how to deal with multiple
+        /// attachments. Possible values include: 'list', 'grid'</param>
+        /// <param name="type">The type of the result. Possible values include:
+        /// 'result', 'auth', 'config', 'message'</param>
         /// <param name="attachments">(Only when type is result)
         /// Attachments</param>
-        /// <param name="suggestedActions">(Only when type of auth or config)
-        /// Suggested actions</param>
         /// <param name="text">(Only when type is message) Text</param>
         public MessagingExtensionResult(string attachmentLayout = default(string), string type = default(string), IList<MessagingExtensionAttachment> attachments = default(IList<MessagingExtensionAttachment>), MessagingExtensionSuggestedAction suggestedActions = default(MessagingExtensionSuggestedAction), string text = default(string))
         {
@@ -55,13 +54,15 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets hint for how to display multiple attachments.
+        /// Gets or sets hint for how to deal with multiple attachments.
+        /// Possible values include: 'list', 'grid'
         /// </summary>
         [JsonProperty(PropertyName = "attachmentLayout")]
         public string AttachmentLayout { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the result
+        /// Gets or sets the type of the result. Possible values include:
+        /// 'result', 'auth', 'config', 'message'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
@@ -73,7 +74,6 @@ namespace Microsoft.Bot.Schema.Teams
         public IList<MessagingExtensionAttachment> Attachments { get; set; }
 
         /// <summary>
-        /// Gets or sets (Only when type of auth or config) Suggested actions
         /// </summary>
         [JsonProperty(PropertyName = "suggestedActions")]
         public MessagingExtensionSuggestedAction SuggestedActions { get; set; }

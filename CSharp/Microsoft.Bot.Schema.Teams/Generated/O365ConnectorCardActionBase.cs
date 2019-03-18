@@ -31,7 +31,8 @@ namespace Microsoft.Bot.Schema.Teams
         /// Initializes a new instance of the O365ConnectorCardActionBase
         /// class.
         /// </summary>
-        /// <param name="type">Type of the action</param>
+        /// <param name="type">Type of the action. Possible values include:
+        /// 'ViewAction', 'OpenUri', 'HttpPOST', 'ActionCard'</param>
         /// <param name="name">Name of the action that will be used as button
         /// title</param>
         /// <param name="id">Action Id</param>
@@ -49,7 +50,8 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets type of the action
+        /// Gets or sets type of the action. Possible values include:
+        /// 'ViewAction', 'OpenUri', 'HttpPOST', 'ActionCard'
         /// </summary>
         [JsonProperty(PropertyName = "@type")]
         public string Type { get; set; }

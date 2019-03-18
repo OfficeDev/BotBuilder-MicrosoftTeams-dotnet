@@ -14,7 +14,8 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// File consent card response invoke activity payload.
+    /// Represents the value of the invoke activity sent when the user acts on
+    /// a file consent card
     /// </summary>
     public partial class FileConsentCardResponse
     {
@@ -29,13 +30,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// <summary>
         /// Initializes a new instance of the FileConsentCardResponse class.
         /// </summary>
-        /// <param name="action">User action on the file consent card. Possible
-        /// values include: 'accept', 'decline'</param>
-        /// <param name="context">Context sent with the file consent
-        /// card.</param>
-        /// <param name="uploadInfo">Context sent back to the Bot if user
-        /// declined. This is free flow schema and is sent back in Value field
-        /// of Activity.</param>
+        /// <param name="action">The action the user took. Possible values
+        /// include: 'accept', 'decline'</param>
+        /// <param name="context">The context associated with the
+        /// action.</param>
+        /// <param name="uploadInfo">If the user accepted the file, contains
+        /// information about the file to be uploaded.</param>
         public FileConsentCardResponse(string action = default(string), object context = default(object), FileUploadInfo uploadInfo = default(FileUploadInfo))
         {
             Action = action;
@@ -50,21 +50,21 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets user action on the file consent card. Possible values
-        /// include: 'accept', 'decline'
+        /// Gets or sets the action the user took. Possible values include:
+        /// 'accept', 'decline'
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
 
         /// <summary>
-        /// Gets or sets context sent with the file consent card.
+        /// Gets or sets the context associated with the action.
         /// </summary>
         [JsonProperty(PropertyName = "context")]
         public object Context { get; set; }
 
         /// <summary>
-        /// Gets or sets context sent back to the Bot if user declined. This is
-        /// free flow schema and is sent back in Value field of Activity.
+        /// Gets or sets if the user accepted the file, contains information
+        /// about the file to be uploaded.
         /// </summary>
         [JsonProperty(PropertyName = "uploadInfo")]
         public FileUploadInfo UploadInfo { get; set; }

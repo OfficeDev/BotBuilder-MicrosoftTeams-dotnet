@@ -31,10 +31,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         /// <param name="uniqueId">Unique Id for the file.</param>
         /// <param name="fileType">Type of file.</param>
-        public FileInfoCard(string uniqueId = default(string), string fileType = default(string))
+        /// <param name="etag">ETag for the file.</param>
+        public FileInfoCard(string uniqueId = default(string), string fileType = default(string), object etag = default(object))
         {
             UniqueId = uniqueId;
             FileType = fileType;
+            Etag = etag;
             CustomInit();
         }
 
@@ -54,6 +56,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         [JsonProperty(PropertyName = "fileType")]
         public string FileType { get; set; }
+
+        /// <summary>
+        /// Gets or sets eTag for the file.
+        /// </summary>
+        [JsonProperty(PropertyName = "etag")]
+        public object Etag { get; set; }
 
     }
 }

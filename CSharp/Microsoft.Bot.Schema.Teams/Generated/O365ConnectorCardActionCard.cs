@@ -33,7 +33,8 @@ namespace Microsoft.Bot.Schema.Teams
         /// Initializes a new instance of the O365ConnectorCardActionCard
         /// class.
         /// </summary>
-        /// <param name="type">Type of the action</param>
+        /// <param name="type">Type of the action. Possible values include:
+        /// 'ViewAction', 'OpenUri', 'HttpPOST', 'ActionCard'</param>
         /// <param name="name">Name of the action that will be used as button
         /// title</param>
         /// <param name="id">Action Id</param>

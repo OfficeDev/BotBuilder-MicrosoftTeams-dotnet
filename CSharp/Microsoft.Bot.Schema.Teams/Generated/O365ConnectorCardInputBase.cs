@@ -29,7 +29,8 @@ namespace Microsoft.Bot.Schema.Teams
         /// <summary>
         /// Initializes a new instance of the O365ConnectorCardInputBase class.
         /// </summary>
-        /// <param name="type">Input type name</param>
+        /// <param name="type">Input type name. Possible values include:
+        /// 'textInput', 'dateInput', 'multichoiceInput'</param>
         /// <param name="id">Input Id. It must be unique per entire O365
         /// connector card.</param>
         /// <param name="isRequired">Define if this input is a required field.
@@ -53,7 +54,8 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets input type name
+        /// Gets or sets input type name. Possible values include: 'textInput',
+        /// 'dateInput', 'multichoiceInput'
         /// </summary>
         [JsonProperty(PropertyName = "@type")]
         public string Type { get; set; }

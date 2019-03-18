@@ -32,11 +32,13 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="downloadUrl">File download url.</param>
         /// <param name="uniqueId">Unique Id for the file.</param>
         /// <param name="fileType">Type of file.</param>
-        public FileDownloadInfo(string downloadUrl = default(string), string uniqueId = default(string), string fileType = default(string))
+        /// <param name="etag">ETag for the file.</param>
+        public FileDownloadInfo(string downloadUrl = default(string), string uniqueId = default(string), string fileType = default(string), object etag = default(object))
         {
             DownloadUrl = downloadUrl;
             UniqueId = uniqueId;
             FileType = fileType;
+            Etag = etag;
             CustomInit();
         }
 
@@ -62,6 +64,12 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         [JsonProperty(PropertyName = "fileType")]
         public string FileType { get; set; }
+
+        /// <summary>
+        /// Gets or sets eTag for the file.
+        /// </summary>
+        [JsonProperty(PropertyName = "etag")]
+        public object Etag { get; set; }
 
     }
 }

@@ -33,7 +33,8 @@ namespace Microsoft.Bot.Schema.Teams
         /// Initializes a new instance of the O365ConnectorCardMultichoiceInput
         /// class.
         /// </summary>
-        /// <param name="type">Input type name</param>
+        /// <param name="type">Input type name. Possible values include:
+        /// 'textInput', 'dateInput', 'multichoiceInput'</param>
         /// <param name="id">Input Id. It must be unique per entire O365
         /// connector card.</param>
         /// <param name="isRequired">Define if this input is a required field.
