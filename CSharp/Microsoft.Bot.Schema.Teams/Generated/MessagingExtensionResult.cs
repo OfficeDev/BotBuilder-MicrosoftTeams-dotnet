@@ -38,13 +38,16 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="attachments">(Only when type is result)
         /// Attachments</param>
         /// <param name="text">(Only when type is message) Text</param>
-        public MessagingExtensionResult(string attachmentLayout = default(string), string type = default(string), IList<MessagingExtensionAttachment> attachments = default(IList<MessagingExtensionAttachment>), MessagingExtensionSuggestedAction suggestedActions = default(MessagingExtensionSuggestedAction), string text = default(string))
+        /// <param name="activityPreview">(Only when type is botMessagePreview)
+        /// Message activity to preview</param>
+        public MessagingExtensionResult(string attachmentLayout = default(string), string type = default(string), IList<MessagingExtensionAttachment> attachments = default(IList<MessagingExtensionAttachment>), MessagingExtensionSuggestedAction suggestedActions = default(MessagingExtensionSuggestedAction), string text = default(string), Activity activityPreview = default(Activity))
         {
             AttachmentLayout = attachmentLayout;
             Type = type;
             Attachments = attachments;
             SuggestedActions = suggestedActions;
             Text = text;
+            ActivityPreview = activityPreview;
             CustomInit();
         }
 
@@ -83,6 +86,13 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets (Only when type is botMessagePreview) Message activity
+        /// to preview
+        /// </summary>
+        [JsonProperty(PropertyName = "activityPreview")]
+        public Activity ActivityPreview { get; set; }
 
     }
 }

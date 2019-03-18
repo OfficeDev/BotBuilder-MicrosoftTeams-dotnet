@@ -14,6 +14,7 @@ del generated\Models\CardAction.cs
 del generated\Models\CardImage.cs
 del generated\Models\Attachment.cs
 del generated\Models\ChannelAccount.cs
+del generated\Models\Activity.cs
 del ..\CSharp\Microsoft.Bot.Schema.Teams\Generated\*.* /Q
 copy generated\Models\*.* ..\CSharp\Microsoft.Bot.Schema.Teams\Generated
 move ..\Microsoft.Bot.Schema\ErrorResponseException.cs ..\Microsoft.Bot.Connector
