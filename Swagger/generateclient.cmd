@@ -1,7 +1,7 @@
 call npm install replace@0.3.0
 call npm install autorest@2.0.4262
 
-call autorest README.md --csharp
+call node_modules\.bin\autorest README.md --csharp
 
 cd generated
 call ..\node_modules\.bin\replace "Microsoft.Bot.Connector.Teams.Models" "Microsoft.Bot.Schema.Teams" . -r --include="*.cs"

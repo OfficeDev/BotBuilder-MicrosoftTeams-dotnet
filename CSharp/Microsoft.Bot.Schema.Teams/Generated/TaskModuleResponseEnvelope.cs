@@ -14,27 +14,26 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// File info card.
+    /// Envelope for Task Module Response.
     /// </summary>
-    public partial class FileInfoCard
+    public partial class TaskModuleResponseEnvelope
     {
         /// <summary>
-        /// Initializes a new instance of the FileInfoCard class.
+        /// Initializes a new instance of the TaskModuleResponseEnvelope class.
         /// </summary>
-        public FileInfoCard()
+        public TaskModuleResponseEnvelope()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the FileInfoCard class.
+        /// Initializes a new instance of the TaskModuleResponseEnvelope class.
         /// </summary>
-        /// <param name="uniqueId">Unique Id for the file.</param>
-        /// <param name="fileType">Type of file.</param>
-        public FileInfoCard(string uniqueId = default(string), string fileType = default(string))
+        /// <param name="task">The JSON for the Adaptive card to appear in the
+        /// task module.</param>
+        public TaskModuleResponseEnvelope(TaskModuleResponseBase task = default(TaskModuleResponseBase))
         {
-            UniqueId = uniqueId;
-            FileType = fileType;
+            Task = task;
             CustomInit();
         }
 
@@ -44,16 +43,11 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets unique Id for the file.
+        /// Gets or sets the JSON for the Adaptive card to appear in the task
+        /// module.
         /// </summary>
-        [JsonProperty(PropertyName = "uniqueId")]
-        public string UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets type of file.
-        /// </summary>
-        [JsonProperty(PropertyName = "fileType")]
-        public string FileType { get; set; }
+        [JsonProperty(PropertyName = "task")]
+        public TaskModuleResponseBase Task { get; set; }
 
     }
 }

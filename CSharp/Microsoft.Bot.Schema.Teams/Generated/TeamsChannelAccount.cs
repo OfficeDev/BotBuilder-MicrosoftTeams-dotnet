@@ -32,16 +32,13 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="id">Channel id for the user or bot on this channel
         /// (Example: joe@smith.com, or @joesmith or 123456)</param>
         /// <param name="name">Display friendly name</param>
-        /// <param name="aadObjectId">Unique Azure Active Directory object
-        /// Id.</param>
         /// <param name="givenName">Given name part of the user name.</param>
         /// <param name="surname">Surname part of the user name.</param>
         /// <param name="email">Email Id of the user.</param>
         /// <param name="userPrincipalName">Unique user principal name</param>
-        public TeamsChannelAccount(string id = default(string), string name = default(string), string aadObjectId = default(string), string givenName = default(string), string surname = default(string), string email = default(string), string userPrincipalName = default(string))
+        public TeamsChannelAccount(string id = default(string), string name = default(string), string givenName = default(string), string surname = default(string), string email = default(string), string userPrincipalName = default(string))
             : base(id, name)
         {
-            AadObjectId = aadObjectId;
             GivenName = givenName;
             Surname = surname;
             Email = email;
@@ -53,12 +50,6 @@ namespace Microsoft.Bot.Schema.Teams
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets unique Azure Active Directory object Id.
-        /// </summary>
-        [JsonProperty(PropertyName = "aadObjectId")]
-        public string AadObjectId { get; set; }
 
         /// <summary>
         /// Gets or sets given name part of the user name.

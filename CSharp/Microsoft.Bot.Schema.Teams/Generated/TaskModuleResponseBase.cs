@@ -14,27 +14,27 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// File info card.
+    /// Base class for Task Module responses
     /// </summary>
-    public partial class FileInfoCard
+    public partial class TaskModuleResponseBase
     {
         /// <summary>
-        /// Initializes a new instance of the FileInfoCard class.
+        /// Initializes a new instance of the TaskModuleResponseBase class.
         /// </summary>
-        public FileInfoCard()
+        public TaskModuleResponseBase()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the FileInfoCard class.
+        /// Initializes a new instance of the TaskModuleResponseBase class.
         /// </summary>
-        /// <param name="uniqueId">Unique Id for the file.</param>
-        /// <param name="fileType">Type of file.</param>
-        public FileInfoCard(string uniqueId = default(string), string fileType = default(string))
+        /// <param name="type">Choice of action options when responding to the
+        /// task/submit message. Possible values include: 'message',
+        /// 'continue'</param>
+        public TaskModuleResponseBase(string type = default(string))
         {
-            UniqueId = uniqueId;
-            FileType = fileType;
+            Type = type;
             CustomInit();
         }
 
@@ -44,16 +44,11 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets unique Id for the file.
+        /// Gets or sets choice of action options when responding to the
+        /// task/submit message. Possible values include: 'message', 'continue'
         /// </summary>
-        [JsonProperty(PropertyName = "uniqueId")]
-        public string UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets type of file.
-        /// </summary>
-        [JsonProperty(PropertyName = "fileType")]
-        public string FileType { get; set; }
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
 
     }
 }
