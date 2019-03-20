@@ -54,10 +54,13 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             {
                 return new InvokeResponse
                 {
-                    Body = new MessagingExtensionResult
+                    Body = new MessagingExtensionResponse
                     {
-                        Text = "Failed to search " + ex.Message,
-                        Type = "message",
+                        ComposeExtension = new MessagingExtensionResult
+                        {
+                            Text = "Failed to search " + ex.Message,
+                            Type = "message",
+                        },
                     },
                     Status = 200,
                 };

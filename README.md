@@ -3,7 +3,7 @@
 
 The Microsoft Bot Builder SDK 4 Teams Extensions allow you to build bots for Microsoft Teams quickly and easily. **[Review the documentation](https://msdn.microsoft.com/en-us/microsoft-teams/bots)** to get started!
 
-# This SDK allows you to easily...
+## This SDK allows you to easily...
 
 * Fetch a list of channels in a team
 * Fetch profile info about all members of a team
@@ -15,13 +15,13 @@ The Microsoft Bot Builder SDK 4 Teams Extensions allow you to build bots for Mic
 * Write Compose Extensions
 * _and more!_
 
-# Installing
+## Installing
 
 Simply grab the [Microsoft.Bot.Builder.Teams](https://www.nuget.org/packages/Microsoft.Bot.Builder.Teams) nuget.
 
-Bot Builder SDK 4 - Microsoft Teams extensions for Node are not available yet.
+Bot Builder SDK 4 - Microsoft Teams extensions for Node is available at https://github.com/OfficeDev/BotBuilder-MicrosoftTeams-node.
 
-# Getting started
+## Getting started
 
 * If you don't already have it, install the Visual Studio [project template for Bot Framework V4 bot](https://marketplace.visualstudio.com/items?itemName=BotBuilder.botbuilderv4).
 * Add a reference to `Microsoft.Bot.Builder.Teams` nuget package.
@@ -59,15 +59,28 @@ var teamInfo = await teamsContext.Operations.FetchTeamDetailsAsync(incomingTeamI
 await turnContext.SendActivityAsync($"Name of this team is {teamInfo.Name} and group-id is {teamInfo.AadGroupId}");
 ```
 
-# Samples:
+## Samples:
 Take a look [here](CSharp/Samples).
 
 Stand-alone sample can be found [here](https://github.com/OfficeDev/msteams-samples-dotnet-echobot-bf4).
 
-# Questions, bugs, feature requests, and contributions
+## Building:
+-  Install latest NodeJS from [here](https://nodejs.org/en/download/)
+-  Install Visual Studio 2017 or later
+
+### Updating Swagger spec
+If you have updated the TeamsAPI.json. You will need to regenerate the client models
+- Delete the [Generated Models](CSharp/Microsoft.Bot.Schema.Teams/Generated)
+- Run [client model generation script](Swagger/generateclient.cmd)
+
+### Building the solution
+- Open the [Solution](CSharp/Microsoft.Bot.Builder.Teams.sln) in Visual Studio
+- Build the solution
+
+## Questions, bugs, feature requests, and contributions
 Please review the information [here](https://msdn.microsoft.com/en-us/microsoft-teams/feedback).
 
-# Contributing
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
