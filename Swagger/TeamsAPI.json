@@ -722,6 +722,57 @@
       }
     },
 
+    "MessagingExtensionAction": {
+      "description": "Messaging extension action",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TaskModuleRequest"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "commandId": {
+              "description": "Id of the command assigned by Bot",
+              "type": "string"
+            },
+            "commandContext": {
+              "description": "The context from which the command originates.",
+              "type": "string",
+              "enum": [ "message", "compose", "commandbox" ]
+            },
+            "botMessagePreviewAction": {
+              "description": "Bot message preview action taken by user.",
+              "type": "string",
+              "enum": [ "edit", "send" ]
+            },
+            "botActivityPreview": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Activity",
+                "description": "Bot message preview action payload associate to the current action taken by user."
+              }
+            },
+            "messagePayload": {
+              "description": "Message content sent as part of the command request.",
+              "$ref": "#/definitions/MessageActionsPayload"
+            }
+          }    
+        }
+      ]
+    },
+
+    "MessagingExtensionActionResponse": {
+      "description": "Response of messaging extension action",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TaskModuleResponse"
+        },
+        {
+          "$ref": "#/definitions/MessagingExtensionResponse"
+        }
+      ]
+    },
+
     "Attachment": {
       "description": "An attachment within an activity",
       "type": "object",
@@ -749,8 +800,8 @@
       }
     },
 	
-	"Activity": {
-      "description": "Dummy class to shadow Microsoft.Bot.Schema.Activity",
+  	"Activity": {
+      "description": "Dummy class to shadow Activity",
       "type": "object",
       "properties": {
         "dummyProperty": {
@@ -797,7 +848,7 @@
         "type": {
           "description": "The type of the result",
           "type": "string",
-          "enum": [ "result", "auth", "config", "message" ]
+          "enum": [ "result", "auth", "config", "message", "botMessagePreview" ]
         },
         "attachments": {
           "description": "(Only when type is result) Attachments",
@@ -1035,7 +1086,7 @@
       ]
     },
 
-    "TaskModuleResponseEnvelope": {
+    "TaskModuleResponse": {
       "description": "Envelope for Task Module Response.",
       "type": "object",
       "properties": {
@@ -1043,6 +1094,287 @@
           "type": "object",
           "description": "The JSON for the Adaptive card to appear in the task module.",
           "$ref": "#/definitions/TaskModuleResponseBase"
+        }
+      }
+    },
+
+    "TaskModuleRequest": {
+      "description": "Task module invoke request value payload",
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "User input data. Free payload with key-value pairs.",
+          "type": "object",
+          "$ref": "#/definitions/Object"
+        },
+        "context": {
+          "description": "Current user context, i.e., the current theme",
+          "type": "object",
+          "properties": {
+            "theme": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+
+    "AppBasedLinkQuery": {
+      "description": "Invoke request body type for app-based link query.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "Url queried by user",
+          "type": "string"
+        }
+      }
+    },
+
+    "MessageActionsPayload": {
+      "description": "Represents the individual message within a chat or channel where a message actions is taken.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique id of the message.",
+          "type": "string"
+        },
+        "replyToId": {
+          "description": "Id of the parent/root message of the thread.",
+          "type": "string"
+        },
+        "messageType": {
+          "description": "Type of message - automatically set to message.",
+          "type": "string",
+          "enum": ["message"]
+        },
+        "createdDateTime": {
+          "description": "Timestamp of when the message was created.",
+          "type": "string"
+        },
+        "lastModifiedDateTime": {
+          "description": "Timestamp of when the message was edited or updated.",
+          "type": "string"
+        },
+        "deleted": {
+          "description": "Indicates whether a message has been soft deleted.",
+          "type": "boolean"
+        },
+        "subject": {
+          "description": "Subject line of the message.",
+          "type": "string"
+        },
+        "summary": {
+          "description": "Summary text of the message that could be used for notifications.",
+          "type": "string"
+        },
+        "importance": {
+          "description": "The importance of the message.",
+          "type": "string",
+          "enum": ["normal", "high", "urgent"]
+        },
+        "locale": {
+          "description": "Locale of the message set by the client.",
+          "type": "string"
+        },
+        "from": {
+          "description": "Sender of the message.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadFrom"
+        },
+        "body": {
+          "description": "Plaintext/HTML representation of the content of the message.",
+          "type": "object",
+          "properties": {
+            "contentType": {
+              "description": "Type of the content.",
+              "type": "string",
+              "enum": ["html", "text"]
+            },
+            "content": {
+              "description": "The content of the body.",
+              "type": "string"
+            }
+          }
+        },
+        "attachmentLayout": {
+          "description": "How the attachment(s) are displayed in the message.",
+          "type": "string"
+        },
+        "attachments": {
+          "description": "Attachments in the message - card, image, file, etc.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageActionsPayloadAttachment"
+          } 
+        },
+        "mentions": {
+          "description": "List of entities mentioned in the message.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageActionsPayloadMention"
+          }
+        },
+        "reactions": {
+          "description": "Reactions for the message.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageActionsPayloadReaction"
+          }
+        }
+      }
+    },
+
+    "MessageActionsPayloadFrom": {
+      "description": "Represents a user, application, or conversation type that either sent or was referenced in a message.",
+      "type": "object",
+      "properties": {
+        "user": {
+          "description": "Represents details of the user.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadUser"
+        },
+        "application": {
+          "description": "Represents details of the app.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadApp"
+        },
+        "conversation": {
+          "description": "Represents details of the converesation.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadConversation"
+        }
+      }
+    },
+
+    "MessageActionsPayloadUser": {
+      "description": "Represents a user entity.",
+      "type": "object",
+      "properties": {
+        "userIdentityType": {
+          "description": "The identity type of the user.",
+          "type": "string",
+          "enum": ["aadUser", "onPremiseAadUser", "anonymousGuest", "federatedUser"]
+        },
+        "id": {
+          "description": "The id of the user.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "The plaintext display name of the user.",
+          "type": "string"
+        }
+      }
+    },
+
+    "MessageActionsPayloadApp": {
+      "description": "Represents an application entity.",
+      "type": "object",
+      "properties": {
+        "applicationIdentityType": {
+          "description": "The type of application.",
+          "type": "string",
+          "enum": ["aadApplication", "bot", "tenantBot", "office365Connector", "webhook"]
+        },
+        "id": {
+          "description": "The id of the application.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "The plaintext display name of the application.",
+          "type": "string"
+        }
+      }
+    },
+
+    "MessageActionsPayloadConversation": {
+      "description": "Represents a team or channel entity.",
+      "type": "object",
+      "properties": {
+        "conversationIdentityType": {
+          "description": "The type of conversation, whether a team or channel.",
+          "type": "string",
+          "enum": ["team", "channel"]
+        },
+        "id": {
+          "description": "The id of the team or channel.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "The plaintext display name of the team or channel entity.",
+          "type": "string"
+        }      
+      }
+    },
+
+    "MessageActionsPayloadAttachment": {
+      "description": "Represents the attachment in a message.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The id of the attachment.",
+          "type": "string"
+        },
+        "contentType": {
+          "description": "The type of the attachment.",
+          "type": "string"
+        },
+        "contentUrl": {
+          "description": "The url of the attachment, in case of a external link.",
+          "type": "string"
+        },
+        "content": {
+          "description": "The content of the attachment, in case of a code snippet, email, or file.",
+          "type": "object"
+        },
+        "name": {
+          "description": "The plaintext display name of the attachment.",
+          "type": "string"
+        },
+        "thumbnailUrl": {
+          "description": "The url of a thumbnail image that might be embedded in the attachment, in case of a card.",
+          "type": "string"
+        }
+      }
+    },
+
+    "MessageActionsPayloadMention": {
+      "description": "Represents the entity that was mentioned in the message.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The id of the mentioned entity.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "mentionText": {
+          "description": "The plaintext display name of the mentioned entity.",
+          "type": "string"
+        },
+        "mentioned": {
+          "description": "Provides more details on the mentioned entity.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadFrom"
+        }
+      }
+    },
+
+    "MessageActionsPayloadReaction": {
+      "description": "Represents the reaction of a user to a message.",
+      "type": "object",
+      "properties": {
+        "reactionType": {
+          "description": "The type of reaction given to the message.",
+          "type": "string",
+          "enum": ["like", "heart", "laugh", "surprised", "sad", "angry"]
+        },
+        "createdDateTime": {
+          "description": "Timestamp of when the user reacted to the message.",
+          "type": "string"
+        },
+        "user": {
+          "description": "The user with which the reaction is associated.",
+          "type": "object",
+          "$ref": "#/definitions/MessageActionsPayloadFrom"
         }
       }
     }

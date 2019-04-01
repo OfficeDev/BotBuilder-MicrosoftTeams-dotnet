@@ -34,7 +34,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="attachmentLayout">Hint for how to deal with multiple
         /// attachments. Possible values include: 'list', 'grid'</param>
         /// <param name="type">The type of the result. Possible values include:
-        /// 'result', 'auth', 'config', 'message'</param>
+        /// 'result', 'auth', 'config', 'message', 'botMessagePreview'</param>
         /// <param name="attachments">(Only when type is result)
         /// Attachments</param>
         /// <param name="text">(Only when type is message) Text</param>
@@ -65,7 +65,7 @@ namespace Microsoft.Bot.Schema.Teams
 
         /// <summary>
         /// Gets or sets the type of the result. Possible values include:
-        /// 'result', 'auth', 'config', 'message'
+        /// 'result', 'auth', 'config', 'message', 'botMessagePreview'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
