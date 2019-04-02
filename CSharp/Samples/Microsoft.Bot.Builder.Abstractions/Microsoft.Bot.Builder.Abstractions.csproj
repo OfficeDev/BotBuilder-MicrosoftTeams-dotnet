@@ -19,7 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Bot.Builder" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Bot.Builder" Version="4.3.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
