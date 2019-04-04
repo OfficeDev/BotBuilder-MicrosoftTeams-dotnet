@@ -9,7 +9,6 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web;
-    using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
     using Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine.Models;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
@@ -51,11 +50,11 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         private readonly HttpClient httpClient = new HttpClient();
 
         /// <summary>
-        /// Gets the search result from wikipedia.
+        /// Gets the search result asynchronously.
         /// </summary>
-        /// <param name="messagingExtensionActivityAction">The messaging extension activity action.</param>
+        /// <param name="query">The invoke query object</param>
         /// <returns>Messaging extension result.</returns>
-        public async Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction)
+        public async Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionQuery query)
         {
             MessagingExtensionResult composeExtensionResult = new MessagingExtensionResult
             {
@@ -66,7 +65,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
             IList<WikipediaResult> searchResults = new List<WikipediaResult>();
 
             // Search Wikipedia
-            string apiUrl = GenerateSearchApiUrl(messagingExtensionActivityAction.MessagingExtensionQuery);
+            string apiUrl = GenerateSearchApiUrl(query);
             WikipediaQueryResult queryResult = await this.InvokeWikipediaApiAsync(apiUrl).ConfigureAwait(false);
             searchResults = queryResult.Query.Results;
 

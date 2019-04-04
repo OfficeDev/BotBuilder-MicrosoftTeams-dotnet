@@ -1,4 +1,4 @@
-﻿// <copyright file="ITeamsInvokeActivityHandler.cs" company="Microsoft">
+﻿// <copyright file="TeamsInvokeActivityHandlerBase.cs" company="Microsoft">
 // Licensed under the MIT License.
 // </copyright>
 
@@ -8,18 +8,31 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
-    /// Handles the teams invoke activities.
+    /// Handles default Teams invoke activity.
     /// </summary>
-    /// <seealso cref="IInvokeActivityHandler" />
-    public interface ITeamsInvokeActivityHandler : IInvokeActivityHandler
+    /// <seealso cref="ITeamsInvokeActivityHandler" />
+    public class TeamsInvokeActivityHandlerBase : ITeamsInvokeActivityHandler
     {
+        /// <summary>
+        /// Handles the invoke task asynchronously.
+        /// </summary>
+        /// <param name="turnContext">The turn context.</param>
+        /// <returns>Invoke response.</returns>
+        public virtual Task<InvokeResponse> HandleInvokeTaskAsync(ITurnContext turnContext)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
+
         /// <summary>
         /// Handles the o365 connector card action asynchronously.
         /// </summary>
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The o365 connector card action action.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleO365ConnectorCardActionAsync(ITurnContext turnContext, O365ConnectorCardActionQuery query);
+        public virtual Task<InvokeResponse> HandleO365ConnectorCardActionAsync(ITurnContext turnContext, O365ConnectorCardActionQuery query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles the signin state verification action asynchronously.
@@ -27,7 +40,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The signin state verification action.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleSigninStateVerificationActionAsync(ITurnContext turnContext, SigninStateVerificationQuery query);
+        public virtual Task<InvokeResponse> HandleSigninStateVerificationActionAsync(ITurnContext turnContext, SigninStateVerificationQuery query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles file consent response asynchronously.
@@ -35,7 +51,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The query object of file consent user's response.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleFileConsentResponseAsync(ITurnContext turnContext, FileConsentCardResponse query);
+        public virtual Task<InvokeResponse> HandleFileConsentResponseAsync(ITurnContext turnContext, FileConsentCardResponse query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles the messaging extension action asynchronously.
@@ -43,7 +62,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The messaging extension action.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleMessagingExtensionQueryAsync(ITurnContext turnContext, MessagingExtensionQuery query);
+        public virtual Task<InvokeResponse> HandleMessagingExtensionQueryAsync(ITurnContext turnContext, MessagingExtensionQuery query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles app-based link query asynchronously.
@@ -51,7 +73,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The app-based link query.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleAppBasedLinkQueryAsync(ITurnContext turnContext, AppBasedLinkQuery query);
+        public virtual Task<InvokeResponse> HandleAppBasedLinkQueryAsync(ITurnContext turnContext, AppBasedLinkQuery query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles messaging extension action of "fetch task" asynchronously.
@@ -59,7 +84,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The query object of messaging extension action.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleMessagingExtensionFetchTaskAsync(ITurnContext turnContext, MessagingExtensionAction query);
+        public virtual Task<InvokeResponse> HandleMessagingExtensionFetchTaskAsync(ITurnContext turnContext, MessagingExtensionAction query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles messaging extension action of "submit action" asynchronously.
@@ -67,7 +95,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The query object of messaging extension action.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleMessagingExtensionSubmitActionAsync(ITurnContext turnContext, MessagingExtensionAction query);
+        public virtual Task<InvokeResponse> HandleMessagingExtensionSubmitActionAsync(ITurnContext turnContext, MessagingExtensionAction query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles task module fetch asynchronously.
@@ -75,7 +106,10 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The query object of task module request.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleTaskModuleFetchAsync(ITurnContext turnContext, TaskModuleRequest query);
+        public virtual Task<InvokeResponse> HandleTaskModuleFetchAsync(ITurnContext turnContext, TaskModuleRequest query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
 
         /// <summary>
         /// Handles task module submit asynchronously.
@@ -83,6 +117,9 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         /// <param name="turnContext">The turn context.</param>
         /// <param name="query">The query object of task module request.</param>
         /// <returns>Task tracking operation.</returns>
-        Task<InvokeResponse> HandleTaskModuleSubmitAsync(ITurnContext turnContext, TaskModuleRequest query);
+        public virtual Task<InvokeResponse> HandleTaskModuleSubmitAsync(ITurnContext turnContext, TaskModuleRequest query)
+        {
+            return Task.FromResult<InvokeResponse>(null);
+        }
     }
 }

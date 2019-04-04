@@ -79,9 +79,9 @@ namespace Microsoft.Bot.Schema.Teams
         }
 
         /// <summary>
-        /// Wrap BotBuilder action into AdaptiveCard.
+        /// Wrap BotBuilder action into AdaptiveCard submit action.
         /// </summary>
-        /// <param name="action"> The instance of adaptive card.</param>
+        /// <param name="action"> The instance of adaptive card submit action.</param>
         /// <param name="targetAction"> Target action to be adapted.</param>
         public static void RepresentAsBotBuilderAction(this AdaptiveCards.AdaptiveSubmitAction action, CardAction targetAction)
         {
@@ -102,6 +102,18 @@ namespace Microsoft.Bot.Schema.Teams
 
             action.Title = targetAction.Title;
             action.DataJson = dataJson.ToString();
+        }
+
+        /// <summary>
+        /// Wrap BotBuilder action into AdaptiveCard submit action.
+        /// </summary>
+        /// <param name="action"> Target bot builder aciton to be adapted.</param>
+        /// <returns> The wrapped adaptive card submit action.</returns>
+        public static AdaptiveCards.AdaptiveSubmitAction ToAdaptiveCardAction(this CardAction action)
+        {
+            var adaptiveCardAction = new AdaptiveCards.AdaptiveSubmitAction();
+            adaptiveCardAction.RepresentAsBotBuilderAction(action);
+            return adaptiveCardAction;
         }
     }
 }

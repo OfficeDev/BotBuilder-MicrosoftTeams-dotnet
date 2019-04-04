@@ -7,14 +7,13 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
     using System;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Abstractions.Teams;
-    using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
     /// Handles Teams invoke activity.
     /// </summary>
     /// <seealso cref="ITeamsInvokeActivityHandler" />
-    public class TeamsInvokeActivityHandler : ITeamsInvokeActivityHandler
+    public class TeamsInvokeActivityHandler : TeamsInvokeActivityHandlerBase
     {
         /// <summary>
         /// The search handler
@@ -33,11 +32,12 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         /// <summary>
         /// Handles the messaging extension action asynchronously.
         /// </summary>
-        /// <param name="messagingExtensionAction">The messaging extension action.</param>
+        /// <param name="turnContext">The turn context</param>
+        /// <param name="query">The invoke query object</param>
         /// <returns>
         /// Task tracking operation.
         /// </returns>
-        public async Task<InvokeResponse> HandleMessagingExtensionActionAsync(MessagingExtensionActivityAction messagingExtensionAction)
+        public async Task<InvokeResponse> HandleMessagingExtensionQueryAsync(TurnContext turnContext, MessagingExtensionQuery query)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                 {
                     Body = new MessagingExtensionResponse
                     {
-                        ComposeExtension = await this.searchHandler.GetSearchResultAsync(messagingExtensionAction).ConfigureAwait(false),
+                        ComposeExtension = await this.searchHandler.GetSearchResultAsync(query).ConfigureAwait(false),
                     },
                     Status = 200,
                 };
@@ -65,42 +65,6 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
                     Status = 200,
                 };
             }
-        }
-
-        /// <summary>
-        /// Handles the invoke task asynchronously.
-        /// </summary>
-        /// <param name="turnContext">The turn context.</param>
-        /// <returns>
-        /// Invoke response.
-        /// </returns>
-        public Task<InvokeResponse> HandleInvokeTaskAsync(ITurnContext turnContext)
-        {
-            return Task.FromResult<InvokeResponse>(null);
-        }
-
-        /// <summary>
-        /// Handles the o365 connector card action asynchronously.
-        /// </summary>
-        /// <param name="o365ConnectorCardActionAction">The o365 connector card action action.</param>
-        /// <returns>
-        /// Task tracking operation.
-        /// </returns>
-        public Task<InvokeResponse> HandleO365ConnectorCardActionAsync(O365ConnectorCardActivityAction o365ConnectorCardActionAction)
-        {
-            return Task.FromResult<InvokeResponse>(null);
-        }
-
-        /// <summary>
-        /// Handles the signin state verification action asynchronously.
-        /// </summary>
-        /// <param name="signinStateVerificationAction">The signin state verification action.</param>
-        /// <returns>
-        /// Task tracking operation.
-        /// </returns>
-        public Task<InvokeResponse> HandleSigninStateVerificationActionAsync(SigninStateVerificationActivityAction signinStateVerificationAction)
-        {
-            return Task.FromResult<InvokeResponse>(null);
         }
     }
 }

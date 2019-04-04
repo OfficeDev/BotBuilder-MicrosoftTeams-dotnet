@@ -77,17 +77,26 @@ namespace Microsoft.Bot.Builder.Teams
         string GetActivityTextWithoutMentions();
 
         /// <summary>
-        /// Gets the compose extension query data. This should only be called on ComposeExtentionQuery messages.
-        /// Check this by calling <see cref="IsRequestMessagingExtensionQuery"/>.
-        /// </summary>
-        /// <returns>Compose extension query data.</returns>
-        MessagingExtensionQuery GetMessagingExtensionQueryData();
-
-        /// <summary>
         /// Gets the general channel for a given Team conversation.
         /// </summary>
         /// <returns>Channel info for General channel of a team.</returns>
         ChannelInfo GetGeneralChannel();
+
+        /// <summary>
+        /// Adds notification support to the message. Once this message is delivered user will be notified about it.
+        /// </summary>
+        /// <typeparam name="T">Type of reply activity.</typeparam>
+        /// <param name="replyActivity">The reply activity.</param>
+        /// <returns>Activity with notification set to true.</returns>
+        T NotifyUser<T>(T replyActivity)
+            where T : IMessageActivity;
+
+        /// <summary>
+        /// Gets the conversation parameters for create or get direct conversation.
+        /// </summary>
+        /// <param name="user">The user to create conversation with.</param>
+        /// <returns>Conversation parameters to get or create direct conversation (1on1) between bot and user.</returns>
+        ConversationParameters GetConversationParametersForCreateOrGetDirectConversation(ChannelAccount user);
 
         /// <summary>
         /// Gets the o365 connector card action query data. This should only be called on O365 Connector card action query data.
@@ -104,12 +113,39 @@ namespace Microsoft.Bot.Builder.Teams
         SigninStateVerificationQuery GetSigninStateVerificationQueryData();
 
         /// <summary>
-        /// Determines whether request is a compose extension query.
+        /// Gets the file consent user's response data.
+        /// Check this by calling <see cref="IsRequestFileConsentResponse"/>.
         /// </summary>
-        /// <returns>
-        ///   <c>true</c> if request is a compose extension query; otherwise, <c>false</c>.
-        /// </returns>
-        bool IsRequestMessagingExtensionQuery();
+        /// <returns>File consent response (accept or reject) chosen by user on file consent card.</returns>
+        FileConsentCardResponse GetFileConsentQueryData();
+
+        /// <summary>
+        /// Gets the compose extension query data. This should only be called on ComposeExtentionQuery messages.
+        /// Check this by calling <see cref="IsRequestMessagingExtensionQuery"/>.
+        /// </summary>
+        /// <returns>Compose extension query data.</returns>
+        MessagingExtensionQuery GetMessagingExtensionQueryData();
+
+        /// <summary>
+        /// Gets the app-based link query data.
+        /// Check this by calling <see cref="IsRequestAppBasedLinkQuery"/>.
+        /// </summary>
+        /// <returns>App-based link query data.</returns>
+        AppBasedLinkQuery GetAppBasedLinkQueryData();
+
+        /// <summary>
+        /// Gets the compose extension action data.
+        /// Check this by calling <see cref="IsRequestMessagingExtensionFetchTask"/> or <see cref="IsRequestMessagingExtensionSubmitAction"/>.
+        /// </summary>
+        /// <returns>Compose extension action data.</returns>
+        MessagingExtensionAction GetMessagingExtensionActionData();
+
+        /// <summary>
+        /// Gets the task module request query data.
+        /// Check this by calling <see cref="IsRequestTaskModuleFetch"/> or <see cref="IsRequestTaskModuleSubmit"/>.
+        /// </summary>
+        /// <returns>Task module request query data.</returns>
+        TaskModuleRequest GetTaskModuleRequestData();
 
         /// <summary>
         /// Determines whether request is an O365 connector card action query.
@@ -128,19 +164,59 @@ namespace Microsoft.Bot.Builder.Teams
         bool IsRequestSigninStateVerificationQuery();
 
         /// <summary>
-        /// Adds notification support to the message. Once this message is delivered user will be notified about it.
+        /// Determines whether request is a file consent user's response.
         /// </summary>
-        /// <typeparam name="T">Type of reply activity.</typeparam>
-        /// <param name="replyActivity">The reply activity.</param>
-        /// <returns>Activity with notification set to true.</returns>
-        T NotifyUser<T>(T replyActivity)
-            where T : IMessageActivity;
+        /// <returns>
+        ///   <c>true</c> if request is a file consent user's response; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestFileConsentResponse();
 
         /// <summary>
-        /// Gets the conversation parameters for create or get direct conversation.
+        /// Determines whether request is a compose extension query.
         /// </summary>
-        /// <param name="user">The user to create conversation with.</param>
-        /// <returns>Conversation parameters to get or create direct conversation (1on1) between bot and user.</returns>
-        ConversationParameters GetConversationParametersForCreateOrGetDirectConversation(ChannelAccount user);
+        /// <returns>
+        ///   <c>true</c> if request is a compose extension query; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestMessagingExtensionQuery();
+
+        /// <summary>
+        /// Determines whether request is an app-based link query.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is an app-based link query; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestAppBasedLinkQuery();
+
+        /// <summary>
+        /// Determines whether request is a messaging extension action for fetch task.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is a messaging extension action for fetch task; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestMessagingExtensionFetchTask();
+
+        /// <summary>
+        /// Determines whether request is a messaging extension action for submit action.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is a messaging extension action for submit action; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestMessagingExtensionSubmitAction();
+
+        /// <summary>
+        /// Determines whether request is for task module fetch.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is for task module fetch; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestTaskModuleFetch();
+
+        /// <summary>
+        /// Determines whether request is for task module submit.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is for task module submit; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsRequestTaskModuleSubmit();
     }
 }
