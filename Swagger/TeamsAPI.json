@@ -90,7 +90,7 @@
 
   "definitions": {
     "ChannelInfo": {
-      "description": "A channel info object which decribes the channel.",
+      "description": "A channel info object which describes the channel.",
       "type": "object",
       "properties": {
         "id": {
@@ -363,7 +363,7 @@
           "enum": [ "avatar", "article" ]
         },
         "markdown": {
-          "description": "Use markdown for all text contents. Default vaule is true.",
+          "description": "Use markdown for all text contents. Default value is true.",
           "type": "boolean"
         },
         "facts": {
@@ -613,7 +613,7 @@
               "items": { "$ref": "#/definitions/O365ConnectorCardMultichoiceInputChoice" }
             },
             "style": {
-              "description": "Choice item rendering style. Default valud is 'compact'.",
+              "description": "Choice item rendering style. Default value is 'compact'.",
               "type": "string",
               "enum": [ "compact", "expanded" ]
             },
@@ -631,7 +631,7 @@
       "type": "object",
       "properties": {
         "display": {
-          "description": "The text rednered on ActionCard.",
+          "description": "The text rendered on ActionCard.",
           "type": "string"
         },
         "value": {

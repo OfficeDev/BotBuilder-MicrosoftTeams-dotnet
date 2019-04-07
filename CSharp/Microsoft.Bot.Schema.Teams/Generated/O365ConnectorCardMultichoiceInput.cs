@@ -44,7 +44,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="value">Default value for this input field</param>
         /// <param name="choices">Set of choices whose each item can be in any
         /// subtype of O365ConnectorCardMultichoiceInputChoice.</param>
-        /// <param name="style">Choice item rendering style. Default valud is
+        /// <param name="style">Choice item rendering style. Default value is
         /// 'compact'. Possible values include: 'compact', 'expanded'</param>
         /// <param name="isMultiSelect">Define if this input field allows
         /// multiple selections. Default value is false.</param>
@@ -70,7 +70,7 @@ namespace Microsoft.Bot.Schema.Teams
         public IList<O365ConnectorCardMultichoiceInputChoice> Choices { get; set; }
 
         /// <summary>
-        /// Gets or sets choice item rendering style. Default valud is
+        /// Gets or sets choice item rendering style. Default value is
         /// 'compact'. Possible values include: 'compact', 'expanded'
         /// </summary>
         [JsonProperty(PropertyName = "style")]
