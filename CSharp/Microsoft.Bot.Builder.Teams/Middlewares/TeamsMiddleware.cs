@@ -125,12 +125,12 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
         /// <param name="serviceUrl">The service URL.</param>
         /// <param name="claimsIdentity">The claims identity.</param>
         /// <returns>ConnectorClient instance.</returns>
-        /// <exception cref="NotSupportedException">ClaimsIdemtity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.</exception>
+        /// <exception cref="NotSupportedException">ClaimsIdentity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.</exception>
         private async Task<ITeamsConnectorClient> CreateTeamsConnectorClientAsync(string serviceUrl, ClaimsIdentity claimsIdentity)
         {
             if (claimsIdentity == null)
             {
-                throw new NotSupportedException("ClaimsIdemtity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.");
+                throw new NotSupportedException("ClaimsIdentity cannot be null. Pass Anonymous ClaimsIdentity if authentication is turned off.");
             }
 
             // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For
