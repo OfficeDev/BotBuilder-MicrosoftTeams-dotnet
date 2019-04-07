@@ -40,7 +40,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="activityImageType">Describes how Activity image is
         /// rendered. Possible values include: 'avatar', 'article'</param>
         /// <param name="markdown">Use markdown for all text contents. Default
-        /// vaule is true.</param>
+        /// value is true.</param>
         /// <param name="facts">Set of facts for the current section</param>
         /// <param name="images">Set of images for the current section</param>
         /// <param name="potentialAction">Set of actions for the current
@@ -110,7 +110,7 @@ namespace Microsoft.Bot.Schema.Teams
         public string ActivityImageType { get; set; }
 
         /// <summary>
-        /// Gets or sets use markdown for all text contents. Default vaule is
+        /// Gets or sets use markdown for all text contents. Default value is
         /// true.
         /// </summary>
         [JsonProperty(PropertyName = "markdown")]

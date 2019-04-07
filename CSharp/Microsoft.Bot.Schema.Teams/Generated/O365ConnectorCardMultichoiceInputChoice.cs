@@ -31,7 +31,7 @@ namespace Microsoft.Bot.Schema.Teams
         /// Initializes a new instance of the
         /// O365ConnectorCardMultichoiceInputChoice class.
         /// </summary>
-        /// <param name="display">The text rednered on ActionCard.</param>
+        /// <param name="display">The text rendered on ActionCard.</param>
         /// <param name="value">The value received as results.</param>
         public O365ConnectorCardMultichoiceInputChoice(string display = default(string), string value = default(string))
         {
@@ -46,7 +46,7 @@ namespace Microsoft.Bot.Schema.Teams
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the text rednered on ActionCard.
+        /// Gets or sets the text rendered on ActionCard.
         /// </summary>
         [JsonProperty(PropertyName = "display")]
         public string Display { get; set; }

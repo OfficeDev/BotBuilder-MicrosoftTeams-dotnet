@@ -14,7 +14,7 @@ namespace Microsoft.Bot.Schema.Teams
     using System.Linq;
 
     /// <summary>
-    /// A channel info object which decribes the channel.
+    /// A channel info object which describes the channel.
     /// </summary>
     public partial class ChannelInfo
     {
