@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // </copyright>
 
-namespace Microsoft.Bot.Builder.Teams.MessagingExtensionBot
+namespace Microsoft.Bot.Builder.Teams.FileBot
 {
     using System;
     using System.Linq;
@@ -11,7 +11,7 @@ namespace Microsoft.Bot.Builder.Teams.MessagingExtensionBot
     using Microsoft.Bot.Builder.Abstractions;
     using Microsoft.Bot.Builder.Abstractions.Teams;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Builder.Teams.MessagingExtensionBot.Engine;
+    using Microsoft.Bot.Builder.Teams.FileBot.Engine;
     using Microsoft.Bot.Builder.Teams.Middlewares;
     using Microsoft.Bot.Configuration;
     using Microsoft.Bot.Connector.Authentication;
@@ -88,11 +88,13 @@ namespace Microsoft.Bot.Builder.Teams.MessagingExtensionBot
             services.AddTransient<IMessageActivityHandler, MessageActivityHandler>();
             services.AddTransient<ITeamsInvokeActivityHandler, TeamsInvokeActivityHandler>();
 
-            services.AddBot<MessagingExtensionBot>(options =>
+            services.AddBot<FileBot>(options =>
             {
                 options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
                 options.Middleware.Add(new DropNonTeamsActivitiesMiddleware());
+
+                options.Middleware.Add(new DropChannelActivitiesMiddleware()); // File bot only works for chats
 
                 // --> Add Teams Middleware.
                 options.Middleware.Add(

@@ -30,13 +30,17 @@ namespace Microsoft.Bot.Schema.Teams
         /// Creates a new attachment from <see cref="FileInfoCard"/>.
         /// </summary>
         /// <param name="card"> The instance of <see cref="FileInfoCard"/>.</param>
+        /// <param name="filename"> File name</param>
+        /// <param name="contentUrl"> URL to access file.</param>
         /// <returns> The generated attachment.</returns>
-        public static Attachment ToAttachment(this FileInfoCard card)
+        public static Attachment ToAttachment(this FileInfoCard card, string filename, string contentUrl)
         {
             return new Attachment
             {
                 Content = card,
                 ContentType = FileInfoCard.ContentType,
+                Name = filename,
+                ContentUrl = contentUrl,
             };
         }
 
@@ -44,13 +48,15 @@ namespace Microsoft.Bot.Schema.Teams
         /// Creates a new attachment from <see cref="FileConsentCard"/>.
         /// </summary>
         /// <param name="card"> The instance of <see cref="FileConsentCard"/>.</param>
+        /// <param name="filename"> File name</param>
         /// <returns> The generated attachment.</returns>
-        public static Attachment ToAttachment(this FileConsentCard card)
+        public static Attachment ToAttachment(this FileConsentCard card, string filename)
         {
             return new Attachment
             {
                 Content = card,
                 ContentType = FileConsentCard.ContentType,
+                Name = filename,
             };
         }
 
