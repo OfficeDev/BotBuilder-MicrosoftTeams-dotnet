@@ -134,7 +134,7 @@ namespace Microsoft.Bot.Builder.Teams.Middlewares
             }
 
             // For requests from channel App Id is in Audience claim of JWT token. For emulator it is in AppId claim. For
-            // unauthenticated requests we have anonymouse identity provided auth is disabled.
+            // unauthenticated requests we have anonymous identity provided auth is disabled.
             Claim botAppIdClaim = claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AudienceClaim)
                 ??
                 claimsIdentity.Claims?.SingleOrDefault(claim => claim.Type == AuthenticationConstants.AppIdClaim);
