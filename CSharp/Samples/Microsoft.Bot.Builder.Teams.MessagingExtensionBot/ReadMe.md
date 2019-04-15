@@ -31,9 +31,6 @@ services.AddTransient<IMessageActivityHandler, MessageActivityHandler>();
 
 // Process all invokes and then figure out the ones which have messaging extension payload.
 services.AddTransient<ITeamsInvokeActivityHandler, TeamsInvokeActivityHandler>();
-
-// Call into Wikipedia and get the required details.
-services.AddSingleton<ISearchHandler, WikipediaSearchHandler>();
 ```
 
 #### Code execution
