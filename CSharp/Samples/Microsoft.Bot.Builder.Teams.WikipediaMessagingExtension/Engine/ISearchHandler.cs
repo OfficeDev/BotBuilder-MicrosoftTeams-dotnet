@@ -5,7 +5,6 @@
 namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
 {
     using System.Threading.Tasks;
-    using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
     using Microsoft.Bot.Schema.Teams;
 
     /// <summary>
@@ -16,8 +15,8 @@ namespace Microsoft.Bot.Builder.Teams.WikipediaMessagingExtension.Engine
         /// <summary>
         /// Gets the search result asynchronously.
         /// </summary>
-        /// <param name="messagingExtensionActivityAction">The messaging extension activity action.</param>
+        /// <param name="query">The invoke query object</param>
         /// <returns>Messaging extension result.</returns>
-        Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionActivityAction messagingExtensionActivityAction);
+        Task<MessagingExtensionResult> GetSearchResultAsync(MessagingExtensionQuery query);
     }
 }

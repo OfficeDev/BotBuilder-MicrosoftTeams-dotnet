@@ -7,7 +7,6 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate;
-    using Microsoft.Bot.Builder.Abstractions.Teams.Invoke;
     using Microsoft.Bot.Builder.Teams;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
@@ -214,31 +213,49 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         {
             ITeamsContext teamsContext = turnContext.TurnState.Get<ITeamsContext>();
 
-            if (teamsContext.IsRequestMessagingExtensionQuery())
-            {
-                return await this.invokeActivityHandler.HandleMessagingExtensionActionAsync(new MessagingExtensionActivityAction
-                {
-                    MessagingExtensionQuery = teamsContext.GetMessagingExtensionQueryData(),
-                    TurnContext = turnContext,
-                }).ConfigureAwait(false);
-            }
-
             if (teamsContext.IsRequestO365ConnectorCardActionQuery())
             {
-                return await this.invokeActivityHandler.HandleO365ConnectorCardActionAsync(new O365ConnectorCardActivityAction
-                {
-                    CardActionQuery = teamsContext.GetO365ConnectorCardActionQueryData(),
-                    TurnContext = turnContext,
-                }).ConfigureAwait(false);
+                return await this.invokeActivityHandler.HandleO365ConnectorCardActionAsync(turnContext, teamsContext.GetO365ConnectorCardActionQueryData()).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestSigninStateVerificationQuery())
             {
-                return await this.invokeActivityHandler.HandleSigninStateVerificationActionAsync(new SigninStateVerificationActivityAction
-                {
-                    TurnContext = turnContext,
-                    VerificationQuery = teamsContext.GetSigninStateVerificationQueryData(),
-                }).ConfigureAwait(false);
+                return await this.invokeActivityHandler.HandleSigninStateVerificationActionAsync(turnContext, teamsContext.GetSigninStateVerificationQueryData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestFileConsentResponse())
+            {
+                return await this.invokeActivityHandler.HandleFileConsentResponseAsync(turnContext, teamsContext.GetFileConsentQueryData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestMessagingExtensionQuery())
+            {
+                return await this.invokeActivityHandler.HandleMessagingExtensionQueryAsync(turnContext, teamsContext.GetMessagingExtensionQueryData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestAppBasedLinkQuery())
+            {
+                return await this.invokeActivityHandler.HandleAppBasedLinkQueryAsync(turnContext, teamsContext.GetAppBasedLinkQueryData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestMessagingExtensionFetchTask())
+            {
+                return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestMessagingExtensionSubmitAction())
+            {
+                return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestTaskModuleFetch())
+            {
+                return await this.invokeActivityHandler.HandleTaskModuleFetchAsync(turnContext, teamsContext.GetTaskModuleRequestData()).ConfigureAwait(false);
+            }
+
+            if (teamsContext.IsRequestTaskModuleSubmit())
+            {
+                return await this.invokeActivityHandler.HandleTaskModuleSubmitAsync(turnContext, teamsContext.GetTaskModuleRequestData()).ConfigureAwait(false);
             }
 
             return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);

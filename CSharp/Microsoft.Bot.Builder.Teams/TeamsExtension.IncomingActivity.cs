@@ -164,66 +164,6 @@ namespace Microsoft.Bot.Builder.Teams.Internal
         }
 
         /// <summary>
-        /// Checks if the request is a O365 connector card action query.
-        /// </summary>
-        /// <returns>True is activity is a actionable card query, false otherwise.</returns>
-        public bool IsRequestO365ConnectorCardActionQuery()
-        {
-            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
-                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
-                this.turnContext.Activity.Name.StartsWith("actionableMessage/executeAction", StringComparison.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// Gets O365 connector card action query data.
-        /// </summary>
-        /// <returns>O365 connector card action query data.</returns>
-        public O365ConnectorCardActionQuery GetO365ConnectorCardActionQueryData()
-        {
-            return this.turnContext.Activity.Value.AsJObject().ToObject<O365ConnectorCardActionQuery>();
-        }
-
-        /// <summary>
-        /// Checks if the request is a signin state verification query.
-        /// </summary>
-        /// <returns>True is activity is a signin state verification query, false otherwise.</returns>
-        public bool IsRequestSigninStateVerificationQuery()
-        {
-            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
-                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
-                this.turnContext.Activity.Name.StartsWith("signin/verifyState", StringComparison.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// Gets signin state verification query data.
-        /// </summary>
-        /// <returns>Signin state verification query data.</returns>
-        public SigninStateVerificationQuery GetSigninStateVerificationQueryData()
-        {
-            return this.turnContext.Activity.Value.AsJObject().ToObject<SigninStateVerificationQuery>();
-        }
-
-        /// <summary>
-        /// Checks if the activity is a messaging extension query.
-        /// </summary>
-        /// <returns>True is activity is a messaging extension query, false otherwise.</returns>
-        public bool IsRequestMessagingExtensionQuery()
-        {
-            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
-                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
-                this.turnContext.Activity.Name.StartsWith("composeExtension", StringComparison.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// Gets the messaging extension query data.
-        /// </summary>
-        /// <returns>Messaging extension query data.</returns>
-        public MessagingExtensionQuery GetMessagingExtensionQueryData()
-        {
-            return this.turnContext.Activity.Value.AsJObject().ToObject<MessagingExtensionQuery>();
-        }
-
-        /// <summary>
         /// Gets the conversation parameters for create or get direct conversation.
         /// </summary>
         /// <param name="user">The user to create conversation with.</param>
@@ -247,6 +187,184 @@ namespace Microsoft.Bot.Builder.Teams.Internal
                     })),
                 Members = new List<ChannelAccount>() { user },
             };
+        }
+
+        /// <summary>
+        /// Checks if the request is a O365 connector card action query.
+        /// </summary>
+        /// <returns>True is activity is a actionable card query, false otherwise.</returns>
+        public bool IsRequestO365ConnectorCardActionQuery()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("actionableMessage/executeAction", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets O365 connector card action query data.
+        /// </summary>
+        /// <returns>O365 connector card action query data.</returns>
+        public O365ConnectorCardActionQuery GetO365ConnectorCardActionQueryData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<O365ConnectorCardActionQuery>();
+        }
+
+        /// <summary>
+        /// Checks if the request is a signin state verification query.
+        /// </summary>
+        /// <returns>True is activity is a signin state verification query, false otherwise.</returns>
+        public bool IsRequestSigninStateVerificationQuery()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("signin/verifyState", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets signin state verification query data.
+        /// </summary>
+        /// <returns>Signin state verification query data.</returns>
+        public SigninStateVerificationQuery GetSigninStateVerificationQueryData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<SigninStateVerificationQuery>();
+        }
+
+        /// <summary>
+        /// Determines whether activity is a file consent user's response.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if activity is a file consent user's response; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestFileConsentResponse()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("fileConsent/invoke", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the file consent user's response data.
+        /// Check this by calling <see cref="IsRequestFileConsentResponse"/>.
+        /// </summary>
+        /// <returns>File consent response (accept or reject) chosen by user on file consent card.</returns>
+        public FileConsentCardResponse GetFileConsentQueryData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<FileConsentCardResponse>();
+        }
+
+        /// <summary>
+        /// Checks if the activity is a messaging extension query.
+        /// </summary>
+        /// <returns>True is activity is a messaging extension query, false otherwise.</returns>
+        public bool IsRequestMessagingExtensionQuery()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("composeExtension/query", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the messaging extension query data.
+        /// </summary>
+        /// <returns>Messaging extension query data.</returns>
+        public MessagingExtensionQuery GetMessagingExtensionQueryData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<MessagingExtensionQuery>();
+        }
+
+        /// <summary>
+        /// Determines whether request is an app-based link query.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is an app-based link query; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestAppBasedLinkQuery()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("composeExtension/queryLink", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the app-based link query data.
+        /// Check this by calling <see cref="IsRequestAppBasedLinkQuery"/>.
+        /// </summary>
+        /// <returns>App-based link query data.</returns>
+        public AppBasedLinkQuery GetAppBasedLinkQueryData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<AppBasedLinkQuery>();
+        }
+
+        /// <summary>
+        /// Determines whether request is a messaging extension action for fetch task.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is a messaging extension action for fetch task; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestMessagingExtensionFetchTask()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("composeExtension/fetchTask", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Determines whether request is a messaging extension action for submit action.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is a messaging extension action for submit action; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestMessagingExtensionSubmitAction()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("composeExtension/submitAction", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the compose extension action data.
+        /// Check this by calling <see cref="IsRequestMessagingExtensionFetchTask"/> or <see cref="IsRequestMessagingExtensionSubmitAction"/>.
+        /// </summary>
+        /// <returns>Compose extension action data.</returns>
+        public MessagingExtensionAction GetMessagingExtensionActionData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<MessagingExtensionAction>();
+        }
+
+        /// <summary>
+        /// Determines whether request is for task module fetch.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is for task module fetch; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestTaskModuleFetch()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("task/fetch", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Determines whether request is for task module submit.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if request is for task module submit; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRequestTaskModuleSubmit()
+        {
+            return this.turnContext.Activity.Type == ActivityTypes.Invoke &&
+                !string.IsNullOrEmpty(this.turnContext.Activity.Name) &&
+                this.turnContext.Activity.Name.Equals("task/submit", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the task module request query data.
+        /// Check this by calling <see cref="IsRequestTaskModuleFetch"/> or <see cref="IsRequestTaskModuleSubmit"/>.
+        /// </summary>
+        /// <returns>Task module request query data.</returns>
+        public TaskModuleRequest GetTaskModuleRequestData()
+        {
+            return this.turnContext.Activity.Value.AsJObject().ToObject<TaskModuleRequest>();
         }
     }
 }
