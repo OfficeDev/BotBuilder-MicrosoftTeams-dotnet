@@ -33,8 +33,10 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
                 Etag = Guid.NewGuid().ToString(),
             };
 
-            Attachment attachment = fileInfoCard.ToAttachment();
+            Attachment attachment = fileInfoCard.ToAttachment("fileName", "https://teams.microsoft.com");
             Assert.AreEqual(FileInfoCard.ContentType, attachment.ContentType);
+            Assert.AreEqual("fileName", attachment.Name);
+            Assert.AreEqual("https://teams.microsoft.com", attachment.ContentUrl);
             await TestHelpers.TestAttachmentAsync(attachment).ConfigureAwait(false);
         }
 
@@ -51,8 +53,9 @@ namespace Microsoft.Bot.Builder.Teams.Tests.CardTests
                 SizeInBytes = 1024,
             };
 
-            Attachment attachment = fileConsentCard.ToAttachment();
+            Attachment attachment = fileConsentCard.ToAttachment("fileName");
             Assert.AreEqual(FileConsentCard.ContentType, attachment.ContentType);
+            Assert.AreEqual("fileName", attachment.Name);
             await TestHelpers.TestAttachmentAsync(attachment).ConfigureAwait(false);
         }
 
