@@ -32,10 +32,13 @@ namespace Microsoft.Bot.Schema.Teams
         /// <param name="contentType">Type of the content. Possible values
         /// include: 'html', 'text'</param>
         /// <param name="content">The content of the body.</param>
-        public MessageActionsPayloadBody(string contentType = default(string), string content = default(string))
+        /// <param name="textContent">The text content of the body after
+        /// stripping HTML tags.</param>
+        public MessageActionsPayloadBody(string contentType = default(string), string content = default(string), string textContent = default(string))
         {
             ContentType = contentType;
             Content = content;
+            TextContent = textContent;
             CustomInit();
         }
 
@@ -56,6 +59,13 @@ namespace Microsoft.Bot.Schema.Teams
         /// </summary>
         [JsonProperty(PropertyName = "content")]
         public string Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text content of the body after stripping HTML
+        /// tags.
+        /// </summary>
+        [JsonProperty(PropertyName = "textContent")]
+        public string TextContent { get; set; }
 
     }
 }

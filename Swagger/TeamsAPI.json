@@ -1193,6 +1193,10 @@
             "content": {
               "description": "The content of the body.",
               "type": "string"
+            },
+            "textContent": {
+              "description": "The text content of the body after stripping HTML tags.",
+              "type": "string"              
             }
           }
         },

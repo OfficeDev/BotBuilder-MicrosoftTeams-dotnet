@@ -4,12 +4,14 @@
 
 namespace Microsoft.Bot.Builder.Abstractions.Teams
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder.Abstractions.Teams.ConversationUpdate;
     using Microsoft.Bot.Builder.Teams;
     using Microsoft.Bot.Schema;
     using Microsoft.Bot.Schema.Teams;
+    using HtmlAgilityPack;
 
     /// <summary>
     /// Teams activity processor.
@@ -239,13 +241,17 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             }
 
             if (teamsContext.IsRequestMessagingExtensionFetchTask())
-            {
-                return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
+            {   
+                MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
+                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTag(messagingExtensionActionData.MessagePayload.body.content);
+                return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestMessagingExtensionSubmitAction())
             {
-                return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
+                MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
+                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTag(messagingExtensionActionData.MessagePayload.body.content);                
+                return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestTaskModuleFetch())
@@ -260,5 +266,37 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
 
             return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);
         }
+
+        private static string stripHtmlTag(string content)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(content);
+            var TextRestrictedHtmlTags = new HashSet<string> { "at", "b", "i", "ss", "font", "u", "s", "pre" };
+            return stripHtmlTagHelper(doc.DocumentNode, TextRestrictedHtmlTags);
+        }
+
+        private static string stripHtmlTagHelper(HtmlNode node, ISet<string> tags)
+        {
+            string result = "";
+            if (tags.Contains(node.Name))
+            {
+                result += node.OuterHtml;
+            }
+            else
+            {
+                foreach (HtmlNode childNode in node.ChildNodes)
+                {
+                    if (childNode.NodeType == HtmlNodeType.Text)
+                    {
+                        result += childNode.InnerText;
+                    }
+                    else
+                    {
+                        result += stripHtmlTagHelper(childNode, tags);
+                    }
+                }
+            }
+            return result;
+        }        
     }
 }
