@@ -243,14 +243,14 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             if (teamsContext.IsRequestMessagingExtensionFetchTask())
             {   
                 MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTag(messagingExtensionActionData.MessagePayload.body.content);
+                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);
                 return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestMessagingExtensionSubmitAction())
             {
                 MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTag(messagingExtensionActionData.MessagePayload.body.content);                
+                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);                
                 return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
@@ -267,15 +267,15 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);
         }
 
-        private static string stripHtmlTag(string content)
+        private static string stripHtmlTags(string content)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(content);
             var TextRestrictedHtmlTags = new HashSet<string> { "at", "b", "i", "ss", "font", "u", "s", "pre" };
-            return stripHtmlTagHelper(doc.DocumentNode, TextRestrictedHtmlTags);
+            return stripHtmlTagsHelper(doc.DocumentNode, TextRestrictedHtmlTags);
         }
 
-        private static string stripHtmlTagHelper(HtmlNode node, ISet<string> tags)
+        private static string stripHtmlTagsHelper(HtmlNode node, ISet<string> tags)
         {
             string result = "";
             if (tags.Contains(node.Name))
@@ -292,7 +292,7 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
                     }
                     else
                     {
-                        result += stripHtmlTagHelper(childNode, tags);
+                        result += stripHtmlTagsHelper(childNode, tags);
                     }
                 }
             }
