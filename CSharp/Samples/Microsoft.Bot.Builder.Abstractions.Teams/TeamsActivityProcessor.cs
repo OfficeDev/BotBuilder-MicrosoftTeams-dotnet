@@ -40,6 +40,11 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
         private readonly IMessageReactionActivityHandler messageReactionActivityHandler;
 
         /// <summary>
+        /// HTML tags that we need to keep in MessagePayload.
+        /// </summary>
+        private readonly ISet<string> TextRestrictedHtmlTags;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TeamsActivityProcessor"/> class.
         /// </summary>
         /// <param name="messageActivityHandler">The message activity handler.</param>
@@ -243,14 +248,14 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             if (teamsContext.IsRequestMessagingExtensionFetchTask())
             {   
                 MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);
+                messagingExtensionActionData.MessagePayload.body.textContent = this.StripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);
                 return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestMessagingExtensionSubmitAction())
             {
                 MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.stripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);                
+                messagingExtensionActionData.MessagePayload.body.textContent = this.StripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);                
                 return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
             }
 
@@ -267,15 +272,15 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);
         }
 
-        private static string stripHtmlTags(string content)
+        private static string StripHtmlTags(string content)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(content);
-            var TextRestrictedHtmlTags = new HashSet<string> { "at", "b", "i", "ss", "font", "u", "s", "pre" };
-            return stripHtmlTagsHelper(doc.DocumentNode, TextRestrictedHtmlTags);
+            this.TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
+            return StripHtmlTagsHelper(doc.DocumentNode, this.TextRestrictedHtmlTags);
         }
 
-        private static string stripHtmlTagsHelper(HtmlNode node, ISet<string> tags)
+        private static string StripHtmlTagsHelper(HtmlNode node, ISet<string> tags)
         {
             string result = "";
             if (tags.Contains(node.Name))
@@ -292,7 +297,7 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
                     }
                     else
                     {
-                        result += stripHtmlTagsHelper(childNode, tags);
+                        result += StripHtmlTagsHelper(childNode, tags);
                     }
                 }
             }
