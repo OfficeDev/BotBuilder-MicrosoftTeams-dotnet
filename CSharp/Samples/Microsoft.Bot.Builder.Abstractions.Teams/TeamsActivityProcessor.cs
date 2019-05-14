@@ -259,6 +259,6 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
             }
 
             return await this.invokeActivityHandler.HandleInvokeTaskAsync(turnContext).ConfigureAwait(false);
-        }       
+        }
     }
 }
