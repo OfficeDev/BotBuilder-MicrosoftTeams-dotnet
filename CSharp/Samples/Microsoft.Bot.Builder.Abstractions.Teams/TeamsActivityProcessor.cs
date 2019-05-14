@@ -247,16 +247,12 @@ namespace Microsoft.Bot.Builder.Abstractions.Teams
 
             if (teamsContext.IsRequestMessagingExtensionFetchTask())
             {   
-                MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.StripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);
-                return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
+                return await this.invokeActivityHandler.HandleMessagingExtensionFetchTaskAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestMessagingExtensionSubmitAction())
-            {
-                MessagingExtensionAction messagingExtensionActionData = teamsContext.GetMessagingExtensionActionData();
-                messagingExtensionActionData.MessagePayload.body.textContent = this.StripHtmlTags(messagingExtensionActionData.MessagePayload.body.content);                
-                return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, messagingExtensionActionData).ConfigureAwait(false);
+            {               
+                return await this.invokeActivityHandler.HandleMessagingExtensionSubmitActionAsync(turnContext, teamsContext.GetMessagingExtensionActionData()).ConfigureAwait(false);
             }
 
             if (teamsContext.IsRequestTaskModuleFetch())
