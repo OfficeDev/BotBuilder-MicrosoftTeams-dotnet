@@ -13,6 +13,8 @@ namespace Microsoft.Bot.Schema.Teams
 
     public static class MessageActionsPayloadBodyExtensions
     {
+        private static readonly HashSet<string> TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
+
         /// <summary>
         /// Strip HTML tags from MessageActionsPayloadBody content.
         /// </summary>
@@ -22,12 +24,10 @@ namespace Microsoft.Bot.Schema.Teams
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(body.content);
-            return StripHtmlTagsHelper(doc.DocumentNode, TextRestrictedHtmlTags);
+            return StripHtmlTags(doc.DocumentNode, TextRestrictedHtmlTags);
         }
 
-        private static readonly HashSet<string> TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
-
-        private static string StripHtmlTagsHelper(HtmlNode node, ISet<string> tags)
+        private static string StripHtmlTags(HtmlNode node, ISet<string> tags)
         {
             string result = "";
             if (tags.Contains(node.Name))
@@ -44,7 +44,7 @@ namespace Microsoft.Bot.Schema.Teams
                     }
                     else
                     {
-                        result += StripHtmlTagsHelper(childNode, tags);
+                        result += StripHtmlTags(childNode, tags);
                     }
                 }
             }
