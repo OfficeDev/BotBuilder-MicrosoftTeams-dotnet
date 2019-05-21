@@ -13,7 +13,7 @@ namespace Microsoft.Bot.Schema.Teams
 
     public static class MessageActionsPayloadBodyExtensions
     {
-        private static readonly HashSet<string> TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
+        private static readonly HashSet<string> textRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
 
         /// <summary>
         /// Strip HTML tags from MessageActionsPayloadBody content.
@@ -24,7 +24,7 @@ namespace Microsoft.Bot.Schema.Teams
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(body.content);
-            return StripHtmlTags(doc.DocumentNode, TextRestrictedHtmlTags);
+            return StripHtmlTags(doc.DocumentNode, textRestrictedHtmlTags);
         }
 
         private static string StripHtmlTags(HtmlNode node, ISet<string> tags)
