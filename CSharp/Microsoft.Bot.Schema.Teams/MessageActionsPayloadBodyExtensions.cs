@@ -22,9 +22,10 @@ namespace Microsoft.Bot.Schema.Teams
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(body.content);
-            var TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
             return StripHtmlTagsHelper(doc.DocumentNode, TextRestrictedHtmlTags);
         }
+
+        private static readonly HashSet<string> TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
 
         private static string StripHtmlTagsHelper(HtmlNode node, ISet<string> tags)
         {
