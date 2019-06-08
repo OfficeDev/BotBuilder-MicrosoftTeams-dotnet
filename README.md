@@ -37,7 +37,8 @@ Bot Builder SDK 4 - Microsoft Teams extensions for Node is available at https://
                         new ConfigurationCredentialProvider(this.Configuration)));
 
                 // ... other stuff snipped for brevity
-            });```
+            });
+```
 * Now in the `OnTurnAsync` method of your bot, to do any Teams specific stuff, first grab the ITeamsContext as shown below:
 ```csharp
            var teamsContext = turnContext.TurnState.Get<ITeamsContext>();
