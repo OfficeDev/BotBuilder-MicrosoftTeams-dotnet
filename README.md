@@ -27,18 +27,17 @@ Bot Builder SDK 4 - Microsoft Teams extensions for Node is available at https://
 * Add a reference to `Microsoft.Bot.Builder.Teams` nuget package.
 * Go to `Startup.cs` and add the following snippet of code:
 ```csharp
-services.AddBot<EchoBot1Bot>(options =>
-{
-    // ... other stuff snipped for brevity
-    
-    // Add Teams Middleware.
-    options.Middleware.Add(
-        new TeamsMiddleware(
-            new ConfigurationCredentialProvider(this.Configuration)));
+            services.AddBot<EchoBot>(options =>
+            {
+                // ... other stuff snipped for brevity
 
-    // ... other stuff snipped for brevity
-}    
-```
+                // Add Teams Middleware.
+                options.Middleware.Add(
+                    new TeamsMiddleware(
+                        new ConfigurationCredentialProvider(this.Configuration)));
+
+                // ... other stuff snipped for brevity
+            });```
 * Now in the `OnTurnAsync` method of your bot, to do any Teams specific stuff, first grab the ITeamsContext as shown below:
 ```csharp
            var teamsContext = turnContext.TurnState.Get<ITeamsContext>();
