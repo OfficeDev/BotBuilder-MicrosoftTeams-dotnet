@@ -10,10 +10,9 @@ namespace Microsoft.Bot.Schema.Teams
     /// <summary>
     /// MessageActionsPayloadBody extensions.
     /// </summary>
-
     public static class MessageActionsPayloadBodyExtensions
     {
-        private static readonly HashSet<string> textRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
+        private static readonly HashSet<string> TextRestrictedHtmlTags = new HashSet<string> { "at", "attachment" };
 
         /// <summary>
         /// Strip HTML tags from MessageActionsPayloadBody content.
@@ -23,13 +22,13 @@ namespace Microsoft.Bot.Schema.Teams
         public static string GetPlainTextContent(this MessageActionsPayloadBody body)
         {
             var doc = new HtmlDocument();
-            doc.LoadHtml(body.content);
-            return StripHtmlTags(doc.DocumentNode, textRestrictedHtmlTags);
+            doc.LoadHtml(body.Content);
+            return StripHtmlTags(doc.DocumentNode, TextRestrictedHtmlTags);
         }
 
         private static string StripHtmlTags(HtmlNode node, ISet<string> tags)
         {
-            string result = "";
+            string result = string.Empty;
             if (tags.Contains(node.Name))
             {
                 result += node.OuterHtml;
@@ -48,7 +47,8 @@ namespace Microsoft.Bot.Schema.Teams
                     }
                 }
             }
+
             return result;
-        }                            
+        }
     }
 }
