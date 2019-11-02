@@ -1,7 +1,7 @@
 
-# This functionality is moving into the core Bot Framework SDK
+# This functionality is now available in the core Bot Framework SDK
 
-We are migrating the functionality of this SDK into the core Bot Framework SDK, and are targeting the 4.6 release (early November 2019). Please see our [early example code](https://github.com/microsoft/botbuilder-dotnet/tree/master/tests/Teams) for an early look at the new, improved, way easier to use, SDK!
+The functionality of this SDK has been migrated into the core into the core Bot Framework SDK with the 4.6 release. Please see the new samples available here: https://github.com/microsoft/BotBuilder-Samples
 
 
 # Bot Builder SDK 4 - Microsoft Teams Extensions
