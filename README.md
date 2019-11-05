@@ -3,6 +3,7 @@
 
 The functionality of this SDK has been migrated into the core into the core Bot Framework SDK with the 4.6 release. Please see the new samples available here: https://github.com/microsoft/BotBuilder-Samples
 
+This package therefore has been deprecated. It will continue to function, but will receive no further updates in functionality.
 
 # Bot Builder SDK 4 - Microsoft Teams Extensions
 
