@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AdaptiveCards" Version="1.0.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
     <PackageReference Include="Microsoft.Bot.Schema" Version="4.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
