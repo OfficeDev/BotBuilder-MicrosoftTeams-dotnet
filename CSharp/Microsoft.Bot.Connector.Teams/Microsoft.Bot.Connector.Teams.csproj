@@ -7,7 +7,7 @@
   <Import Project="..\Build\Common.props" />
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.10" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
   </ItemGroup>
 
   <ItemGroup>
